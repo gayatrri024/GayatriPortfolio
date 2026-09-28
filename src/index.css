@@ -1,0 +1,83 @@
+@import './styles/theme.css';
+
+/* Main App Wrapper */
+.app-wrapper {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 1.25rem;
+  transition: all 0.3s var(--ease-luxury);
+}
+
+.glass-panel:hover {
+  border-color: var(--border-medium);
+  background: var(--bg-card-hover);
+}
+
+/* Luxury card with subtle red gradient border highlight */
+.card-luxury {
+  position: relative;
+  background: linear-gradient(135deg, rgba(25, 25, 32, 0.7) 0%, rgba(14, 14, 18, 0.8) 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1.5rem;
+  padding: 2.25rem;
+  overflow: hidden;
+  transition: all 0.35s var(--ease-luxury);
+}
+
+.card-luxury::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(245, 8, 6, 0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.card-luxury:hover {
+  transform: translateY(-4px);
+  border-color: rgba(245, 8, 6, 0.3);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5), 0 0 30px -15px var(--crimson-glow);
+}
+
+.card-luxury:hover::before {
+  opacity: 1;
+}
+
+/* Pill badge */
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.pill-badge-crimson {
+  background: rgba(245, 8, 6, 0.12);
+  color: #ff6b6b;
+  border-color: rgba(245, 8, 6, 0.25);
+}
+
+/* Subtle glow effects */
+.glow-text-crimson {
+  text-shadow: 0 0 25px rgba(245, 8, 6, 0.5);
+}

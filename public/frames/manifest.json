@@ -1,0 +1,466 @@
+{
+  "totalFrames": 64,
+  "centerFrame": "frames/center.webp",
+  "backgroundColorHex": "#f50806",
+  "backgroundColorRgb": [
+    245,
+    8,
+    6
+  ],
+  "resolution": {
+    "width": 1280,
+    "height": 720
+  },
+  "deadzoneRatio": 0.12,
+  "smoothingFactor": 0.22,
+  "frames": [
+    {
+      "index": 0,
+      "filename": "frames/frame_00.webp",
+      "angleRad": -3.1416,
+      "angleDeg": -180.0,
+      "sourceVideoFrame": 185
+    },
+    {
+      "index": 1,
+      "filename": "frames/frame_01.webp",
+      "angleRad": -3.0434,
+      "angleDeg": -174.38,
+      "sourceVideoFrame": 188
+    },
+    {
+      "index": 2,
+      "filename": "frames/frame_02.webp",
+      "angleRad": -2.9452,
+      "angleDeg": -168.75,
+      "sourceVideoFrame": 191
+    },
+    {
+      "index": 3,
+      "filename": "frames/frame_03.webp",
+      "angleRad": -2.8471,
+      "angleDeg": -163.12,
+      "sourceVideoFrame": 194
+    },
+    {
+      "index": 4,
+      "filename": "frames/frame_04.webp",
+      "angleRad": -2.7489,
+      "angleDeg": -157.5,
+      "sourceVideoFrame": 196
+    },
+    {
+      "index": 5,
+      "filename": "frames/frame_05.webp",
+      "angleRad": -2.6507,
+      "angleDeg": -151.88,
+      "sourceVideoFrame": 199
+    },
+    {
+      "index": 6,
+      "filename": "frames/frame_06.webp",
+      "angleRad": -2.5525,
+      "angleDeg": -146.25,
+      "sourceVideoFrame": 202
+    },
+    {
+      "index": 7,
+      "filename": "frames/frame_07.webp",
+      "angleRad": -2.4544,
+      "angleDeg": -140.62,
+      "sourceVideoFrame": 205
+    },
+    {
+      "index": 8,
+      "filename": "frames/frame_08.webp",
+      "angleRad": -2.3562,
+      "angleDeg": -135.0,
+      "sourceVideoFrame": 208
+    },
+    {
+      "index": 9,
+      "filename": "frames/frame_09.webp",
+      "angleRad": -2.258,
+      "angleDeg": -129.38,
+      "sourceVideoFrame": 185
+    },
+    {
+      "index": 10,
+      "filename": "frames/frame_10.webp",
+      "angleRad": -2.1598,
+      "angleDeg": -123.75,
+      "sourceVideoFrame": 163
+    },
+    {
+      "index": 11,
+      "filename": "frames/frame_11.webp",
+      "angleRad": -2.0617,
+      "angleDeg": -118.12,
+      "sourceVideoFrame": 141
+    },
+    {
+      "index": 12,
+      "filename": "frames/frame_12.webp",
+      "angleRad": -1.9635,
+      "angleDeg": -112.5,
+      "sourceVideoFrame": 118
+    },
+    {
+      "index": 13,
+      "filename": "frames/frame_13.webp",
+      "angleRad": -1.8653,
+      "angleDeg": -106.88,
+      "sourceVideoFrame": 95
+    },
+    {
+      "index": 14,
+      "filename": "frames/frame_14.webp",
+      "angleRad": -1.7671,
+      "angleDeg": -101.25,
+      "sourceVideoFrame": 73
+    },
+    {
+      "index": 15,
+      "filename": "frames/frame_15.webp",
+      "angleRad": -1.669,
+      "angleDeg": -95.62,
+      "sourceVideoFrame": 51
+    },
+    {
+      "index": 16,
+      "filename": "frames/frame_16.webp",
+      "angleRad": -1.5708,
+      "angleDeg": -90.0,
+      "sourceVideoFrame": 28
+    },
+    {
+      "index": 17,
+      "filename": "frames/frame_17.webp",
+      "angleRad": -1.4726,
+      "angleDeg": -84.38,
+      "sourceVideoFrame": 31
+    },
+    {
+      "index": 18,
+      "filename": "frames/frame_18.webp",
+      "angleRad": -1.3744,
+      "angleDeg": -78.75,
+      "sourceVideoFrame": 34
+    },
+    {
+      "index": 19,
+      "filename": "frames/frame_19.webp",
+      "angleRad": -1.2763,
+      "angleDeg": -73.12,
+      "sourceVideoFrame": 36
+    },
+    {
+      "index": 20,
+      "filename": "frames/frame_20.webp",
+      "angleRad": -1.1781,
+      "angleDeg": -67.5,
+      "sourceVideoFrame": 39
+    },
+    {
+      "index": 21,
+      "filename": "frames/frame_21.webp",
+      "angleRad": -1.0799,
+      "angleDeg": -61.87,
+      "sourceVideoFrame": 42
+    },
+    {
+      "index": 22,
+      "filename": "frames/frame_22.webp",
+      "angleRad": -0.9817,
+      "angleDeg": -56.25,
+      "sourceVideoFrame": 44
+    },
+    {
+      "index": 23,
+      "filename": "frames/frame_23.webp",
+      "angleRad": -0.8836,
+      "angleDeg": -50.63,
+      "sourceVideoFrame": 47
+    },
+    {
+      "index": 24,
+      "filename": "frames/frame_24.webp",
+      "angleRad": -0.7854,
+      "angleDeg": -45.0,
+      "sourceVideoFrame": 50
+    },
+    {
+      "index": 25,
+      "filename": "frames/frame_25.webp",
+      "angleRad": -0.6872,
+      "angleDeg": -39.37,
+      "sourceVideoFrame": 53
+    },
+    {
+      "index": 26,
+      "filename": "frames/frame_26.webp",
+      "angleRad": -0.589,
+      "angleDeg": -33.75,
+      "sourceVideoFrame": 56
+    },
+    {
+      "index": 27,
+      "filename": "frames/frame_27.webp",
+      "angleRad": -0.4909,
+      "angleDeg": -28.13,
+      "sourceVideoFrame": 59
+    },
+    {
+      "index": 28,
+      "filename": "frames/frame_28.webp",
+      "angleRad": -0.3927,
+      "angleDeg": -22.5,
+      "sourceVideoFrame": 62
+    },
+    {
+      "index": 29,
+      "filename": "frames/frame_29.webp",
+      "angleRad": -0.2945,
+      "angleDeg": -16.87,
+      "sourceVideoFrame": 66
+    },
+    {
+      "index": 30,
+      "filename": "frames/frame_30.webp",
+      "angleRad": -0.1963,
+      "angleDeg": -11.25,
+      "sourceVideoFrame": 69
+    },
+    {
+      "index": 31,
+      "filename": "frames/frame_31.webp",
+      "angleRad": -0.0982,
+      "angleDeg": -5.63,
+      "sourceVideoFrame": 72
+    },
+    {
+      "index": 32,
+      "filename": "frames/frame_32.webp",
+      "angleRad": 0.0,
+      "angleDeg": 0.0,
+      "sourceVideoFrame": 75
+    },
+    {
+      "index": 33,
+      "filename": "frames/frame_33.webp",
+      "angleRad": 0.0982,
+      "angleDeg": 5.63,
+      "sourceVideoFrame": 79
+    },
+    {
+      "index": 34,
+      "filename": "frames/frame_34.webp",
+      "angleRad": 0.1963,
+      "angleDeg": 11.25,
+      "sourceVideoFrame": 83
+    },
+    {
+      "index": 35,
+      "filename": "frames/frame_35.webp",
+      "angleRad": 0.2945,
+      "angleDeg": 16.87,
+      "sourceVideoFrame": 86
+    },
+    {
+      "index": 36,
+      "filename": "frames/frame_36.webp",
+      "angleRad": 0.3927,
+      "angleDeg": 22.5,
+      "sourceVideoFrame": 90
+    },
+    {
+      "index": 37,
+      "filename": "frames/frame_37.webp",
+      "angleRad": 0.4909,
+      "angleDeg": 28.13,
+      "sourceVideoFrame": 94
+    },
+    {
+      "index": 38,
+      "filename": "frames/frame_38.webp",
+      "angleRad": 0.589,
+      "angleDeg": 33.75,
+      "sourceVideoFrame": 97
+    },
+    {
+      "index": 39,
+      "filename": "frames/frame_39.webp",
+      "angleRad": 0.6872,
+      "angleDeg": 39.37,
+      "sourceVideoFrame": 101
+    },
+    {
+      "index": 40,
+      "filename": "frames/frame_40.webp",
+      "angleRad": 0.7854,
+      "angleDeg": 45.0,
+      "sourceVideoFrame": 105
+    },
+    {
+      "index": 41,
+      "filename": "frames/frame_41.webp",
+      "angleRad": 0.8836,
+      "angleDeg": 50.62,
+      "sourceVideoFrame": 109
+    },
+    {
+      "index": 42,
+      "filename": "frames/frame_42.webp",
+      "angleRad": 0.9817,
+      "angleDeg": 56.25,
+      "sourceVideoFrame": 113
+    },
+    {
+      "index": 43,
+      "filename": "frames/frame_43.webp",
+      "angleRad": 1.0799,
+      "angleDeg": 61.87,
+      "sourceVideoFrame": 116
+    },
+    {
+      "index": 44,
+      "filename": "frames/frame_44.webp",
+      "angleRad": 1.1781,
+      "angleDeg": 67.5,
+      "sourceVideoFrame": 120
+    },
+    {
+      "index": 45,
+      "filename": "frames/frame_45.webp",
+      "angleRad": 1.2763,
+      "angleDeg": 73.12,
+      "sourceVideoFrame": 124
+    },
+    {
+      "index": 46,
+      "filename": "frames/frame_46.webp",
+      "angleRad": 1.3744,
+      "angleDeg": 78.75,
+      "sourceVideoFrame": 127
+    },
+    {
+      "index": 47,
+      "filename": "frames/frame_47.webp",
+      "angleRad": 1.4726,
+      "angleDeg": 84.38,
+      "sourceVideoFrame": 131
+    },
+    {
+      "index": 48,
+      "filename": "frames/frame_48.webp",
+      "angleRad": 1.5708,
+      "angleDeg": 90.0,
+      "sourceVideoFrame": 135
+    },
+    {
+      "index": 49,
+      "filename": "frames/frame_49.webp",
+      "angleRad": 1.669,
+      "angleDeg": 95.62,
+      "sourceVideoFrame": 138
+    },
+    {
+      "index": 50,
+      "filename": "frames/frame_50.webp",
+      "angleRad": 1.7671,
+      "angleDeg": 101.25,
+      "sourceVideoFrame": 141
+    },
+    {
+      "index": 51,
+      "filename": "frames/frame_51.webp",
+      "angleRad": 1.8653,
+      "angleDeg": 106.88,
+      "sourceVideoFrame": 144
+    },
+    {
+      "index": 52,
+      "filename": "frames/frame_52.webp",
+      "angleRad": 1.9635,
+      "angleDeg": 112.5,
+      "sourceVideoFrame": 148
+    },
+    {
+      "index": 53,
+      "filename": "frames/frame_53.webp",
+      "angleRad": 2.0617,
+      "angleDeg": 118.12,
+      "sourceVideoFrame": 151
+    },
+    {
+      "index": 54,
+      "filename": "frames/frame_54.webp",
+      "angleRad": 2.1598,
+      "angleDeg": 123.75,
+      "sourceVideoFrame": 154
+    },
+    {
+      "index": 55,
+      "filename": "frames/frame_55.webp",
+      "angleRad": 2.258,
+      "angleDeg": 129.38,
+      "sourceVideoFrame": 157
+    },
+    {
+      "index": 56,
+      "filename": "frames/frame_56.webp",
+      "angleRad": 2.3562,
+      "angleDeg": 135.0,
+      "sourceVideoFrame": 160
+    },
+    {
+      "index": 57,
+      "filename": "frames/frame_57.webp",
+      "angleRad": 2.4544,
+      "angleDeg": 140.62,
+      "sourceVideoFrame": 163
+    },
+    {
+      "index": 58,
+      "filename": "frames/frame_58.webp",
+      "angleRad": 2.5525,
+      "angleDeg": 146.25,
+      "sourceVideoFrame": 166
+    },
+    {
+      "index": 59,
+      "filename": "frames/frame_59.webp",
+      "angleRad": 2.6507,
+      "angleDeg": 151.88,
+      "sourceVideoFrame": 169
+    },
+    {
+      "index": 60,
+      "filename": "frames/frame_60.webp",
+      "angleRad": 2.7489,
+      "angleDeg": 157.5,
+      "sourceVideoFrame": 172
+    },
+    {
+      "index": 61,
+      "filename": "frames/frame_61.webp",
+      "angleRad": 2.8471,
+      "angleDeg": 163.12,
+      "sourceVideoFrame": 176
+    },
+    {
+      "index": 62,
+      "filename": "frames/frame_62.webp",
+      "angleRad": 2.9452,
+      "angleDeg": 168.75,
+      "sourceVideoFrame": 179
+    },
+    {
+      "index": 63,
+      "filename": "frames/frame_63.webp",
+      "angleRad": 3.0434,
+      "angleDeg": 174.38,
+      "sourceVideoFrame": 182
+    }
+  ]
+}
