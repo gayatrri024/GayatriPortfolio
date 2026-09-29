@@ -43,7 +43,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToProjects, onGoToContact }) => 
           position: 'relative',
           zIndex: 2,
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1.15fr) minmax(0, 1fr)',
+         gridTemplateColumns: 'minmax(0, 0.78fr) minmax(0, 1.22fr)',
           alignItems: 'center',
           gap: '3rem',
           minHeight: 'calc(100vh - var(--nav-height) - 5rem)'
@@ -230,8 +230,8 @@ export const Hero: React.FC<HeroProps> = ({ onGoToProjects, onGoToContact }) => 
             position: 'relative',
             width: '100%',
             height: '100%',
-            minHeight: '440px',
-            maxHeight: '680px',
+            minHeight: '600px',
+maxHeight: 'calc(100vh - var(--nav-height) - 2rem)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
