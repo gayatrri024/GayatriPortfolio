@@ -28,8 +28,6 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
   const framesCacheRef = useRef<(HTMLImageElement | null)[]>(new Array(64).fill(null));
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Background color exactly matching video
-  const BG_COLOR = '#f50806';
   const TOTAL_FRAMES = 64;
   const SMOOTHING = 0.22;
 
@@ -57,7 +55,7 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
     const drawFrame = (img: HTMLImageElement) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
-      const ctx = canvas.getContext('2d', { alpha: false });
+      const ctx = canvas.getContext('2d', { alpha: true });
       if (!ctx) return;
 
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -73,11 +71,10 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
       }
 
       ctx.save();
-      // Draw background color first
-      ctx.fillStyle = BG_COLOR;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Clear transparent canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Fit character image while maintaining aspect ratio (cover / contain)
+      // Fit character image while maintaining aspect ratio (contain)
       const imgRatio = img.naturalWidth / img.naturalHeight;
       const canvasRatio = canvas.width / canvas.height;
 
@@ -87,16 +84,16 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
       let offsetY = 0;
 
       if (canvasRatio > imgRatio) {
-        drawWidth = canvas.width;
-        drawHeight = canvas.width / imgRatio;
-        offsetY = (canvas.height - drawHeight) / 2;
-      } else {
         drawHeight = canvas.height;
         drawWidth = canvas.height * imgRatio;
         offsetX = (canvas.width - drawWidth) / 2;
+      } else {
+        drawWidth = canvas.width;
+        drawHeight = canvas.width / imgRatio;
+        offsetY = (canvas.height - drawHeight) / 2;
       }
 
-      // Draw exactly ONE crisp image frame at 100% opacity
+      // Draw exactly ONE crisp image frame with zero ghosting
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
@@ -127,7 +124,7 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
     };
 
     const handleMouseLeave = () => {
-      // Return to center when mouse leaves viewport
+      // Return to direct center when mouse leaves viewport
       inDeadzoneRef.current = true;
     };
 
@@ -155,7 +152,7 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
       const rect = canvas.getBoundingClientRect();
 
       // Face center coordinates in viewport:
-      // Character is centered horizontally (x = 0.5), face is in upper third (y ~ 0.35)
+      // Character is centered horizontally (x = 0.5), face is in upper third (y ~ 0.36)
       const faceCenterX = rect.left + rect.width * 0.5;
       const faceCenterY = rect.top + rect.height * 0.36;
 
@@ -163,9 +160,9 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
       const dy = mousePosRef.current.y - faceCenterY;
       const distance = Math.hypot(dx, dy);
 
-      // Deadzone threshold (approx 12-14% of viewport minimum dimension)
+      // Deadzone threshold
       const viewportMin = Math.min(window.innerWidth, window.innerHeight);
-      const deadzone = Math.max(90, viewportMin * 0.13);
+      const deadzone = Math.max(80, viewportMin * 0.12);
 
       if (distance < deadzone || !mousePosRef.current.active) {
         inDeadzoneRef.current = true;
@@ -185,7 +182,6 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
 
       // Determine which image to draw
       if (inDeadzoneRef.current) {
-        // Direct eye contact
         if (centerImageRef.current) {
           drawFrame(centerImageRef.current);
         }
@@ -240,7 +236,7 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: BG_COLOR,
+        background: 'transparent',
         overflow: 'hidden'
       }}
     >
@@ -251,7 +247,7 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
           width: '100%',
           height: '100%',
           objectFit: 'contain',
-          backgroundColor: BG_COLOR,
+          background: 'transparent',
           transform: 'none',
           userSelect: 'none'
         }}
@@ -265,16 +261,17 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
           style={{
             position: 'absolute',
             inset: 0,
-            backgroundColor: BG_COLOR,
+            background: 'transparent',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: 'rgba(255, 255, 255, 0.7)',
+            color: 'var(--text-muted)',
             fontFamily: 'var(--font-mono)',
-            fontSize: '0.85rem'
+            fontSize: '0.8rem',
+            letterSpacing: '0.08em'
           }}
         >
-          Loading 3D Engine...
+          INITIALIZING CHARACTER...
         </div>
       )}
     </div>

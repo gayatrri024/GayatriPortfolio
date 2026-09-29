@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Printer } from 'lucide-react';
-import { PERSONAL_INFO, EXPERIENCES, EDUCATION } from '../data/portfolioData';
+import { PERSONAL_INFO, EXPERIENCES, EDUCATION, ACHIEVEMENTS } from '../data/portfolioData';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -23,8 +23,9 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
         position: 'fixed',
         inset: 0,
         zIndex: 100000,
-        backgroundColor: 'rgba(0, 0, 0, 0.85)',
-        backdropFilter: 'blur(16px)',
+        backgroundColor: 'rgba(5, 10, 20, 0.88)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -35,18 +36,19 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
       }}
     >
       <div
-        className="glass-panel"
+        className="editorial-card"
         style={{
           width: '100%',
-          maxWidth: '850px',
+          maxWidth: '880px',
           maxHeight: '90vh',
-          backgroundColor: '#121218',
-          border: '1px solid rgba(255, 255, 255, 0.15)',
-          borderRadius: '1.5rem',
+          backgroundColor: '#0F172A',
+          border: '1px solid var(--border-medium)',
+          borderRadius: '1.25rem',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.8)',
-          overflow: 'hidden'
+          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.85)',
+          overflow: 'hidden',
+          padding: 0
         }}
       >
         {/* Modal Header Bar */}
@@ -55,53 +57,39 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '1.25rem 2rem',
+            padding: '1.1rem 1.75rem',
             borderBottom: '1px solid var(--border-subtle)',
-            backgroundColor: 'rgba(255, 255, 255, 0.02)'
+            backgroundColor: 'rgba(11, 18, 32, 0.85)'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
-                padding: '0.25rem 0.65rem',
-                borderRadius: '9999px',
-                backgroundColor: 'var(--crimson-subtle)',
-                color: 'var(--text-accent)',
-                border: '1px solid var(--border-accent)',
-                fontWeight: 700
-              }}
-            >
-              CURRICULUM VITAE
-            </span>
+            <span className="editorial-badge">CURRICULUM VITAE</span>
             <h3
               id="resume-title"
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: '1.25rem',
+                fontSize: '1.1rem',
                 fontWeight: 700,
-                color: '#ffffff'
+                color: '#ffffff',
+                margin: 0
               }}
             >
               Gayatri Ashok Shinde — Resume
             </h3>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <button
               onClick={handlePrint}
               aria-label="Print or save as PDF"
-              className="btn btn-outline-dark"
+              className="btn btn-secondary"
               style={{
-                padding: '0.45rem 0.95rem',
-                fontSize: '0.8rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.4rem'
+                padding: '0.4rem 0.85rem',
+                fontSize: '0.78rem',
+                fontFamily: 'var(--font-mono)'
               }}
             >
-              <Printer size={15} />
+              <Printer size={14} />
               <span>Print / PDF</span>
             </button>
 
@@ -121,7 +109,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 cursor: 'pointer'
               }}
             >
-              <X size={18} />
+              <X size={16} />
             </button>
           </div>
         </div>
@@ -129,27 +117,27 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
         {/* Modal Scrollable Resume Content */}
         <div
           style={{
-            padding: '2.5rem',
+            padding: '2rem 2.5rem',
             overflowY: 'auto',
             display: 'flex',
             flexDirection: 'column',
-            gap: '2rem'
+            gap: '1.75rem'
           }}
         >
           {/* Header Info */}
           <div
             style={{
-              paddingBottom: '1.5rem',
+              paddingBottom: '1.25rem',
               borderBottom: '1px solid var(--border-subtle)'
             }}
           >
             <h1
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: '2rem',
+                fontSize: '1.85rem',
                 fontWeight: 800,
                 color: '#ffffff',
-                marginBottom: '0.25rem'
+                marginBottom: '0.2rem'
               }}
             >
               {PERSONAL_INFO.name.toUpperCase()}
@@ -157,10 +145,10 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
             <p
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.95rem',
+                fontSize: '0.88rem',
                 fontWeight: 600,
-                color: 'var(--text-accent)',
-                marginBottom: '0.75rem'
+                color: 'var(--accent-soft)',
+                marginBottom: '0.6rem'
               }}
             >
               {PERSONAL_INFO.title} • {PERSONAL_INFO.focusAreas}
@@ -170,7 +158,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 display: 'flex',
                 flexWrap: 'wrap',
                 gap: '1rem',
-                fontSize: '0.85rem',
+                fontSize: '0.82rem',
                 color: 'var(--text-secondary)',
                 fontFamily: 'var(--font-mono)'
               }}
@@ -180,91 +168,59 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               <span>{PERSONAL_INFO.phone}</span>
               <span>•</span>
               <span>{PERSONAL_INFO.location}</span>
-              <span>•</span>
-              <span>{PERSONAL_INFO.portfolioUrl}</span>
             </div>
           </div>
 
           {/* Professional Summary */}
           <div>
-            <h4
+            <h2
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.8rem',
-                fontWeight: 700,
+                fontSize: '0.78rem',
                 letterSpacing: '0.1em',
+                color: 'var(--accent-soft)',
                 textTransform: 'uppercase',
-                color: 'var(--text-accent)',
                 marginBottom: '0.5rem'
               }}
             >
-              Professional Summary
-            </h4>
-            <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              // PROFESSIONAL SUMMARY
+            </h2>
+            <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
               {PERSONAL_INFO.summary}
             </p>
           </div>
 
-          {/* Experience */}
+          {/* Experience Section */}
           <div>
-            <h4
+            <h2
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.8rem',
-                fontWeight: 700,
+                fontSize: '0.78rem',
                 letterSpacing: '0.1em',
+                color: 'var(--accent-soft)',
                 textTransform: 'uppercase',
-                color: 'var(--text-accent)',
                 marginBottom: '1rem'
               }}
             >
-              Work Experience
-            </h4>
+              // EXPERIENCE
+            </h2>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               {EXPERIENCES.map((exp) => (
-                <div key={exp.id}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-                    <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#ffffff' }}>
-                      {exp.role} — <span style={{ color: 'var(--text-secondary)' }}>{exp.company}</span>
-                    </div>
-                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                <div key={exp.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap' }}>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
+                      {exp.role} — <span style={{ color: 'var(--accent-soft)' }}>{exp.company}</span>
+                    </h3>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                       {exp.period} | {exp.location}
-                    </div>
+                    </span>
                   </div>
 
-                  <ul
-                    style={{
-                      listStyle: 'none',
-                      marginTop: '0.75rem',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '0.45rem'
-                    }}
-                  >
-                    {exp.responsibilities.map((resp, i) => (
-                      <li
-                        key={i}
-                        style={{
-                          fontSize: '0.88rem',
-                          color: 'var(--text-secondary)',
-                          lineHeight: 1.5,
-                          paddingLeft: '1rem',
-                          position: 'relative'
-                        }}
-                      >
-                        <span
-                          style={{
-                            position: 'absolute',
-                            left: 0,
-                            top: '0.45rem',
-                            width: '4px',
-                            height: '4px',
-                            borderRadius: '50%',
-                            backgroundColor: 'var(--crimson-pure)'
-                          }}
-                        />
-                        {resp}
+                  <ul style={{ paddingLeft: '1.2rem', marginTop: '0.35rem', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                    {exp.responsibilities.map((r, rIdx) => (
+                      <li key={rIdx} style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                        {r}
                       </li>
                     ))}
                   </ul>
@@ -275,35 +231,59 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
           {/* Education */}
           <div>
-            <h4
+            <h2
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.8rem',
-                fontWeight: 700,
+                fontSize: '0.78rem',
                 letterSpacing: '0.1em',
+                color: 'var(--accent-soft)',
                 textTransform: 'uppercase',
-                color: 'var(--text-accent)',
                 marginBottom: '0.75rem'
               }}
             >
-              Education
-            </h4>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+              // EDUCATION
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               {EDUCATION.map((edu, idx) => (
                 <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
                   <div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff' }}>
+                    <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.9rem' }}>
                       {edu.degree}
                     </div>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{edu.institution}</div>
+                    <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
+                      {edu.institution}
+                    </div>
                   </div>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                    {edu.period} | GPA: {edu.gpa}
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--accent-soft)', textAlign: 'right' }}>
+                    <div>GPA: {edu.gpa}</div>
+                    <div style={{ color: 'var(--text-muted)' }}>{edu.period}</div>
                   </div>
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Recognition */}
+          <div>
+            <h2
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.78rem',
+                letterSpacing: '0.1em',
+                color: 'var(--accent-soft)',
+                textTransform: 'uppercase',
+                marginBottom: '0.75rem'
+              }}
+            >
+              // HONORS & RECOGNITION
+            </h2>
+            <ul style={{ paddingLeft: '1.2rem', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+              {ACHIEVEMENTS.map((ach, idx) => (
+                <li key={idx} style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                  <strong style={{ color: 'var(--text-primary)' }}>{ach.title}</strong> — {ach.award}: {ach.details}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

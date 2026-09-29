@@ -1,461 +1,420 @@
 import React, { useState } from 'react';
+import { MapPin, Send, Copy, Check, ArrowUpRight } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
-import {
-  Mail,
-  Phone,
-  MapPin,
-  ArrowUpRight,
-  Copy,
-  Check,
-  Send
-} from 'lucide-react';
+
+const LinkedinIcon: React.FC<{ size?: number }> = ({ size = 14 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
+
+const GithubIcon: React.FC<{ size?: number }> = ({ size = 14 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
 
 interface ContactProps {
-  onOpenResume: () => void;
+  onOpenResume?: () => void;
 }
 
-export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
+export const Contact: React.FC<ContactProps> = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
-  const copyEmail = () => {
+  const handleCopyEmail = () => {
     navigator.clipboard.writeText(PERSONAL_INFO.email);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formState.name || !formState.email || !formState.message) return;
-    
-    // Create mailto fallback link with prefilled subject & body
-    const subject = encodeURIComponent(`Portfolio Inquiry from ${formState.name}`);
-    const body = encodeURIComponent(`${formState.message}\n\nFrom: ${formState.name} (${formState.email})`);
+
+    if (!formData.name.trim()) {
+      setError('Please provide your name.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim() || !emailRegex.test(formData.email.trim())) {
+      setError('Please provide a valid email address.');
+      return;
+    }
+
+    if (!formData.message.trim()) {
+      setError('Please enter a brief message or project description.');
+      return;
+    }
+
+    setError(null);
+    setStatusMessage('Opening your default email client to send this message...');
+
+    // Generate accurate mailto URI
+    const subject = encodeURIComponent('Portfolio Inquiry — Gayatri Shinde');
+    const body = encodeURIComponent(
+      `Name: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\nMessage / Project Brief:\n${formData.message.trim()}`
+    );
+
+    // Open visitor's default email client
     window.location.href = `mailto:${PERSONAL_INFO.email}?subject=${subject}&body=${body}`;
-    setSubmitted(true);
   };
 
   return (
-    <section id="contact" className="section" style={{ backgroundColor: 'var(--bg-secondary)' }}>
-      <div className="container">
-        {/* Section Header */}
-        <div className="section-header">
-          <div className="section-tag">
-            <Mail size={14} />
-            <span>Connect & Collaborate</span>
+    <section id="contact" className="presentation-page">
+      <div className="page-inner page-content-anim">
+        {/* Editorial Section Header */}
+        <div className="editorial-header">
+          <div className="page-number-tag">
+            <span>07 // INQUIRY</span>
+            <span style={{ color: 'var(--border-medium)' }}>•</span>
+            <span>GET IN TOUCH</span>
           </div>
-          <h2 className="section-title">Let's build something reliable.</h2>
-          <p className="section-desc">
-            Open to DevOps engineering opportunities, cloud infrastructure automation projects,
-            and technical collaborations across AWS and Kubernetes.
+          <h2 className="editorial-title">Let's Connect</h2>
+          <p className="editorial-subtitle">
+            Available for DevOps, Cloud Infrastructure, and Infrastructure as Code engineering roles.
           </p>
         </div>
 
-        {/* Contact Grid */}
+        {/* Contact Split Grid: Direct Details on Left, Honest Email Form on Right */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.2fr)',
-            gap: '3rem'
+            gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.25fr)',
+            gap: '2.5rem',
+            alignItems: 'start'
           }}
-          className="contact-grid"
+          className="contact-split-grid"
         >
-          {/* Direct Details Card */}
-          <div
-            className="card-luxury"
-            style={{
-              padding: '2.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              gap: '2rem'
-            }}
-          >
-            <div>
-              <h3
+          {/* Left Column: Direct Contact & Verified Links */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div className="editorial-card" style={{ padding: '1.75rem' }}>
+              <div
                 style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1.5rem',
-                  fontWeight: 700,
-                  color: 'var(--text-primary)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.75rem',
+                  letterSpacing: '0.1em',
+                  color: 'var(--accent-soft)',
+                  textTransform: 'uppercase',
                   marginBottom: '1rem'
                 }}
               >
-                Direct Communication
-              </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.6 }}>
-                Feel free to reach out directly via email, phone, or connect on professional networks.
-              </p>
-            </div>
-
-            {/* Contact Items */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              {/* Email */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '1rem 1.25rem',
-                  borderRadius: '0.85rem',
-                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid var(--border-subtle)'
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                  <Mail size={18} color="var(--text-accent)" />
-                  <div>
-                    <span style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
-                      EMAIL
-                    </span>
-                    <a
-                      href={`mailto:${PERSONAL_INFO.email}`}
-                      style={{
-                        display: 'block',
-                        color: '#ffffff',
-                        fontSize: '0.95rem',
-                        fontWeight: 600,
-                        textDecoration: 'none'
-                      }}
-                    >
-                      {PERSONAL_INFO.email}
-                    </a>
-                  </div>
-                </div>
-
-                <button
-                  onClick={copyEmail}
-                  aria-label="Copy Email address"
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: copied ? '#2ed573' : 'var(--text-muted)',
-                    cursor: 'pointer',
-                    padding: '0.5rem',
-                    borderRadius: '0.4rem',
-                    transition: 'all 0.2s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.35rem',
-                    fontSize: '0.75rem',
-                    fontFamily: 'var(--font-mono)'
-                  }}
-                >
-                  {copied ? (
-                    <>
-                      <Check size={16} />
-                      <span>Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy size={16} />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
+                // DIRECT CONTACT
               </div>
 
-              {/* Phone */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.85rem',
-                  padding: '1rem 1.25rem',
-                  borderRadius: '0.85rem',
-                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid var(--border-subtle)'
-                }}
-              >
-                <Phone size={18} color="var(--text-accent)" />
-                <div>
-                  <span style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
-                    PHONE
-                  </span>
+              {/* Email Address with Copy Button */}
+              <div style={{ marginBottom: '1.25rem' }}>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.35rem' }}>
+                  DIRECT EMAIL
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '0.75rem',
+                    padding: '0.75rem 1rem',
+                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                    border: '1px solid var(--border-subtle)',
+                    borderRadius: '8px'
+                  }}
+                >
                   <a
-                    href={`tel:${PERSONAL_INFO.phone.replace(/\s+/g, '')}`}
+                    href={`mailto:${PERSONAL_INFO.email}`}
                     style={{
-                      display: 'block',
-                      color: '#ffffff',
-                      fontSize: '0.95rem',
-                      fontWeight: 600,
-                      textDecoration: 'none'
+                      color: 'var(--text-primary)',
+                      textDecoration: 'none',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.9rem',
+                      fontWeight: 600
                     }}
                   >
-                    {PERSONAL_INFO.phone}
+                    {PERSONAL_INFO.email}
                   </a>
+                  <button
+                    onClick={handleCopyEmail}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: copied ? 'var(--accent-soft)' : 'var(--text-muted)',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.3rem',
+                      fontSize: '0.75rem',
+                      fontFamily: 'var(--font-mono)'
+                    }}
+                    title="Copy Email"
+                    aria-label="Copy Email Address"
+                  >
+                    {copied ? <Check size={14} /> : <Copy size={14} />}
+                    <span>{copied ? 'COPIED' : 'COPY'}</span>
+                  </button>
                 </div>
               </div>
 
               {/* Location */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.85rem',
-                  padding: '1rem 1.25rem',
-                  borderRadius: '0.85rem',
-                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid var(--border-subtle)'
-                }}
-              >
-                <MapPin size={18} color="var(--text-accent)" />
-                <div>
-                  <span style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
-                    LOCATION
-                  </span>
-                  <p style={{ color: '#ffffff', fontSize: '0.95rem', fontWeight: 600, margin: 0 }}>
-                    {PERSONAL_INFO.location}
-                  </p>
+              <div style={{ marginBottom: '1.25rem' }}>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.2rem' }}>
+                  LOCATION
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-primary)', fontSize: '0.925rem' }}>
+                  <MapPin size={16} style={{ color: 'var(--accent-soft)' }} />
+                  <span>Pune, Maharashtra, India</span>
                 </div>
               </div>
-            </div>
 
-            {/* Social Links & Resume */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '1rem',
-                flexWrap: 'wrap',
-                paddingTop: '1rem',
-                borderTop: '1px solid var(--border-subtle)'
-              }}
-            >
-              <a
-                href={PERSONAL_INFO.linkedinUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="btn btn-outline-dark"
-                style={{ padding: '0.65rem 1.2rem', fontSize: '0.85rem' }}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.64 1.64 0 1 0-.01-3.28 1.64 1.64 0 0 0 .01 3.28m1.4 9.74v-8.37H5.06v8.37h2.8z" />
-                </svg>
-                <span>LinkedIn</span>
-                <ArrowUpRight size={14} />
-              </a>
+              {/* Verified Professional Links */}
+              <div>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>
+                  CHANNELS
+                </div>
+                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                  <a
+                    href={PERSONAL_INFO.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary"
+                    style={{
+                      padding: '0.5rem 1rem',
+                      fontSize: '0.8rem',
+                      fontFamily: 'var(--font-mono)'
+                    }}
+                  >
+                    <LinkedinIcon size={14} />
+                    <span>LINKEDIN</span>
+                    <ArrowUpRight size={13} />
+                  </a>
 
-              <a
-                href={PERSONAL_INFO.githubUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="btn btn-outline-dark"
-                style={{ padding: '0.65rem 1.2rem', fontSize: '0.85rem' }}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
-                </svg>
-                <span>GitHub</span>
-                <ArrowUpRight size={14} />
-              </a>
-
-              <button
-                onClick={onOpenResume}
-                className="btn btn-primary"
-                style={{
-                  padding: '0.65rem 1.35rem',
-                  fontSize: '0.85rem',
-                  fontWeight: 700
-                }}
-              >
-                <span>View Resume ↗</span>
-              </button>
+                  <a
+                    href={PERSONAL_INFO.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary"
+                    style={{
+                      padding: '0.5rem 1rem',
+                      fontSize: '0.8rem',
+                      fontFamily: 'var(--font-mono)'
+                    }}
+                  >
+                    <GithubIcon size={14} />
+                    <span>GITHUB</span>
+                    <ArrowUpRight size={13} />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Interactive Message Form */}
-          <div
-            className="card-luxury"
-            style={{
-              padding: '2.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1.5rem'
-            }}
-          >
-            <div>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1.5rem',
-                  fontWeight: 700,
-                  color: 'var(--text-primary)',
-                  marginBottom: '0.5rem'
-                }}
-              >
-                Send a Message
-              </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                Fill out the form below to initiate an email dispatch directly to my inbox.
-              </p>
+          {/* Right Column: Reliable Mailto Fallback Form */}
+          <div className="editorial-card" style={{ padding: '1.75rem 2rem' }}>
+            <div
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                letterSpacing: '0.1em',
+                color: 'var(--accent-soft)',
+                textTransform: 'uppercase',
+                marginBottom: '1rem'
+              }}
+            >
+              // DRAFT AN INQUIRY
             </div>
 
-            {submitted ? (
-              <div
-                style={{
-                  padding: '2.5rem',
-                  textAlign: 'center',
-                  backgroundColor: 'rgba(46, 213, 115, 0.08)',
-                  border: '1px solid rgba(46, 213, 115, 0.25)',
-                  borderRadius: '1rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '1rem'
-                }}
-              >
-                <Check size={36} color="#2ed573" />
-                <h4 style={{ color: '#ffffff', fontFamily: 'var(--font-display)', fontSize: '1.25rem' }}>
-                  Opening Your Mail Client...
-                </h4>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', maxWidth: '400px' }}>
-                  Thank you! If your email client did not automatically trigger, you can directly email me at{' '}
-                  <span style={{ color: '#ffffff', fontWeight: 600 }}>{PERSONAL_INFO.email}</span>.
-                </p>
-                <button
-                  onClick={() => setSubmitted(false)}
-                  className="btn btn-outline-dark"
-                  style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}
-                >
-                  Send another message
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <div>
-                  <label
-                    style={{
-                      display: 'block',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.75rem',
-                      fontWeight: 600,
-                      color: 'var(--text-secondary)',
-                      marginBottom: '0.45rem',
-                      letterSpacing: '0.05em'
-                    }}
-                  >
-                    YOUR NAME
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Sarah Connor"
-                    value={formState.name}
-                    onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                    style={{
-                      width: '100%',
-                      padding: '0.85rem 1.15rem',
-                      borderRadius: '0.75rem',
-                      backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                      border: '1px solid var(--border-subtle)',
-                      color: '#ffffff',
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '0.95rem',
-                      outline: 'none',
-                      transition: 'border-color 0.2s ease'
-                    }}
-                    onFocus={(e) => (e.target.style.borderColor = 'var(--crimson-pure)')}
-                    onBlur={(e) => (e.target.style.borderColor = 'var(--border-subtle)')}
-                  />
-                </div>
-
-                <div>
-                  <label
-                    style={{
-                      display: 'block',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.75rem',
-                      fontWeight: 600,
-                      color: 'var(--text-secondary)',
-                      marginBottom: '0.45rem',
-                      letterSpacing: '0.05em'
-                    }}
-                  >
-                    YOUR EMAIL
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="you@company.com"
-                    value={formState.email}
-                    onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                    style={{
-                      width: '100%',
-                      padding: '0.85rem 1.15rem',
-                      borderRadius: '0.75rem',
-                      backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                      border: '1px solid var(--border-subtle)',
-                      color: '#ffffff',
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '0.95rem',
-                      outline: 'none',
-                      transition: 'border-color 0.2s ease'
-                    }}
-                    onFocus={(e) => (e.target.style.borderColor = 'var(--crimson-pure)')}
-                    onBlur={(e) => (e.target.style.borderColor = 'var(--border-subtle)')}
-                  />
-                </div>
-
-                <div>
-                  <label
-                    style={{
-                      display: 'block',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.75rem',
-                      fontWeight: 600,
-                      color: 'var(--text-secondary)',
-                      marginBottom: '0.45rem',
-                      letterSpacing: '0.05em'
-                    }}
-                  >
-                    MESSAGE / PROJECT BRIEF
-                  </label>
-                  <textarea
-                    required
-                    rows={4}
-                    placeholder="Describe your infrastructure needs, job opportunity, or technical inquiry..."
-                    value={formState.message}
-                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    style={{
-                      width: '100%',
-                      padding: '0.85rem 1.15rem',
-                      borderRadius: '0.75rem',
-                      backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                      border: '1px solid var(--border-subtle)',
-                      color: '#ffffff',
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '0.95rem',
-                      outline: 'none',
-                      resize: 'vertical',
-                      transition: 'border-color 0.2s ease'
-                    }}
-                    onFocus={(e) => (e.target.style.borderColor = 'var(--crimson-pure)')}
-                    onBlur={(e) => (e.target.style.borderColor = 'var(--border-subtle)')}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn btn-primary"
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
+              <div>
+                <label
+                  htmlFor="contact-name"
                   style={{
-                    padding: '0.95rem',
-                    fontWeight: 700,
-                    width: '100%',
-                    marginTop: '0.5rem',
-                    color: '#000000',
-                    backgroundColor: '#ffffff'
+                    display: 'block',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.75rem',
+                    color: 'var(--text-secondary)',
+                    marginBottom: '0.35rem'
                   }}
                 >
-                  <Send size={16} />
-                  <span>Send Message via Email</span>
-                </button>
-              </form>
-            )}
+                  YOUR NAME *
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="e.g. Alex Morgan"
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 1rem',
+                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                    border: '1px solid var(--border-subtle)',
+                    borderRadius: '8px',
+                    color: '#ffffff',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '0.925rem',
+                    outline: 'none',
+                    transition: 'border-color 0.2s ease'
+                  }}
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="contact-email"
+                  style={{
+                    display: 'block',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.75rem',
+                    color: 'var(--text-secondary)',
+                    marginBottom: '0.35rem'
+                  }}
+                >
+                  YOUR EMAIL *
+                </label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="e.g. alex@company.com"
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 1rem',
+                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                    border: '1px solid var(--border-subtle)',
+                    borderRadius: '8px',
+                    color: '#ffffff',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '0.925rem',
+                    outline: 'none',
+                    transition: 'border-color 0.2s ease'
+                  }}
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="contact-message"
+                  style={{
+                    display: 'block',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.75rem',
+                    color: 'var(--text-secondary)',
+                    marginBottom: '0.35rem'
+                  }}
+                >
+                  MESSAGE / PROJECT BRIEF *
+                </label>
+                <textarea
+                  id="contact-message"
+                  rows={4}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  placeholder="Tell me about the engineering challenges or role you have in mind..."
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 1rem',
+                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                    border: '1px solid var(--border-subtle)',
+                    borderRadius: '8px',
+                    color: '#ffffff',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '0.925rem',
+                    outline: 'none',
+                    resize: 'vertical',
+                    transition: 'border-color 0.2s ease'
+                  }}
+                />
+              </div>
+
+              {/* Validation Error Message */}
+              {error && (
+                <div
+                  style={{
+                    color: '#ff6b6b',
+                    fontSize: '0.8rem',
+                    fontFamily: 'var(--font-mono)'
+                  }}
+                >
+                  {error}
+                </div>
+              )}
+
+              {/* Status Message (Honest Notice) */}
+              {statusMessage && (
+                <div
+                  style={{
+                    color: 'var(--accent-soft)',
+                    fontSize: '0.8rem',
+                    fontFamily: 'var(--font-mono)'
+                  }}
+                >
+                  {statusMessage}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="btn btn-accent"
+                style={{
+                  width: '100%',
+                  padding: '0.85rem',
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
+                  letterSpacing: '0.04em'
+                }}
+              >
+                <Send size={16} />
+                <span>SEND MESSAGE VIA EMAIL</span>
+              </button>
+
+              <div
+                style={{
+                  fontSize: '0.75rem',
+                  color: 'var(--text-muted)',
+                  fontFamily: 'var(--font-mono)',
+                  textAlign: 'center'
+                }}
+              >
+                Submitting opens your default email client with your drafted inquiry.
+              </div>
+            </form>
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .contact-split-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };

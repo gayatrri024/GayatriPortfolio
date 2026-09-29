@@ -1,337 +1,307 @@
 import React, { useState } from 'react';
-import { PROJECTS } from '../data/portfolioData';
-import {
-  Layers,
-  Cpu,
-  Activity,
-  CheckCircle2,
-  AlertTriangle,
-  Terminal
-} from 'lucide-react';
+import { ArrowUpRight, Terminal } from 'lucide-react';
+import { PERSONAL_INFO } from '../data/portfolioData';
+
+const GithubIcon: React.FC<{ size?: number }> = ({ size = 15 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
 
 export const Projects: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'all' | 'greendot' | 'pulserds'>('all');
+  const [selectedProject, setSelectedProject] = useState<0 | 1>(0);
 
-  const filteredProjects =
-    activeTab === 'all'
-      ? PROJECTS
-      : PROJECTS.filter((p) => p.id === activeTab);
+  const projects = [
+    {
+      num: '01',
+      name: 'GreenDot',
+      subtitle: 'Ultimate End-to-End DevOps Project',
+      description:
+        'Designed and implemented an end-to-end DevOps workflow for deploying containerized microservices from source control to a Kubernetes environment.',
+      stack: ['Terraform', 'Docker', 'Kubernetes', 'GitHub Actions', 'Helm', 'Prometheus', 'Grafana', 'Git'],
+      highlights: [
+        'Automated application testing, Docker image builds, and image publishing using GitHub Actions.',
+        'Provisioned and managed cloud infrastructure using Terraform, following Infrastructure as Code practices for repeatable deployments.',
+        'Deployed containerized services to Kubernetes with health checks, service configuration, and rolling-update strategies.',
+        'Implemented Prometheus and Grafana monitoring to track application and infrastructure health.',
+        'Maintained application and infrastructure configurations using Git/GitHub with version-controlled deployment workflows and documentation.',
+        'Packaged and modified a Helm chart to parameterize environment-specific values, eliminating hand-edited manifests per environment.'
+      ]
+    },
+    {
+      num: '02',
+      name: 'PulseRDS',
+      subtitle: 'Cost-Aware Database Operations',
+      description:
+        'A hands-on AWS infrastructure project focused on Infrastructure as Code, database operations, automation and cost awareness.',
+      stack: ['AWS RDS', 'Terraform', 'AWS Cost Explorer', 'AWS Budgets', 'Python', 'Bash'],
+      highlights: [
+        'Provisioned RDS via Terraform and performed a live parameter group change plus a minor version upgrade, validating connectivity and query behavior before and after.',
+        'Configured AWS Cost Explorer on a multi-region deployment and AWS Budgets against the account and used several days of real spend data to identify an oversized, underutilized instance as a rightsizing opportunity.',
+        'Wrote a Python/Bash script to automate scheduled RDS snapshots and endpoint health checks, replacing a manual operational task.'
+      ]
+    }
+  ];
+
+  const current = projects[selectedProject];
 
   return (
-    <section id="work" className="section" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      <div className="container">
-        {/* Section Header */}
-        <div className="section-header">
-          <div className="section-tag">
-            <Layers size={14} />
-            <span>Engineering Case Studies</span>
+    <section id="projects" className="presentation-page">
+      <div className="page-inner page-content-anim">
+        {/* Editorial Section Header */}
+        <div className="editorial-header">
+          <div className="page-number-tag">
+            <span>04 // ENGINEERING</span>
+            <span style={{ color: 'var(--border-medium)' }}>•</span>
+            <span>FEATURED WORK</span>
           </div>
-          <h2 className="section-title">Production DevOps Architectures</h2>
-          <p className="section-desc">
-            Deep-dive case studies detailing real infrastructure implementations, Kubernetes orchestration,
-            cost-aware cloud management, and automated continuous delivery.
-          </p>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+            <h2 className="editorial-title">Projects</h2>
+
+            {/* Quick Switcher Between the 2 Projects */}
+            <div
+              style={{
+                display: 'inline-flex',
+                padding: '0.25rem',
+                backgroundColor: 'var(--bg-secondary)',
+                border: '1px solid var(--border-subtle)',
+                borderRadius: '9999px'
+              }}
+            >
+              {projects.map((p, idx) => (
+                <button
+                  key={p.num}
+                  onClick={() => setSelectedProject(idx as 0 | 1)}
+                  style={{
+                    padding: '0.35rem 0.95rem',
+                    borderRadius: '9999px',
+                    border: 'none',
+                    background: selectedProject === idx ? 'var(--accent-primary)' : 'transparent',
+                    color: selectedProject === idx ? '#ffffff' : 'var(--text-secondary)',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.78rem',
+                    fontWeight: selectedProject === idx ? 600 : 500,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  PROJECT {p.num}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Project Selector Pills */}
+        {/* Large Editorial Project Showcase Layout */}
         <div
+          className="editorial-card"
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.75rem',
-            marginBottom: '3rem',
-            flexWrap: 'wrap'
+            padding: '2.5rem',
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1.15fr) minmax(0, 1.25fr)',
+            gap: '3rem',
+            alignItems: 'start'
           }}
+          id="project-layout-grid"
         >
-          <button
-            onClick={() => setActiveTab('all')}
-            style={{
-              padding: '0.5rem 1.25rem',
-              borderRadius: '9999px',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.8rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              border: activeTab === 'all' ? '1px solid var(--crimson-pure)' : '1px solid var(--border-subtle)',
-              backgroundColor: activeTab === 'all' ? 'var(--crimson-pure)' : 'var(--bg-card)',
-              color: '#ffffff',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            All Case Studies ({PROJECTS.length})
-          </button>
-          {PROJECTS.map((proj) => (
-            <button
-              key={proj.id}
-              onClick={() => setActiveTab(proj.id as any)}
-              style={{
-                padding: '0.5rem 1.25rem',
-                borderRadius: '9999px',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-                border: activeTab === proj.id ? '1px solid var(--crimson-pure)' : '1px solid var(--border-subtle)',
-                backgroundColor: activeTab === proj.id ? 'var(--crimson-pure)' : 'var(--bg-card)',
-                color: '#ffffff',
-                transition: 'all 0.2s ease'
-              }}
-            >
-              {proj.number} // {proj.title}
-            </button>
-          ))}
-        </div>
+          {/* Left Column: Number, Title, Overview, Tech Stack, Links */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.85rem',
+                  fontWeight: 700,
+                  color: 'var(--accent-soft)',
+                  letterSpacing: '0.1em'
+                }}
+              >
+                PROJECT {current.num}
+              </span>
+              <span style={{ color: 'var(--border-medium)' }}>/</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                {selectedProject === 0 ? 'KUBERNETES & CI/CD' : 'AWS & COST OPTIMIZATION'}
+              </span>
+            </div>
 
-        {/* Case Studies List */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '3.5rem' }}>
-          {filteredProjects.map((project) => (
-            <article
-              key={project.id}
-              className="card-luxury"
+            <div>
+              <h3
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 'clamp(2rem, 3.2vw, 3rem)',
+                  fontWeight: 700,
+                  color: 'var(--text-primary)',
+                  lineHeight: 1.1,
+                  margin: '0 0 0.4rem 0'
+                }}
+              >
+                {current.name}
+              </h3>
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.85rem',
+                  color: 'var(--accent-soft)',
+                  fontWeight: 500,
+                  letterSpacing: '0.04em'
+                }}
+              >
+                {current.subtitle}
+              </div>
+            </div>
+
+            <p
               style={{
-                display: 'grid',
-                gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 1fr)',
-                gap: '3rem',
-                padding: '3rem'
+                fontSize: '0.98rem',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.65,
+                margin: 0
               }}
             >
-              {/* Left Column: Problem, Overview & Implementation */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
-                {/* Header */}
-                <div>
-                  <div
+              {current.description}
+            </p>
+
+            {/* Tech Stack Chips */}
+            <div>
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.72rem',
+                  color: 'var(--text-muted)',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  marginBottom: '0.5rem'
+                }}
+              >
+                Technology Stack
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+                {current.stack.map((tech) => (
+                  <span
+                    key={tech}
                     style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.75rem',
                       fontFamily: 'var(--font-mono)',
-                      fontSize: '0.85rem',
-                      color: 'var(--text-accent)',
-                      marginBottom: '0.5rem'
-                    }}
-                  >
-                    <span>CASE STUDY {project.number}</span>
-                    <span style={{ color: 'var(--border-medium)' }}>/</span>
-                    <span style={{ color: 'var(--text-secondary)' }}>{project.subtitle}</span>
-                  </div>
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: 'clamp(1.75rem, 3vw, 2.4rem)',
-                      fontWeight: 700,
-                      lineHeight: 1.15,
+                      fontSize: '0.75rem',
+                      padding: '0.25rem 0.65rem',
+                      backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                      border: '1px solid var(--border-subtle)',
+                      borderRadius: '6px',
                       color: 'var(--text-primary)'
                     }}
                   >
-                    {project.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: '1.05rem',
-                      color: 'var(--text-secondary)',
-                      marginTop: '0.85rem',
-                      lineHeight: 1.6
-                    }}
-                  >
-                    {project.description}
-                  </p>
-                </div>
-
-                {/* Problem Statement */}
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                    borderLeft: '3px solid var(--crimson-pure)',
-                    padding: '1.25rem 1.5rem',
-                    borderRadius: '0 0.75rem 0.75rem 0'
-                  }}
-                >
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      color: '#ffffff',
-                      textTransform: 'uppercase',
-                      marginBottom: '0.4rem'
-                    }}
-                  >
-                    <AlertTriangle size={14} color="#ff6b6b" />
-                    <span>The Challenge & Problem</span>
-                  </div>
-                  <p style={{ fontSize: '0.925rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
-                    {project.problem}
-                  </p>
-                </div>
-
-                {/* Technical Implementation Checklist */}
-                <div>
-                  <h4
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.8rem',
-                      fontWeight: 700,
-                      letterSpacing: '0.08em',
-                      textTransform: 'uppercase',
-                      color: 'var(--text-primary)',
-                      marginBottom: '1rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.5rem'
-                    }}
-                  >
-                    <Terminal size={15} color="var(--text-accent)" />
-                    <span>Engineering Implementation Details</span>
-                  </h4>
-                  <ul
-                    style={{
-                      listStyle: 'none',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '0.75rem'
-                    }}
-                  >
-                    {project.implementation.map((item, idx) => (
-                      <li
-                        key={idx}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'flex-start',
-                          gap: '0.75rem',
-                          fontSize: '0.925rem',
-                          color: 'var(--text-secondary)',
-                          lineHeight: 1.5
-                        }}
-                      >
-                        <CheckCircle2
-                          size={16}
-                          color="#2ed573"
-                          style={{ flexShrink: 0, marginTop: '0.2rem' }}
-                        />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                    {tech}
+                  </span>
+                ))}
               </div>
+            </div>
 
-              {/* Right Column: Architecture & Engineering Outcome */}
-              <div
+            {/* Real GitHub Link */}
+            <div style={{ marginTop: '0.5rem' }}>
+              <a
+                href={PERSONAL_INFO.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
                 style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '1.75rem',
-                  justifyContent: 'space-between',
-                  backgroundColor: 'rgba(10, 10, 15, 0.45)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '1.25rem',
-                  padding: '2rem'
+                  padding: '0.55rem 1.25rem',
+                  fontSize: '0.82rem',
+                  fontFamily: 'var(--font-mono)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem'
                 }}
               >
-                {/* Architecture Deep Dive */}
-                <div>
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      letterSpacing: '0.1em',
-                      color: 'var(--text-accent)',
-                      textTransform: 'uppercase',
-                      marginBottom: '0.65rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.45rem'
-                    }}
-                  >
-                    <Cpu size={14} />
-                    <span>System Architecture</span>
-                  </div>
-                  <p
-                    style={{
-                      fontSize: '0.925rem',
-                      color: 'var(--text-secondary)',
-                      lineHeight: 1.6,
-                      marginBottom: '1.5rem'
-                    }}
-                  >
-                    {project.architecture}
-                  </p>
+                <GithubIcon size={15} />
+                <span>VIEW REPOSITORY ARCHIVE</span>
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
+          </div>
 
-                  {/* Technologies Stack Tags */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        style={{
-                          padding: '0.35rem 0.8rem',
-                          borderRadius: '9999px',
-                          backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                          border: '1px solid var(--border-subtle)',
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: '0.75rem',
-                          color: 'var(--text-primary)',
-                          fontWeight: 500
-                        }}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+          {/* Right Column: Engineering Highlights */}
+          <div
+            style={{
+              backgroundColor: 'rgba(15, 23, 42, 0.6)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: '1rem',
+              padding: '1.75rem'
+            }}
+          >
+            <div
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                letterSpacing: '0.1em',
+                color: 'var(--accent-soft)',
+                textTransform: 'uppercase',
+                marginBottom: '1rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem'
+              }}
+            >
+              <Terminal size={14} />
+              <span>KEY ENGINEERING HIGHLIGHTS</span>
+            </div>
 
-                {/* Quantifiable Engineering Outcome */}
-                <div
+            <ul
+              style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.9rem'
+              }}
+            >
+              {current.highlights.map((h, idx) => (
+                <li
+                  key={idx}
                   style={{
-                    backgroundColor: 'rgba(245, 8, 6, 0.08)',
-                    border: '1px solid rgba(245, 8, 6, 0.25)',
-                    borderRadius: '1rem',
-                    padding: '1.35rem'
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '0.75rem',
+                    fontSize: '0.9rem',
+                    color: 'var(--text-secondary)',
+                    lineHeight: 1.55
                   }}
                 >
-                  <div
+                  <span
                     style={{
+                      color: 'var(--accent-primary)',
                       fontFamily: 'var(--font-mono)',
                       fontSize: '0.75rem',
                       fontWeight: 700,
-                      letterSpacing: '0.08em',
-                      color: '#ffffff',
-                      textTransform: 'uppercase',
-                      marginBottom: '0.4rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.45rem'
+                      marginTop: '0.15rem',
+                      flexShrink: 0
                     }}
                   >
-                    <Activity size={14} color="#ff4747" />
-                    <span>Verified Engineering Outcome</span>
-                  </div>
-                  <p
-                    style={{
-                      fontSize: '0.925rem',
-                      color: 'rgba(255, 255, 255, 0.9)',
-                      lineHeight: 1.5,
-                      fontWeight: 500
-                    }}
-                  >
-                    {project.outcome}
-                  </p>
-                </div>
-              </div>
-            </article>
-          ))}
+                    0{idx + 1}
+                  </span>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 
       <style>{`
-        @media (max-width: 960px) {
-          .card-luxury {
+        @media (max-width: 900px) {
+          #project-layout-grid {
             grid-template-columns: 1fr !important;
-            padding: 2rem !important;
-            gap: 2rem !important;
+            gap: 1.5rem !important;
+            padding: 1.5rem !important;
           }
         }
       `}</style>

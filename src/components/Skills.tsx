@@ -1,205 +1,157 @@
-import React, { useState } from 'react';
-import { SKILL_CATEGORIES } from '../data/portfolioData';
-import {
-  Boxes,
-  Cpu,
-  Cloud,
-  GitBranch,
-  Activity,
-  Network,
-  Terminal,
-  ShieldCheck,
-  Search
-} from 'lucide-react';
+import React from 'react';
+import { Layers, Cloud, Boxes, Network, Activity, Terminal, ShieldCheck } from 'lucide-react';
 
 export const Skills: React.FC = () => {
-  const [filterText, setFilterText] = useState('');
-
-  const getCategoryIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'Boxes':
-        return <Boxes size={20} color="var(--text-accent)" />;
-      case 'Cpu':
-        return <Cpu size={20} color="var(--text-accent)" />;
-      case 'Cloud':
-        return <Cloud size={20} color="var(--text-accent)" />;
-      case 'GitBranch':
-        return <GitBranch size={20} color="var(--text-accent)" />;
-      case 'Activity':
-        return <Activity size={20} color="var(--text-accent)" />;
-      case 'Network':
-        return <Network size={20} color="var(--text-accent)" />;
-      case 'Terminal':
-        return <Terminal size={20} color="var(--text-accent)" />;
-      default:
-        return <ShieldCheck size={20} color="var(--text-accent)" />;
+  const categories = [
+    {
+      title: 'INFRASTRUCTURE AS CODE',
+      icon: Boxes,
+      skills: ['Terraform', 'OpenTofu', 'Jenkins', 'GitHub Actions', 'GitOps / Argo CD'],
+      featured: true
+    },
+    {
+      title: 'CLOUD PLATFORMS',
+      icon: Cloud,
+      skills: [
+        'AWS',
+        'EC2',
+        'EKS',
+        'S3',
+        'VPC',
+        'IAM',
+        'RDS',
+        'CloudWatch',
+        'Security Groups',
+        'Load Balancers',
+        'Cost Explorer',
+        'Budgets',
+        'Azure Basics',
+        'Google Cloud Platform'
+      ],
+      featured: true
+    },
+    {
+      title: 'CONTAINERS & ORCHESTRATION',
+      icon: Layers,
+      skills: ['Docker', 'Kubernetes', 'Amazon EKS', 'Kustomize', 'Helm'],
+      featured: false
+    },
+    {
+      title: 'NETWORKING',
+      icon: Network,
+      skills: [
+        'VPCs',
+        'Routing',
+        'DNS',
+        'Transit Gateways',
+        'Load Balancers',
+        'AWS Networking Fundamentals'
+      ],
+      featured: false
+    },
+    {
+      title: 'OBSERVABILITY',
+      icon: Activity,
+      skills: ['Prometheus', 'Grafana', 'CloudWatch'],
+      featured: false
+    },
+    {
+      title: 'PROGRAMMING & SCRIPTING',
+      icon: Terminal,
+      skills: ['Python', 'Linux Shell Scripting', 'PowerShell', 'Bash', 'Java'],
+      featured: false
+    },
+    {
+      title: 'SYSTEMS & PRACTICES',
+      icon: ShieldCheck,
+      skills: ['Linux', 'Windows', 'Git/GitHub', 'Agile/Scrum', 'Cloud Security', 'Cost Optimization'],
+      featured: false
     }
-  };
+  ];
 
   return (
-    <section id="skills" className="section" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      <div className="container">
-        {/* Section Header */}
-        <div className="section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1.5rem' }}>
-          <div>
-            <div className="section-tag">
-              <Cpu size={14} />
-              <span>Technical Competencies</span>
-            </div>
-            <h2 className="section-title">DevOps & Cloud Ecosystem</h2>
-            <p className="section-desc">
-              Organized by engineering domains across cloud platforms, orchestration, declarative IaC, and observability.
-              Structured honestly without artificial percentage bars or generic ratings.
-            </p>
+    <section id="skills" className="presentation-page">
+      <div className="page-inner page-content-anim">
+        {/* Editorial Section Header */}
+        <div className="editorial-header">
+          <div className="page-number-tag">
+            <span>05 // CAPABILITIES</span>
+            <span style={{ color: 'var(--border-medium)' }}>•</span>
+            <span>TECHNICAL CLUSTERS</span>
           </div>
-
-          {/* Quick Search */}
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              maxWidth: '320px'
-            }}
-          >
-            <Search
-              size={16}
-              style={{
-                position: 'absolute',
-                left: '1rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                color: 'var(--text-muted)'
-              }}
-            />
-            <input
-              type="text"
-              placeholder="Search technologies..."
-              value={filterText}
-              onChange={(e) => setFilterText(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '0.65rem 1rem 0.65rem 2.5rem',
-                borderRadius: '9999px',
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid var(--border-subtle)',
-                color: '#ffffff',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.825rem',
-                outline: 'none',
-                transition: 'border-color 0.2s ease'
-              }}
-              onFocus={(e) => (e.target.style.borderColor = 'var(--crimson-pure)')}
-              onBlur={(e) => (e.target.style.borderColor = 'var(--border-subtle)')}
-            />
-          </div>
+          <h2 className="editorial-title">Skills & Tooling</h2>
+          <p className="editorial-subtitle">
+            Categorized technical competencies across modern cloud infrastructure and DevOps automation.
+          </p>
         </div>
 
-        {/* Skills Grid */}
+        {/* Categorized Typography Clusters Grid */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '1.75rem'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '1.25rem',
+            alignItems: 'stretch'
           }}
+          className="skills-grid"
         >
-          {SKILL_CATEGORIES.map((cat) => {
-            const matchingSkills = filterText
-              ? cat.skills.filter((s) => s.toLowerCase().includes(filterText.toLowerCase()))
-              : cat.skills;
-
-            if (filterText && matchingSkills.length === 0) return null;
-
+          {categories.map((cat) => {
+            const Icon = cat.icon;
             return (
               <div
                 key={cat.title}
-                className="card-luxury"
+                className="editorial-card"
                 style={{
+                  padding: '1.4rem 1.6rem',
                   display: 'flex',
                   flexDirection: 'column',
-                  padding: '1.85rem',
-                  gap: '1.25rem'
+                  gap: '0.85rem'
                 }}
               >
-                {/* Category Header */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <div
-                      style={{
-                        padding: '0.5rem',
-                        borderRadius: '0.65rem',
-                        backgroundColor: 'rgba(245, 8, 6, 0.1)',
-                        border: '1px solid rgba(245, 8, 6, 0.2)'
-                      }}
-                    >
-                      {getCategoryIcon(cat.iconName)}
-                    </div>
-                    <div>
-                      <h3
-                        style={{
-                          fontFamily: 'var(--font-display)',
-                          fontSize: '1.1rem',
-                          fontWeight: 700,
-                          color: 'var(--text-primary)'
-                        }}
-                      >
-                        {cat.title}
-                      </h3>
-                    </div>
-                  </div>
-
-                  {cat.highlight && (
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '0.68rem',
-                        padding: '0.2rem 0.6rem',
-                        borderRadius: '9999px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid var(--border-subtle)',
-                        color: 'var(--rose-gold)'
-                      }}
-                    >
-                      {cat.highlight}
-                    </span>
-                  )}
+                {/* Cluster Title */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.55rem',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.76rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.1em',
+                    color: cat.featured ? 'var(--accent-soft)' : 'var(--text-primary)',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    paddingBottom: '0.6rem'
+                  }}
+                >
+                  <Icon size={14} style={{ color: 'var(--accent-primary)', flexShrink: 0 }} />
+                  <span>{cat.title}</span>
                 </div>
 
-                {/* Skills Pills */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: 'auto' }}>
-                  {matchingSkills.map((skill) => (
+                {/* Typography Skills Cluster */}
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '0.45rem',
+                    alignItems: 'center'
+                  }}
+                >
+                  {cat.skills.map((s) => (
                     <span
-                      key={skill}
+                      key={s}
                       style={{
-                        padding: '0.4rem 0.85rem',
-                        borderRadius: '0.5rem',
-                        backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                        border: '1px solid var(--border-subtle)',
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.8rem',
-                        color: 'var(--text-secondary)',
-                        transition: 'all 0.2s ease',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.4rem'
+                        fontSize: '0.78rem',
+                        padding: '0.3rem 0.7rem',
+                        backgroundColor: 'rgba(255, 255, 255, 0.035)',
+                        border: '1px solid var(--border-subtle)',
+                        borderRadius: '6px',
+                        color: 'var(--text-primary)',
+                        transition: 'border-color 0.2s ease, background-color 0.2s ease'
                       }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = 'var(--crimson-pure)';
-                        e.currentTarget.style.color = '#ffffff';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = 'var(--border-subtle)';
-                        e.currentTarget.style.color = 'var(--text-secondary)';
-                      }}
+                      className="skill-pill"
                     >
-                      <span
-                        style={{
-                          width: '4px',
-                          height: '4px',
-                          borderRadius: '50%',
-                          backgroundColor: 'var(--crimson-pure)'
-                        }}
-                      />
-                      {skill}
+                      {s}
                     </span>
                   ))}
                 </div>
@@ -208,6 +160,14 @@ export const Skills: React.FC = () => {
           })}
         </div>
       </div>
+
+      <style>{`
+        .skill-pill:hover {
+          border-color: var(--accent-primary) !important;
+          background-color: var(--accent-subtle) !important;
+          color: #ffffff !important;
+        }
+      `}</style>
     </section>
   );
 };

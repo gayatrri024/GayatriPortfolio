@@ -1,12 +1,13 @@
 {
   "totalFrames": 64,
   "centerFrame": "frames/center.webp",
-  "backgroundColorHex": "#f50806",
+  "backgroundColorHex": "#0B1220",
   "backgroundColorRgb": [
-    245,
-    8,
-    6
+    11,
+    18,
+    32
   ],
+  "isTransparent": true,
   "resolution": {
     "width": 1280,
     "height": 720

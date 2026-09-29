@@ -1,83 +1,112 @@
 @import './styles/theme.css';
 
-/* Main App Wrapper */
-.app-wrapper {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Glassmorphism utility */
-.glass-panel {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 1.25rem;
-  transition: all 0.3s var(--ease-luxury);
-}
-
-.glass-panel:hover {
-  border-color: var(--border-medium);
-  background: var(--bg-card-hover);
-}
-
-/* Luxury card with subtle red gradient border highlight */
-.card-luxury {
-  position: relative;
-  background: linear-gradient(135deg, rgba(25, 25, 32, 0.7) 0%, rgba(14, 14, 18, 0.8) 100%);
-  border: 1px solid var(--border-subtle);
-  border-radius: 1.5rem;
-  padding: 2.25rem;
+/* Presentation Wrapper */
+.presentation-viewport {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  transition: all 0.35s var(--ease-luxury);
+  background-color: var(--bg-primary);
+  perspective: 1400px;
 }
 
-.card-luxury::before {
+/* Page Turn Animation States */
+.page-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--page-transition-duration) var(--ease-editorial),
+              opacity var(--page-transition-duration) var(--ease-editorial),
+              box-shadow var(--page-transition-duration) var(--ease-editorial);
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* Active current page */
+.page-slide.page-active {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 10;
+  box-shadow: none;
+}
+
+/* Page that turned forward to the left (previous page) */
+.page-slide.page-prev {
+  transform: translate3d(-6%, 0, 0) scale(0.96);
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 5;
+  filter: brightness(0.6);
+}
+
+/* Page waiting ahead on the right (next page) */
+.page-slide.page-next {
+  transform: translate3d(100%, 0, 0);
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: 20;
+  box-shadow: -28px 0 60px rgba(0, 0, 0, 0.7);
+}
+
+/* Reduced motion preference: fast fade without translations */
+@media (prefers-reduced-motion: reduce) {
+  .page-slide {
+    transition: opacity 250ms ease !important;
+    transform: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+  }
+  .page-slide.page-prev,
+  .page-slide.page-next {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+  .page-slide.page-active {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Content Entrance Transition within Active Page */
+.page-content-anim {
+  animation: contentFadeUp var(--content-transition-duration) var(--ease-editorial) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes contentFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Character canvas styling */
+.character-canvas-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justifyContent: center;
+  background: transparent !important;
+  overflow: visible;
+}
+
+/* Soft bottom vignette to ground character seamlessly */
+.character-canvas-container::after {
   content: '';
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(245, 8, 6, 0.4), transparent);
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-
-.card-luxury:hover {
-  transform: translateY(-4px);
-  border-color: rgba(245, 8, 6, 0.3);
-  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5), 0 0 30px -15px var(--crimson-glow);
-}
-
-.card-luxury:hover::before {
-  opacity: 1;
-}
-
-/* Pill badge */
-.pill-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.3rem 0.75rem;
-  border-radius: 9999px;
-  font-family: var(--font-mono);
-  font-size: 0.725rem;
-  font-weight: 500;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
-}
-
-.pill-badge-crimson {
-  background: rgba(245, 8, 6, 0.12);
-  color: #ff6b6b;
-  border-color: rgba(245, 8, 6, 0.25);
-}
-
-/* Subtle glow effects */
-.glow-text-crimson {
-  text-shadow: 0 0 25px rgba(245, 8, 6, 0.5);
+  height: 60px;
+  background: linear-gradient(to top, var(--bg-primary) 0%, transparent 100%);
+  pointer-events: none;
 }

@@ -48,23 +48,22 @@ export const CustomCursor: React.FC = () => {
       const target = e.target as HTMLElement | null;
       if (target) {
         const isInteractive = !!target.closest(
-          'a, button, input, textarea, select, [role="button"], .interactive, .card-luxury'
+          'a, button, input, textarea, select, [role="button"], .interactive, .editorial-card'
         );
         setIsHovering(isInteractive);
       }
     };
 
-    const onMouseLeave = () => {
+    const handleMouseLeave = () => {
       setIsVisible(false);
     };
 
-    const onMouseEnter = () => {
+    const handleMouseEnter = () => {
       setIsVisible(true);
     };
 
     // Smooth animation loop for trailing aura
     const animate = () => {
-      // Lerp aura position towards mouse
       const ease = 0.18;
       auraX += (mouseX - auraX) * ease;
       auraY += (mouseY - auraY) * ease;
@@ -77,14 +76,14 @@ export const CustomCursor: React.FC = () => {
     };
 
     window.addEventListener('mousemove', onMouseMove, { passive: true });
-    document.addEventListener('mouseleave', onMouseLeave);
-    document.addEventListener('mouseenter', onMouseEnter);
+    document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('mouseenter', handleMouseEnter);
     rafId = requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseleave', onMouseLeave);
-      document.removeEventListener('mouseenter', onMouseEnter);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('mouseenter', handleMouseEnter);
       cancelAnimationFrame(rafId);
     };
   }, [isVisible]);
@@ -106,31 +105,32 @@ export const CustomCursor: React.FC = () => {
       }}
       aria-hidden="true"
     >
-      {/* Soft Trailing Aura */}
+      {/* Soft Trailing Aura with subtle indigo accent highlight on hover */}
       <div
         ref={auraRef}
         style={{
           position: 'absolute',
-          top: -24,
-          left: -24,
-          width: 48,
-          height: 48,
+          top: -22,
+          left: -22,
+          width: 44,
+          height: 44,
           borderRadius: '50%',
-          backgroundColor: isHovering ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.08)',
-          border: isHovering ? '1.5px solid rgba(255, 255, 255, 0.6)' : '1px solid rgba(255, 255, 255, 0.25)',
+          backgroundColor: isHovering ? 'rgba(99, 102, 241, 0.14)' : 'rgba(255, 255, 255, 0.06)',
+          border: isHovering ? '1.5px solid rgba(129, 140, 248, 0.6)' : '1px solid rgba(255, 255, 255, 0.22)',
           boxShadow: isHovering
-            ? '0 0 25px rgba(255, 255, 255, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.2)'
-            : '0 0 15px rgba(255, 255, 255, 0.15)',
+            ? '0 0 25px rgba(99, 102, 241, 0.45), inset 0 0 15px rgba(99, 102, 241, 0.2)'
+            : '0 0 14px rgba(255, 255, 255, 0.1)',
           transform: 'translate3d(-100px, -100px, 0)',
           transformOrigin: 'center center',
-          transition: 'width 0.25s ease, height 0.25s ease, top 0.25s ease, left 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease',
+          transition:
+            'width 0.22s ease, height 0.22s ease, top 0.22s ease, left 0.22s ease, background-color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease',
           pointerEvents: 'none',
           willChange: 'transform',
-          ...(isHovering ? { width: 64, height: 64, top: -32, left: -32 } : {})
+          ...(isHovering ? { width: 58, height: 58, top: -29, left: -29 } : {})
         }}
       />
 
-      {/* Small Glowing White Center Dot */}
+      {/* Small Glowing Center Dot */}
       <div
         ref={dotRef}
         style={{
@@ -140,12 +140,12 @@ export const CustomCursor: React.FC = () => {
           width: 8,
           height: 8,
           borderRadius: '50%',
-          backgroundColor: '#ffffff',
-          boxShadow: '0 0 10px #ffffff, 0 0 20px rgba(255, 255, 255, 0.8)',
+          backgroundColor: '#F8FAFC',
+          boxShadow: isHovering ? '0 0 10px #818CF8, 0 0 18px #6366F1' : '0 0 8px #ffffff',
           transform: 'translate3d(-100px, -100px, 0)',
           pointerEvents: 'none',
           willChange: 'transform',
-          transition: 'transform 0.04s linear'
+          transition: 'transform 0.04s linear, box-shadow 0.2s ease'
         }}
       />
     </div>
