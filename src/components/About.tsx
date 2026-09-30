@@ -1,5 +1,6 @@
 import React from 'react';
-import { GraduationCap } from 'lucide-react';
+import { MapPin, Target, Sparkles, GraduationCap } from 'lucide-react';
+import { EDUCATION } from '../data/portfolioData';
 
 export const About: React.FC = () => {
   return (
@@ -10,273 +11,190 @@ export const About: React.FC = () => {
           <div className="page-number-tag">
             <span>02 // PROFILE</span>
             <span style={{ color: 'var(--border-medium)' }}>•</span>
-            <span>BACKGROUND & CREDENTIALS</span>
+            <span>ENGINEERING IDENTITY</span>
           </div>
-          <h2 className="editorial-title">About Gayatri Ashok Shinde</h2>
+          <h2 className="editorial-title">About</h2>
         </div>
 
-        {/* Concise Quote / Overview */}
+        {/* Editorial 2-Column Balanced Composition */}
         <div
           style={{
-            borderLeft: '2px solid var(--accent-primary)',
-            paddingLeft: '1.5rem',
-            marginBottom: '2.5rem',
-            maxWidth: '960px'
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 0.85fr)',
+            gap: '2.5rem',
+            alignItems: 'start'
           }}
+          className="about-editorial-grid"
         >
-          <p
+          {/* Left Column: Editorial Voice & Statements */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
+            {/* Large Lead Introductory Statement */}
+            <div
+              style={{
+                borderLeft: '2px solid var(--accent-primary)',
+                paddingLeft: '1.25rem'
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: 'clamp(1.1rem, 1.45vw, 1.35rem)',
+                  lineHeight: 1.6,
+                  color: 'var(--text-primary)',
+                  fontWeight: 500,
+                  margin: 0
+                }}
+              >
+                "DevOps & Infrastructure Engineer who genuinely enjoys the behind-the-scenes part of technology — building environments, automating repetitive work, breaking things, figuring out why they broke, and making sure they don’t break the same way twice."
+              </p>
+            </div>
+
+            {/* Supporting Paragraph 1: Current Playground */}
+            <p
+              style={{
+                fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.7,
+                margin: 0
+              }}
+            >
+              My current playground includes AWS, Docker, Kubernetes, Terraform/OpenTofu, CI/CD, Linux, and monitoring. I’m especially interested in infrastructure automation, cloud platforms, containers, and the kind of troubleshooting that makes you forget what time it is.
+            </p>
+
+            {/* Supporting Paragraph 2: Goals & Target Roles */}
+            <p
+              style={{
+                fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.7,
+                margin: 0
+              }}
+            >
+              I’m currently looking for opportunities where I can learn fast, take ownership, and work on real infrastructure problems — DevOps, Cloud, Kubernetes, Platform, or Infrastructure Engineering roles across India, with a preference for remote or Pune-based opportunities.
+            </p>
+          </div>
+
+          {/* Right Column: Structured Editorial Metadata & Education */}
+          <div
             style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: 'clamp(1.15rem, 1.6vw, 1.45rem)',
-              lineHeight: 1.55,
-              color: 'var(--text-primary)',
-              fontWeight: 400
+              backgroundColor: 'rgba(11, 18, 32, 0.75)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: '1rem',
+              padding: '1.75rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.25rem',
+              backdropFilter: 'blur(12px)'
             }}
           >
-            "DevOps Engineer with <strong style={{ color: '#ffffff', fontWeight: 600 }}>2.5+ years of experience at Amazon</strong> across cloud operations, infrastructure, and technical support, with hands-on experience in Terraform/OpenTofu, AWS, Kubernetes, Helm, Docker, Jenkins and CI/CD automation."
-          </p>
-        </div>
-
-        {/* Factual Highlights Visual Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '1.5rem',
-            marginBottom: '2.5rem'
-          }}
-        >
-          <div className="editorial-card" style={{ padding: '1.5rem' }}>
-            <div
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.4rem, 3.2vw, 3.2rem)',
-                fontWeight: 700,
-                color: 'var(--text-primary)',
-                lineHeight: 1.0,
-                marginBottom: '0.4rem'
-              }}
-            >
-              2.5+
-            </div>
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.78rem',
-                fontWeight: 600,
-                letterSpacing: '0.08em',
-                color: 'var(--accent-soft)',
-                textTransform: 'uppercase',
-                marginBottom: '0.35rem'
-              }}
-            >
-              Years Amazon Experience
-            </div>
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-              Cloud operations, infrastructure problem solving & technical workflows.
-            </div>
-          </div>
-
-          <div className="editorial-card" style={{ padding: '1.5rem' }}>
-            <div
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.4rem, 3.2vw, 3.2rem)',
-                fontWeight: 700,
-                color: 'var(--text-primary)',
-                lineHeight: 1.0,
-                marginBottom: '0.4rem'
-              }}
-            >
-              50+
-            </div>
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.78rem',
-                fontWeight: 600,
-                letterSpacing: '0.08em',
-                color: 'var(--accent-soft)',
-                textTransform: 'uppercase',
-                marginBottom: '0.35rem'
-              }}
-            >
-              Microservices
-            </div>
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-              Kubernetes-based deployment management across staging and production.
-            </div>
-          </div>
-
-          <div className="editorial-card" style={{ padding: '1.5rem' }}>
-            <div
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.4rem, 3.2vw, 3.2rem)',
-                fontWeight: 700,
-                color: 'var(--text-primary)',
-                lineHeight: 1.0,
-                marginBottom: '0.4rem'
-              }}
-            >
-              98%
-            </div>
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.78rem',
-                fontWeight: 600,
-                letterSpacing: '0.08em',
-                color: 'var(--accent-soft)',
-                textTransform: 'uppercase',
-                marginBottom: '0.35rem'
-              }}
-            >
-              Quality Score
-            </div>
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-              Amazon operational benchmark maintained across high-volume queues.
-            </div>
-          </div>
-
-          <div className="editorial-card" style={{ padding: '1.5rem' }}>
-            <div
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.4rem, 3.2vw, 3.2rem)',
-                fontWeight: 700,
-                color: 'var(--text-primary)',
-                lineHeight: 1.0,
-                marginBottom: '0.4rem'
-              }}
-            >
-              60%
-            </div>
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.78rem',
-                fontWeight: 600,
-                letterSpacing: '0.08em',
-                color: 'var(--accent-soft)',
-                textTransform: 'uppercase',
-                marginBottom: '0.35rem'
-              }}
-            >
-              Less Manual Tracking
-            </div>
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-              Automated reporting pipelines reducing recurring operational overhead.
-            </div>
-          </div>
-        </div>
-
-        {/* Lower Split: Education & Professional Direction */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 1fr)',
-            gap: '1.75rem'
-          }}
-          className="about-split-grid"
-        >
-          {/* Professional Trajectory & Accurate Distinction */}
-          <div className="editorial-card" style={{ padding: '1.75rem' }}>
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
-                letterSpacing: '0.1em',
-                color: 'var(--accent-soft)',
-                textTransform: 'uppercase',
-                marginBottom: '0.75rem'
-              }}
-            >
-              // CURRENT FOCUS & DIRECTION
-            </div>
-            <h3
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '1.25rem',
-                fontWeight: 700,
-                color: 'var(--text-primary)',
-                marginBottom: '0.75rem'
-              }}
-            >
-              CURRENTLY BUILDING TOWARD: INFRASTRUCTURE AS CODE ENGINEERING
-            </h3>
-            <p style={{ fontSize: '0.925rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '0.75rem' }}>
-              My career combines operational discipline learned at Amazon scale with hands-on DevOps engineering practiced in production Kubernetes environments, Terraform provisioning, and automated CI/CD pipelines.
-            </p>
-            <div
-              style={{
-                padding: '0.75rem 1rem',
-                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                borderRadius: '8px',
-                border: '1px solid var(--border-subtle)',
-                fontSize: '0.8rem',
-                color: 'var(--text-muted)',
-                fontFamily: 'var(--font-mono)'
-              }}
-            >
-              <strong style={{ color: 'var(--text-secondary)' }}>Note:</strong> Amazon experience reflects cloud operations, infrastructure workflows and technical support. DevOps engineering reflects current internship and hands-on infrastructure projects.
-            </div>
-          </div>
-
-          {/* Formal Education */}
-          <div className="editorial-card" style={{ padding: '1.75rem' }}>
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
-                letterSpacing: '0.1em',
-                color: 'var(--accent-soft)',
-                textTransform: 'uppercase',
-                marginBottom: '1rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem'
-              }}
-            >
-              <GraduationCap size={15} />
-              <span>EDUCATION</span>
+            {/* Based In */}
+            <div>
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.72rem',
+                  letterSpacing: '0.1em',
+                  color: 'var(--accent-soft)',
+                  textTransform: 'uppercase',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  marginBottom: '0.35rem'
+                }}
+              >
+                <MapPin size={13} />
+                <span>BASED IN</span>
+              </div>
+              <div style={{ fontSize: '0.98rem', fontWeight: 600, color: '#ffffff' }}>
+                Pune, India
+              </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                  <h4 style={{ fontSize: '0.98rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                    Master of Computer Applications (MCA)
-                  </h4>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--accent-soft)' }}>
-                    GPA 8.92 / 10
-                  </span>
-                </div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-                  MES's Institute of Management and Career Courses (IMCC), Pune
-                </div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  September 2024 – May 2026
-                </div>
+            <div style={{ height: '1px', backgroundColor: 'var(--border-subtle)' }} />
+
+            {/* Focus */}
+            <div>
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.72rem',
+                  letterSpacing: '0.1em',
+                  color: 'var(--accent-soft)',
+                  textTransform: 'uppercase',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  marginBottom: '0.35rem'
+                }}
+              >
+                <Target size={13} />
+                <span>FOCUS</span>
+              </div>
+              <div style={{ fontSize: '0.92rem', color: 'var(--text-primary)', lineHeight: 1.5 }}>
+                DevOps • Cloud • Kubernetes • Infrastructure as Code
+              </div>
+            </div>
+
+            <div style={{ height: '1px', backgroundColor: 'var(--border-subtle)' }} />
+
+            {/* Currently */}
+            <div>
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.72rem',
+                  letterSpacing: '0.1em',
+                  color: 'var(--accent-soft)',
+                  textTransform: 'uppercase',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  marginBottom: '0.35rem'
+                }}
+              >
+                <Sparkles size={13} />
+                <span>CURRENTLY</span>
+              </div>
+              <div style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                Building deeper hands-on experience in infrastructure automation and cloud engineering.
+              </div>
+            </div>
+
+            <div style={{ height: '1px', backgroundColor: 'var(--border-subtle)' }} />
+
+            {/* Education */}
+            <div>
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.72rem',
+                  letterSpacing: '0.1em',
+                  color: 'var(--accent-soft)',
+                  textTransform: 'uppercase',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  marginBottom: '0.5rem'
+                }}
+              >
+                <GraduationCap size={14} />
+                <span>EDUCATION</span>
               </div>
 
-              <div style={{ height: '1px', backgroundColor: 'var(--border-subtle)' }} />
-
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                  <h4 style={{ fontSize: '0.98rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                    Bachelor of Business Administration — Computer Applications (BBA-CA)
-                  </h4>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--accent-soft)' }}>
-                    GPA 7.75 / 10
-                  </span>
-                </div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-                  Brihan Maharashtra College of Commerce (BMCC), Pune
-                </div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  August 2020 – May 2023
-                </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                {EDUCATION.map((edu, idx) => (
+                  <div key={idx}>
+                    <div style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+                      {edu.degree}
+                    </div>
+                    <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
+                      {edu.institution}
+                    </div>
+                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                      {edu.period} • GPA {edu.gpa}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -285,8 +203,9 @@ export const About: React.FC = () => {
 
       <style>{`
         @media (max-width: 900px) {
-          .about-split-grid {
+          .about-editorial-grid {
             grid-template-columns: 1fr !important;
+            gap: 1.5rem !important;
           }
         }
       `}</style>

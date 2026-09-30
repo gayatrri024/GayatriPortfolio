@@ -74,8 +74,14 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
       // Clear transparent canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Fit character image while maintaining aspect ratio (contain)
-      const imgRatio = img.naturalWidth / img.naturalHeight;
+      // Crop source frame to character silhouette (removes empty transparent wings)
+      // The character in 1280x720 frames spans x: 250..1010, y: 40..720
+      const srcX = 250;
+      const srcY = 40;
+      const srcWidth = 780;
+      const srcHeight = 680;
+
+      const srcRatio = srcWidth / srcHeight;
       const canvasRatio = canvas.width / canvas.height;
 
       let drawWidth = canvas.width;
@@ -83,20 +89,34 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
       let offsetX = 0;
       let offsetY = 0;
 
-      if (canvasRatio > imgRatio) {
+      if (canvasRatio > srcRatio) {
+        // Canvas is wider: fit height, center horizontally, ground to bottom
         drawHeight = canvas.height;
-        drawWidth = canvas.height * imgRatio;
+        drawWidth = canvas.height * srcRatio;
         offsetX = (canvas.width - drawWidth) / 2;
+        offsetY = canvas.height - drawHeight;
       } else {
+        // Canvas is narrower: fit width, ground to bottom
         drawWidth = canvas.width;
-        drawHeight = canvas.width / imgRatio;
-        offsetY = (canvas.height - drawHeight) / 2;
+        drawHeight = canvas.width / srcRatio;
+        offsetX = (canvas.width - drawWidth) / 2;
+        offsetY = canvas.height - drawHeight;
       }
 
       // Draw exactly ONE crisp image frame with zero ghosting
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
-      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+      ctx.drawImage(
+        img,
+        srcX,
+        srcY,
+        srcWidth,
+        srcHeight,
+        offsetX,
+        offsetY,
+        drawWidth,
+        drawHeight
+      );
       ctx.restore();
     };
 
@@ -234,10 +254,10 @@ export const CharacterCanvas: React.FC<CharacterCanvasProps> = ({
         width: '100%',
         height: '100%',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-end',
         justifyContent: 'center',
         background: 'transparent',
-        overflow: 'hidden'
+        overflow: 'visible'
       }}
     >
       <canvas

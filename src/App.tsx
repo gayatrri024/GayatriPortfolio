@@ -29,36 +29,103 @@ export const App: React.FC = () => {
     setCurrentPage(index);
   }, []);
 
-  // Desktop Mouse Wheel / Trackpad with single-page scroll lock
+  const boundaryDeltaRef = useRef<number>(0);
+  const lastBoundaryTimeRef = useRef<number>(0);
+
+  // Desktop Mouse Wheel / Trackpad navigation with intelligent scroll-boundary check
+  // Keeps sections comfortably scrollable so users can read content naturally
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (resumeOpen) return;
 
+      const deltaY = e.deltaY;
+      const absY = Math.abs(deltaY);
+      const absX = Math.abs(e.deltaX);
+
+      // Effective delta: prioritize dominant axis
+      const effectiveDelta = absY >= absX ? deltaY : e.deltaX;
+      if (Math.abs(effectiveDelta) < 15) return;
+
       const now = Date.now();
-      // Lock for 520ms to prevent multi-page jumps from trackpad momentum
-      if (now - lastWheelTimeRef.current < 520) {
+      if (now - lastWheelTimeRef.current < 600) {
         return;
       }
 
-      const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-      if (Math.abs(delta) < 25) return;
+      // Find if the target or its ancestor is scrollable vertically
+      const findScrollable = (target: EventTarget | null): HTMLElement | null => {
+        let el = target as HTMLElement | null;
+        while (el && el !== document.body && el !== document.documentElement) {
+          const style = window.getComputedStyle(el);
+          const canScroll = style.overflowY === 'auto' || style.overflowY === 'scroll';
+          if (canScroll && el.scrollHeight > el.clientHeight + 8) {
+            return el;
+          }
+          el = el.parentElement;
+        }
 
-      if (delta > 0) {
-        // Scroll forward / down
+        // Fallback: check if the active page container itself is vertically scrollable
+        const activePage = document.querySelector('.page-slide.page-active .presentation-page') as HTMLElement | null;
+        if (activePage && activePage.scrollHeight > activePage.clientHeight + 8) {
+          return activePage;
+        }
+        return null;
+      };
+
+      const scrollable = findScrollable(e.target);
+
+      if (scrollable) {
+        const atBottom = scrollable.scrollHeight - scrollable.scrollTop - scrollable.clientHeight <= 10;
+        const atTop = scrollable.scrollTop <= 10;
+
+        // Still scrolling down inside content -> let browser scroll naturally
+        if (effectiveDelta > 0 && !atBottom) {
+          boundaryDeltaRef.current = 0;
+          return;
+        }
+
+        // Still scrolling up inside content -> let browser scroll naturally
+        if (effectiveDelta < 0 && !atTop) {
+          boundaryDeltaRef.current = 0;
+          return;
+        }
+
+        // Reached top/bottom boundary: require intentional gesture past boundary
+        if (now - lastBoundaryTimeRef.current > 400) {
+          boundaryDeltaRef.current = 0;
+        }
+        lastBoundaryTimeRef.current = now;
+        boundaryDeltaRef.current += effectiveDelta;
+
+        const BOUNDARY_THRESHOLD = 150;
+
+        if (effectiveDelta > 0 && atBottom) {
+          if (boundaryDeltaRef.current < BOUNDARY_THRESHOLD) {
+            return; // Absorb momentum at boundary
+          }
+        } else if (effectiveDelta < 0 && atTop) {
+          if (boundaryDeltaRef.current > -BOUNDARY_THRESHOLD) {
+            return; // Absorb momentum at boundary
+          }
+        }
+      }
+
+      // Intentional page turn triggered
+      if (effectiveDelta > 0) {
         if (currentPageRef.current < TOTAL_PAGES - 1) {
           goToPage(currentPageRef.current + 1);
           lastWheelTimeRef.current = now;
+          boundaryDeltaRef.current = 0;
         }
       } else {
-        // Scroll backward / up
         if (currentPageRef.current > 0) {
           goToPage(currentPageRef.current - 1);
           lastWheelTimeRef.current = now;
+          boundaryDeltaRef.current = 0;
         }
       }
     };
 
-    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('wheel', handleWheel, { passive: true });
     return () => {
       window.removeEventListener('wheel', handleWheel);
     };
@@ -73,7 +140,6 @@ export const App: React.FC = () => {
       if (activeTag === 'input' || activeTag === 'textarea') return;
 
       if (
-        e.key === 'ArrowDown' ||
         e.key === 'ArrowRight' ||
         e.key === 'PageDown' ||
         (e.key === ' ' && !e.shiftKey)
@@ -81,7 +147,6 @@ export const App: React.FC = () => {
         e.preventDefault();
         goToPage(currentPageRef.current + 1);
       } else if (
-        e.key === 'ArrowUp' ||
         e.key === 'ArrowLeft' ||
         e.key === 'PageUp' ||
         (e.key === ' ' && e.shiftKey)
@@ -106,7 +171,7 @@ export const App: React.FC = () => {
     };
   }, [goToPage, resumeOpen]);
 
-  // Mobile Touch Swipe Handling
+  // Mobile Touch Swipe Handling (horizontal swipe flips pages)
   useEffect(() => {
     const handleTouchStart = (e: TouchEvent) => {
       if (e.touches.length !== 1 || resumeOpen) return;
@@ -125,8 +190,7 @@ export const App: React.FC = () => {
       const deltaY = touchEndY - touchStartRef.current.y;
       const duration = Date.now() - touchStartRef.current.time;
 
-      // Check if horizontal swipe was intentional (quick swipe or > 50px)
-      if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.15 && duration < 600) {
+      if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2 && duration < 600) {
         if (deltaX < 0) {
           // Swipe left -> next page
           goToPage(currentPageRef.current + 1);
@@ -146,7 +210,8 @@ export const App: React.FC = () => {
     };
   }, [goToPage, resumeOpen]);
 
-  // Page definitions
+  // Exact 7 presentation pages in the requested sequence:
+  // 01 HOME, 02 ABOUT, 03 EXPERIENCE, 04 PROJECTS, 05 SKILLS, 06 RECOGNITION, 07 CONTACT
   const pages = [
     {
       id: '01',

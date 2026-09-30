@@ -1,23 +1,12 @@
-export interface FrameMeta {
-  index: number;
-  filename: string;
-  angleRad: number;
-  angleDeg: number;
-  sourceVideoFrame: number;
-}
-
-export interface AnimationManifest {
-  totalFrames: number;
-  centerFrame: string;
-  backgroundColorHex: string;
-  backgroundColorRgb: [number, number, number];
-  resolution: {
-    width: number;
-    height: number;
-  };
-  deadzoneRatio: number;
-  smoothingFactor: number;
-  frames: FrameMeta[];
+export interface ProjectDetailSections {
+  problem?: string;
+  approach?: string;
+  architecture?: string;
+  cicd?: string;
+  infrastructure?: string;
+  security?: string;
+  observability?: string;
+  result?: string;
 }
 
 export interface ProjectCaseStudy {
@@ -25,12 +14,14 @@ export interface ProjectCaseStudy {
   number: string;
   title: string;
   subtitle: string;
+  problemStatement: string;
   description: string;
   technologies: string[];
-  problem: string;
-  architecture: string;
-  implementation: string[];
-  outcome: string;
+  workflowSteps: string[];
+  highlights: string[];
+  githubUrl: string;
+  liveUrl?: string;
+  details: ProjectDetailSections;
 }
 
 export interface ExperienceItem {
@@ -40,15 +31,28 @@ export interface ExperienceItem {
   location: string;
   period: string;
   badge?: string;
+  summary?: string;
   responsibilities: string[];
+  technologies?: string[];
   note?: string;
 }
 
 export interface SkillCategory {
+  layer: string;
   title: string;
   iconName: string;
   skills: string[];
   highlight?: string;
+}
+
+export interface WorkflowStage {
+  id: string;
+  number: string;
+  title: string;
+  concept: string;
+  description: string;
+  keyPractices: string[];
+  tools: string[];
 }
 
 export interface AchievementItem {

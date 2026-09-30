@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FileText, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
+import { PAGE_NAMES } from '../data/portfolioData';
 
 interface NavigationProps {
   currentPage: number;
@@ -7,16 +8,6 @@ interface NavigationProps {
   onSelectPage: (index: number) => void;
   onOpenResume: () => void;
 }
-
-const PAGE_NAMES = [
-  { num: '01', title: 'COVER' },
-  { num: '02', title: 'ABOUT' },
-  { num: '03', title: 'EXPERIENCE' },
-  { num: '04', title: 'PROJECTS' },
-  { num: '05', title: 'SKILLS' },
-  { num: '06', title: 'RECOGNITION' },
-  { num: '07', title: 'CONTACT' }
-];
 
 export const Navigation: React.FC<NavigationProps> = ({
   currentPage,
@@ -40,16 +31,16 @@ export const Navigation: React.FC<NavigationProps> = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 2.5rem',
-          backgroundColor: 'rgba(11, 18, 32, 0.75)',
+          padding: '0 2rem',
+          backgroundColor: 'rgba(7, 11, 20, 0.82)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
           borderBottom: '1px solid var(--border-subtle)',
           transition: 'background-color 0.3s ease'
         }}
       >
-        {/* Brand / Name */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        {/* Brand Name / Title */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <button
             onClick={() => onSelectPage(0)}
             style={{
@@ -58,29 +49,53 @@ export const Navigation: React.FC<NavigationProps> = ({
               padding: 0,
               cursor: 'pointer',
               display: 'flex',
-              alignItems: 'baseline',
-              gap: '0.6rem',
+              alignItems: 'center',
+              gap: '0.65rem',
               color: 'var(--text-primary)',
               textAlign: 'left'
             }}
-            aria-label="Go to Home Cover Page"
+            aria-label="Go to Home"
           >
-            <span
+            <div
               style={{
-                fontFamily: 'var(--font-display)',
-                fontWeight: 700,
-                fontSize: '1.05rem',
-                letterSpacing: '-0.01em',
-                color: 'var(--text-primary)'
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                border: '1.5px solid var(--border-accent)',
+                backgroundColor: 'var(--bg-secondary)',
+                flexShrink: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 0 10px rgba(56, 189, 248, 0.25)'
               }}
             >
-              GAYATRI ASHOK SHINDE
-            </span>
+              <img
+                src="/frames/center.webp"
+                alt="Gayatri Shinde Avatar"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
+            <div>
+              <span
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontWeight: 800,
+                  fontSize: '0.96rem',
+                  letterSpacing: '-0.01em',
+                  color: '#ffffff',
+                  display: 'block'
+                }}
+              >
+                GAYATRI SHINDE
+              </span>
+            </div>
             <span
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.68rem',
-                fontWeight: 500,
+                fontSize: '0.66rem',
+                fontWeight: 600,
                 color: 'var(--accent-soft)',
                 letterSpacing: '0.08em',
                 display: 'inline-block'
@@ -97,14 +112,15 @@ export const Navigation: React.FC<NavigationProps> = ({
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.35rem',
-            padding: '0.3rem 0.5rem',
-            backgroundColor: 'rgba(17, 24, 39, 0.8)',
+            gap: '0.25rem',
+            padding: '0.25rem 0.4rem',
+            backgroundColor: 'rgba(13, 21, 39, 0.85)',
             border: '1px solid var(--border-subtle)',
             borderRadius: '9999px',
             backdropFilter: 'blur(12px)'
           }}
           className="desktop-nav"
+          aria-label="Primary presentation navigation"
         >
           {PAGE_NAMES.map((page, idx) => {
             const isActive = currentPage === idx;
@@ -117,22 +133,22 @@ export const Navigation: React.FC<NavigationProps> = ({
                   color: isActive ? '#ffffff' : 'var(--text-secondary)',
                   border: 'none',
                   borderRadius: '9999px',
-                  padding: '0.35rem 0.8rem',
-                  fontSize: '0.75rem',
+                  padding: '0.35rem 0.75rem',
+                  fontSize: '0.74rem',
                   fontFamily: 'var(--font-mono)',
-                  fontWeight: isActive ? 600 : 500,
+                  fontWeight: isActive ? 700 : 500,
                   letterSpacing: '0.04em',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.4rem',
+                  gap: '0.35rem',
                   transition: 'all 0.2s var(--ease-editorial)',
-                  boxShadow: isActive ? '0 2px 12px var(--accent-glow)' : 'none'
+                  boxShadow: isActive ? '0 2px 10px var(--accent-glow)' : 'none'
                 }}
-                aria-label={`Jump to page ${page.num} ${page.title}`}
+                aria-label={`Jump to ${page.title}`}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <span style={{ opacity: isActive ? 1 : 0.65, fontSize: '0.7rem' }}>{page.num}</span>
+                <span style={{ opacity: isActive ? 1 : 0.6, fontSize: '0.68rem' }}>{page.num}</span>
                 <span>{page.title}</span>
               </button>
             );
@@ -140,20 +156,20 @@ export const Navigation: React.FC<NavigationProps> = ({
         </nav>
 
         {/* Right Action: Resume Modal & Mobile Menu Trigger */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <button
             onClick={onOpenResume}
             className="btn btn-secondary"
             style={{
-              padding: '0.45rem 1.1rem',
-              fontSize: '0.8rem',
+              padding: '0.4rem 1rem',
+              fontSize: '0.78rem',
               fontFamily: 'var(--font-mono)',
               letterSpacing: '0.04em',
               borderRadius: '9999px'
             }}
             aria-label="View Resume"
           >
-            <FileText size={14} />
+            <FileText size={13} />
             <span>RESUME</span>
           </button>
 
@@ -165,7 +181,7 @@ export const Navigation: React.FC<NavigationProps> = ({
               background: 'transparent',
               border: '1px solid var(--border-subtle)',
               color: 'var(--text-primary)',
-              padding: '0.45rem',
+              padding: '0.4rem',
               borderRadius: '8px',
               cursor: 'pointer',
               display: 'none',
@@ -187,14 +203,14 @@ export const Navigation: React.FC<NavigationProps> = ({
             top: 'var(--nav-height)',
             left: 0,
             right: 0,
-            backgroundColor: 'rgba(11, 18, 32, 0.98)',
+            backgroundColor: 'rgba(7, 11, 20, 0.98)',
             borderBottom: '1px solid var(--border-subtle)',
             backdropFilter: 'blur(20px)',
             zIndex: 89,
-            padding: '1.25rem 2rem',
+            padding: '1.25rem 1.75rem',
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.5rem'
+            gap: '0.45rem'
           }}
         >
           {PAGE_NAMES.map((page, idx) => {
@@ -211,17 +227,17 @@ export const Navigation: React.FC<NavigationProps> = ({
                   color: isActive ? 'var(--accent-soft)' : 'var(--text-primary)',
                   border: isActive ? '1px solid var(--border-accent)' : '1px solid transparent',
                   borderRadius: '8px',
-                  padding: '0.75rem 1rem',
-                  fontSize: '0.9rem',
+                  padding: '0.65rem 0.95rem',
+                  fontSize: '0.86rem',
                   fontFamily: 'var(--font-mono)',
                   textAlign: 'left',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.8rem',
+                  gap: '0.75rem',
                   cursor: 'pointer'
                 }}
               >
-                <span style={{ color: 'var(--accent-soft)', fontWeight: 600 }}>{page.num}</span>
+                <span style={{ color: 'var(--accent-soft)', fontWeight: 700 }}>{page.num}</span>
                 <span>{page.title}</span>
               </button>
             );
@@ -229,20 +245,20 @@ export const Navigation: React.FC<NavigationProps> = ({
         </div>
       )}
 
-      {/* Bottom Presentation Status & Pager Bar */}
+      {/* Bottom Status & Pager Bar */}
       <footer
         style={{
           position: 'fixed',
           bottom: 0,
           left: 0,
           right: 0,
-          height: '3.75rem',
+          height: 'var(--bottom-bar-height)',
           zIndex: 80,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 2.5rem',
-          backgroundColor: 'rgba(11, 18, 32, 0.85)',
+          padding: '0 2rem',
+          backgroundColor: 'rgba(7, 11, 20, 0.85)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
           borderTop: '1px solid var(--border-subtle)',
@@ -254,18 +270,18 @@ export const Navigation: React.FC<NavigationProps> = ({
           <div
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.78rem',
+              fontSize: '0.76rem',
               fontWeight: 600,
               letterSpacing: '0.08em',
               color: 'var(--text-secondary)'
             }}
           >
-            <span style={{ color: 'var(--text-primary)', fontWeight: 700 }}>
+            <span style={{ color: '#ffffff', fontWeight: 700 }}>
               {PAGE_NAMES[currentPage]?.num}
             </span>
-            <span style={{ color: 'var(--text-muted)', margin: '0 0.4rem' }}>/</span>
+            <span style={{ color: 'var(--text-muted)', margin: '0 0.35rem' }}>/</span>
             <span>0{totalPages}</span>
-            <span style={{ marginLeft: '0.75rem', color: 'var(--accent-soft)', fontWeight: 500 }} className="desktop-only">
+            <span style={{ marginLeft: '0.75rem', color: 'var(--accent-soft)', fontWeight: 600 }} className="desktop-only">
               — {PAGE_NAMES[currentPage]?.title}
             </span>
           </div>
@@ -273,7 +289,7 @@ export const Navigation: React.FC<NavigationProps> = ({
           {/* Thin Progress Line */}
           <div
             style={{
-              width: '90px',
+              width: '85px',
               height: '2px',
               backgroundColor: 'rgba(255, 255, 255, 0.1)',
               borderRadius: '2px',
@@ -285,7 +301,7 @@ export const Navigation: React.FC<NavigationProps> = ({
               style={{
                 width: `${((currentPage + 1) / totalPages) * 100}%`,
                 height: '100%',
-                backgroundColor: 'var(--accent-primary)',
+                backgroundColor: 'var(--accent-soft)',
                 transition: 'width 0.3s ease'
               }}
             />
@@ -294,18 +310,18 @@ export const Navigation: React.FC<NavigationProps> = ({
           <div
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.7rem',
+              fontSize: '0.68rem',
               color: 'var(--text-muted)',
               letterSpacing: '0.04em'
             }}
             className="desktop-only"
           >
-            [SCROLL OR USE ARROWS TO TURN]
+            [SCROLL OR USE ARROW KEYS]
           </div>
         </div>
 
         {/* Right: Quick Turn Buttons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
           <button
             onClick={() => onSelectPage(Math.max(0, currentPage - 1))}
             disabled={currentPage === 0}
@@ -313,20 +329,20 @@ export const Navigation: React.FC<NavigationProps> = ({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.35rem',
-              padding: '0.4rem 0.9rem',
+              padding: '0.35rem 0.85rem',
               borderRadius: '9999px',
               background: 'rgba(255, 255, 255, 0.05)',
               border: '1px solid var(--border-subtle)',
               color: currentPage === 0 ? 'var(--text-muted)' : 'var(--text-primary)',
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.75rem',
+              fontSize: '0.74rem',
               cursor: currentPage === 0 ? 'not-allowed' : 'pointer',
-              opacity: currentPage === 0 ? 0.4 : 1,
+              opacity: currentPage === 0 ? 0.35 : 1,
               transition: 'all 0.2s ease'
             }}
             aria-label="Previous Page"
           >
-            <ChevronLeft size={15} />
+            <ChevronLeft size={14} />
             <span className="desktop-only">PREV</span>
           </button>
 
@@ -337,28 +353,27 @@ export const Navigation: React.FC<NavigationProps> = ({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.35rem',
-              padding: '0.4rem 0.9rem',
+              padding: '0.35rem 0.85rem',
               borderRadius: '9999px',
               background: currentPage === totalPages - 1 ? 'rgba(255, 255, 255, 0.05)' : 'var(--accent-primary)',
               border: currentPage === totalPages - 1 ? '1px solid var(--border-subtle)' : 'none',
               color: '#ffffff',
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.75rem',
+              fontSize: '0.74rem',
               fontWeight: 600,
               cursor: currentPage === totalPages - 1 ? 'not-allowed' : 'pointer',
-              opacity: currentPage === totalPages - 1 ? 0.4 : 1,
-              boxShadow: currentPage === totalPages - 1 ? 'none' : '0 2px 14px var(--accent-glow)',
+              opacity: currentPage === totalPages - 1 ? 0.35 : 1,
+              boxShadow: currentPage === totalPages - 1 ? 'none' : '0 2px 12px var(--accent-glow)',
               transition: 'all 0.2s ease'
             }}
             aria-label="Next Page"
           >
             <span className="desktop-only">NEXT</span>
-            <ChevronRight size={15} />
+            <ChevronRight size={14} />
           </button>
         </div>
       </footer>
 
-      {/* Responsive CSS for navigation */}
       <style>{`
         @media (max-width: 992px) {
           .desktop-nav {

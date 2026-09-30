@@ -1,59 +1,34 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, Terminal } from 'lucide-react';
-import { PERSONAL_INFO } from '../data/portfolioData';
-
-const GithubIcon: React.FC<{ size?: number }> = ({ size = 15 }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-    <path d="M9 18c-4.51 2-5-2-7-2" />
-  </svg>
-);
+import { ArrowUpRight, GitBranch, Terminal, CheckCircle2 } from 'lucide-react';
+import { GithubIcon } from './Icons';
+import { PROJECTS } from '../data/portfolioData';
 
 export const Projects: React.FC = () => {
-  const [selectedProject, setSelectedProject] = useState<0 | 1>(0);
+  const [selectedIdx, setSelectedIdx] = useState<number>(0);
+  const current = PROJECTS[selectedIdx] || PROJECTS[0];
 
-  const projects = [
-    {
-      num: '01',
-      name: 'GreenDot',
-      subtitle: 'Ultimate End-to-End DevOps Project',
-      description:
-        'Designed and implemented an end-to-end DevOps workflow for deploying containerized microservices from source control to a Kubernetes environment.',
-      stack: ['Terraform', 'Docker', 'Kubernetes', 'GitHub Actions', 'Helm', 'Prometheus', 'Grafana', 'Git'],
-      highlights: [
-        'Automated application testing, Docker image builds, and image publishing using GitHub Actions.',
-        'Provisioned and managed cloud infrastructure using Terraform, following Infrastructure as Code practices for repeatable deployments.',
-        'Deployed containerized services to Kubernetes with health checks, service configuration, and rolling-update strategies.',
-        'Implemented Prometheus and Grafana monitoring to track application and infrastructure health.',
-        'Maintained application and infrastructure configurations using Git/GitHub with version-controlled deployment workflows and documentation.',
-        'Packaged and modified a Helm chart to parameterize environment-specific values, eliminating hand-edited manifests per environment.'
-      ]
-    },
-    {
-      num: '02',
-      name: 'PulseRDS',
-      subtitle: 'Cost-Aware Database Operations',
-      description:
-        'A hands-on AWS infrastructure project focused on Infrastructure as Code, database operations, automation and cost awareness.',
-      stack: ['AWS RDS', 'Terraform', 'AWS Cost Explorer', 'AWS Budgets', 'Python', 'Bash'],
-      highlights: [
-        'Provisioned RDS via Terraform and performed a live parameter group change plus a minor version upgrade, validating connectivity and query behavior before and after.',
-        'Configured AWS Cost Explorer on a multi-region deployment and AWS Budgets against the account and used several days of real spend data to identify an oversized, underutilized instance as a rightsizing opportunity.',
-        'Wrote a Python/Bash script to automate scheduled RDS snapshots and endpoint health checks, replacing a manual operational task.'
-      ]
-    }
+  // Specific workflow stages for GreenDot storytelling
+  const greendotWorkflow = [
+    { step: '01', name: 'SOURCE', tool: 'GitHub Repo' },
+    { step: '02', name: 'CI / TEST', tool: 'GitHub Actions' },
+    { step: '03', name: 'BUILD', tool: 'Docker Build' },
+    { step: '04', name: 'CONTAINER', tool: 'Linux OCI' },
+    { step: '05', name: 'REGISTRY', tool: 'Docker Hub' },
+    { step: '06', name: 'KUBERNETES', tool: 'EKS / Helm / K8s' },
+    { step: '07', name: 'MONITORING', tool: 'Prometheus & Grafana' }
   ];
 
-  const current = projects[selectedProject];
+  // Specific workflow stages for PulseRDS storytelling
+  const pulserdsWorkflow = [
+    { step: '01', name: 'TERRAFORM IAC', tool: 'Declarative Code' },
+    { step: '02', name: 'AWS RDS', tool: 'Managed DB' },
+    { step: '03', name: 'PARAM UPGRADE', tool: 'Zero-Downtime Test' },
+    { step: '04', name: 'HEALTH AUDIT', tool: 'Endpoint Validation' },
+    { step: '05', name: 'COST TELEMETRY', tool: 'Cost Explorer & Budgets' },
+    { step: '06', name: 'AUTOMATION', tool: 'Python / Bash Scripts' }
+  ];
+
+  const activeWorkflow = current.id === 'greendot' ? greendotWorkflow : pulserdsWorkflow;
 
   return (
     <section id="projects" className="presentation-page">
@@ -61,250 +36,132 @@ export const Projects: React.FC = () => {
         {/* Editorial Section Header */}
         <div className="editorial-header">
           <div className="page-number-tag">
-            <span>04 // ENGINEERING</span>
+            <span>04 // PROJECTS</span>
             <span style={{ color: 'var(--border-medium)' }}>•</span>
-            <span>FEATURED WORK</span>
+            <span>ENGINEERING WORKFLOWS</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-            <h2 className="editorial-title">Projects</h2>
 
-            {/* Quick Switcher Between the 2 Projects */}
-            <div
-              style={{
-                display: 'inline-flex',
-                padding: '0.25rem',
-                backgroundColor: 'var(--bg-secondary)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: '9999px'
-              }}
-            >
-              {projects.map((p, idx) => (
+          <div className="projects-header-row">
+            <div>
+              <h2 className="editorial-title">Featured Projects</h2>
+              <p className="editorial-subtitle">
+                Production infrastructure workflows, automated CI/CD pipelines, and cost-aware cloud database operations.
+              </p>
+            </div>
+
+            {/* Quick Project Selector Tabs (Strictly 2 Projects) */}
+            <div className="project-switcher">
+              {PROJECTS.map((p, idx) => (
                 <button
-                  key={p.num}
-                  onClick={() => setSelectedProject(idx as 0 | 1)}
-                  style={{
-                    padding: '0.35rem 0.95rem',
-                    borderRadius: '9999px',
-                    border: 'none',
-                    background: selectedProject === idx ? 'var(--accent-primary)' : 'transparent',
-                    color: selectedProject === idx ? '#ffffff' : 'var(--text-secondary)',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.78rem',
-                    fontWeight: selectedProject === idx ? 600 : 500,
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease'
-                  }}
+                  key={p.id}
+                  onClick={() => setSelectedIdx(idx)}
+                  className={`project-tab-btn ${selectedIdx === idx ? 'active' : ''}`}
+                  aria-label={`Select Project ${p.number} ${p.name}`}
                 >
-                  PROJECT {p.num}
+                  <span className="tab-num">{p.number}</span>
+                  <span className="tab-name">{p.name}</span>
                 </button>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Large Editorial Project Showcase Layout */}
-        <div
-          className="editorial-card"
-          style={{
-            padding: '2.5rem',
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.15fr) minmax(0, 1.25fr)',
-            gap: '3rem',
-            alignItems: 'start'
-          }}
-          id="project-layout-grid"
-        >
-          {/* Left Column: Number, Title, Overview, Tech Stack, Links */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.85rem',
-                  fontWeight: 700,
-                  color: 'var(--accent-soft)',
-                  letterSpacing: '0.1em'
-                }}
-              >
-                PROJECT {current.num}
-              </span>
-              <span style={{ color: 'var(--border-medium)' }}>/</span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                {selectedProject === 0 ? 'KUBERNETES & CI/CD' : 'AWS & COST OPTIMIZATION'}
-              </span>
+        {/* Project Editorial Showcase Layout (No heavy cards or bloated boxes) */}
+        <div className="project-editorial-layout">
+          {/* Top Bar: Project Identifier, Subtitle & GitHub Link */}
+          <div className="project-editorial-top">
+            <div className="project-editorial-titles">
+              <span className="project-num-label">PROJECT {current.number} // {current.id.toUpperCase()}</span>
+              <h3 className="project-display-title">{current.name}</h3>
+              <p className="project-display-subtitle">{current.subtitle}</p>
             </div>
 
-            <div>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(2rem, 3.2vw, 3rem)',
-                  fontWeight: 700,
-                  color: 'var(--text-primary)',
-                  lineHeight: 1.1,
-                  margin: '0 0 0.4rem 0'
-                }}
-              >
-                {current.name}
-              </h3>
-              <div
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.85rem',
-                  color: 'var(--accent-soft)',
-                  fontWeight: 500,
-                  letterSpacing: '0.04em'
-                }}
-              >
-                {current.subtitle}
-              </div>
-            </div>
-
-            <p
-              style={{
-                fontSize: '0.98rem',
-                color: 'var(--text-secondary)',
-                lineHeight: 1.65,
-                margin: 0
-              }}
-            >
-              {current.description}
-            </p>
-
-            {/* Tech Stack Chips */}
-            <div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.72rem',
-                  color: 'var(--text-muted)',
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                  marginBottom: '0.5rem'
-                }}
-              >
-                Technology Stack
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
-                {current.stack.map((tech) => (
-                  <span
-                    key={tech}
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.75rem',
-                      padding: '0.25rem 0.65rem',
-                      backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                      border: '1px solid var(--border-subtle)',
-                      borderRadius: '6px',
-                      color: 'var(--text-primary)'
-                    }}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Real GitHub Link */}
-            <div style={{ marginTop: '0.5rem' }}>
+            <div className="project-external-actions">
               <a
-                href={PERSONAL_INFO.githubUrl}
+                href={current.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-secondary"
-                style={{
-                  padding: '0.55rem 1.25rem',
-                  fontSize: '0.82rem',
-                  fontFamily: 'var(--font-mono)',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem'
-                }}
+                className="project-github-link"
               >
-                <GithubIcon size={15} />
-                <span>VIEW REPOSITORY ARCHIVE</span>
+                <GithubIcon size={16} />
+                <span>View Repository</span>
                 <ArrowUpRight size={14} />
               </a>
             </div>
           </div>
 
-          {/* Right Column: Engineering Highlights */}
-          <div
-            style={{
-              backgroundColor: 'rgba(15, 23, 42, 0.6)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: '1rem',
-              padding: '1.75rem'
-            }}
-          >
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
-                letterSpacing: '0.1em',
-                color: 'var(--accent-soft)',
-                textTransform: 'uppercase',
-                marginBottom: '1rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem'
-              }}
-            >
-              <Terminal size={14} />
-              <span>KEY ENGINEERING HIGHLIGHTS</span>
+          {/* Workflow Pipeline Flowchart */}
+          <div className="project-workflow-section">
+            <div className="workflow-title-label">
+              <GitBranch size={13} style={{ color: 'var(--accent-soft)' }} />
+              <span>ENGINEERING PIPELINE WORKFLOW</span>
             </div>
 
-            <ul
-              style={{
-                listStyle: 'none',
-                padding: 0,
-                margin: 0,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.9rem'
-              }}
-            >
-              {current.highlights.map((h, idx) => (
-                <li
-                  key={idx}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: '0.75rem',
-                    fontSize: '0.9rem',
-                    color: 'var(--text-secondary)',
-                    lineHeight: 1.55
-                  }}
+            <div className="workflow-pipeline-strip">
+              {activeWorkflow.map((stage, sIdx) => {
+                const isLast = sIdx === activeWorkflow.length - 1;
+                return (
+                  <React.Fragment key={stage.step}>
+                    <div className="workflow-node">
+                      <span className="workflow-node-step">{stage.step}</span>
+                      <span className="workflow-node-name">{stage.name}</span>
+                      <span className="workflow-node-tool">{stage.tool}</span>
+                    </div>
+                    {!isLast && <div className="workflow-arrow">→</div>}
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Two-Column Engineering Breakdown */}
+          <div className="project-breakdown-grid">
+            {/* Left: Engineering Implementation Highlights */}
+            <div className="project-highlights-col">
+              <div className="breakdown-col-header">
+                <Terminal size={14} style={{ color: 'var(--accent-soft)' }} />
+                <span>TECHNICAL EXECUTION</span>
+              </div>
+              <ul className="project-bullets-list">
+                {current.highlights.map((item, hIdx) => (
+                  <li key={hIdx} className="project-bullet-row">
+                    <span className="bullet-point-dash">—</span>
+                    <span className="bullet-point-text">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Right: Technologies & Architecture Scope */}
+            <div className="project-tech-col">
+              <div className="breakdown-col-header">
+                <CheckCircle2 size={14} style={{ color: 'var(--accent-soft)' }} />
+                <span>KEY TECHNOLOGIES</span>
+              </div>
+
+              <div className="project-tech-list">
+                {current.technologies.map((tech) => (
+                  <div key={tech} className="tech-editorial-item">
+                    <span className="tech-item-dot">•</span>
+                    <span className="tech-item-name">{tech}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Bottom Quick Switch Hint */}
+              <div className="project-switch-hint">
+                <span className="hint-label">NEXT PROJECT:</span>
+                <button
+                  onClick={() => setSelectedIdx(selectedIdx === 0 ? 1 : 0)}
+                  className="hint-link-btn"
                 >
-                  <span
-                    style={{
-                      color: 'var(--accent-primary)',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      marginTop: '0.15rem',
-                      flexShrink: 0
-                    }}
-                  >
-                    0{idx + 1}
-                  </span>
-                  <span>{h}</span>
-                </li>
-              ))}
-            </ul>
+                  {selectedIdx === 0 ? '02 PulseRDS →' : '01 GreenDot →'}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 900px) {
-          #project-layout-grid {
-            grid-template-columns: 1fr !important;
-            gap: 1.5rem !important;
-            padding: 1.5rem !important;
-          }
-        }
-      `}</style>
     </section>
   );
 };
