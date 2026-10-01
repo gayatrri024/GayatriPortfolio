@@ -11,8 +11,9 @@ export const PERSONAL_INFO = {
   linkedinUrl: 'https://www.linkedin.com/in/gayatri-shinde-078a781b8/',
   githubUrl: 'https://github.com/gayatrri024',
   portfolioUrl: 'https://thegayatriashokshinde.vercel.app/',
-  resumeUrl: 'https://drive.google.com/file/d/1pGIodybq5VlCU8zocHPfTT1A-bQ6F608/view',
-  resumeDownloadUrl: 'https://drive.google.com/uc?export=download&id=1pGIodybq5VlCU8zocHPfTT1A-bQ6F608',
+  resumeUrl: '/resume.pdf',
+  resumeFilename: 'Gayatri_Shinde_Resume.pdf',
+  googleDriveUrl: 'https://drive.google.com/file/d/1pGIodybq5VlCU8zocHPfTT1A-bQ6F608/view',
   summary:
     'DevOps & Infrastructure Engineer who genuinely enjoys the behind-the-scenes part of technology — building environments, automating repetitive work, breaking things, figuring out why they broke, and making sure they don’t break the same way twice.'
 };

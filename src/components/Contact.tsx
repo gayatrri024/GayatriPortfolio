@@ -125,30 +125,28 @@ export const Contact: React.FC<ContactProps> = () => {
             </div>
           </div>
 
-          {/* Bottom Actions: View / Download Live Resume */}
+          {/* Bottom Actions: Instant Download & Google Drive Preview */}
           <div className="contact-footer-actions" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <a
               href={PERSONAL_INFO.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-secondary"
+              download={PERSONAL_INFO.resumeFilename}
+              className="btn btn-accent"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}
-              aria-label="View Full Curriculum Vitae on Google Drive"
+              aria-label="Download Full Resume PDF"
             >
-              <FileText size={16} style={{ color: 'var(--accent-soft)' }} />
-              <span>View Full Resume (PDF)</span>
-              <ArrowUpRight size={14} />
+              <FileText size={16} />
+              <span>Download Resume (PDF)</span>
             </a>
 
             <a
-              href={PERSONAL_INFO.resumeDownloadUrl}
+              href={PERSONAL_INFO.googleDriveUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}
-              aria-label="Direct Download Resume"
+              aria-label="Preview Resume on Google Drive"
             >
-              <span>Download PDF</span>
+              <span>Preview on Google Drive</span>
               <ArrowUpRight size={14} />
             </a>
           </div>

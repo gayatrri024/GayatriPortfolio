@@ -157,8 +157,7 @@ export const Navigation: React.FC<NavigationProps> = ({
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <a
             href={PERSONAL_INFO.resumeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            download={PERSONAL_INFO.resumeFilename}
             className="btn btn-secondary"
             style={{
               padding: '0.4rem 1rem',
@@ -168,7 +167,7 @@ export const Navigation: React.FC<NavigationProps> = ({
               borderRadius: '9999px',
               textDecoration: 'none'
             }}
-            aria-label="View Resume on Google Drive"
+            aria-label="Download Resume (PDF)"
           >
             <FileText size={13} />
             <span>RESUME</span>
@@ -246,8 +245,7 @@ export const Navigation: React.FC<NavigationProps> = ({
 
           <a
             href={PERSONAL_INFO.resumeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            download={PERSONAL_INFO.resumeFilename}
             onClick={() => setMobileMenuOpen(false)}
             style={{
               background: 'var(--cyan-subtle)',
@@ -264,9 +262,10 @@ export const Navigation: React.FC<NavigationProps> = ({
               textDecoration: 'none',
               marginTop: '0.35rem'
             }}
+            aria-label="Download Resume (PDF)"
           >
             <FileText size={16} />
-            <span>VIEW / DOWNLOAD RESUME</span>
+            <span>DOWNLOAD RESUME (PDF)</span>
           </a>
         </div>
       )}

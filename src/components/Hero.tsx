@@ -200,8 +200,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToProjects, onGoToContact }) => 
 
             <a
               href={PERSONAL_INFO.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              download={PERSONAL_INFO.resumeFilename}
               className="btn btn-secondary"
               style={{
                 padding: '0.85rem 1.65rem',
@@ -210,10 +209,10 @@ export const Hero: React.FC<HeroProps> = ({ onGoToProjects, onGoToContact }) => 
                 letterSpacing: '0.04em',
                 textDecoration: 'none'
               }}
-              aria-label="View Resume on Google Drive"
+              aria-label="Download Resume (PDF)"
             >
               <FileText size={15} />
-              <span>RESUME</span>
+              <span>DOWNLOAD RESUME</span>
             </a>
           </div>
 
