@@ -255,7 +255,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToProjects, onGoToContact }) => 
             justifyContent: 'center',
             overflow: 'visible'
           }}
-          className="character-hero-wrapper"
+        //  className="character-hero-wrapper"
         >
           {/* Character Canvas with mouse-following tracking */}
           <CharacterCanvas />
