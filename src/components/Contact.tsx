@@ -6,7 +6,7 @@ interface ContactProps {
   onOpenResume?: () => void;
 }
 
-export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
+export const Contact: React.FC<ContactProps> = () => {
   const [copied, setCopied] = useState(false);
 
   const handleCopyEmail = () => {
@@ -125,19 +125,33 @@ export const Contact: React.FC<ContactProps> = ({ onOpenResume }) => {
             </div>
           </div>
 
-          {/* Bottom Actions: View Resume Modal */}
-          {onOpenResume && (
-            <div className="contact-footer-actions">
-              <button
-                onClick={onOpenResume}
-                className="btn btn-secondary"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}
-              >
-                <FileText size={16} style={{ color: 'var(--accent-soft)' }} />
-                <span>View Full Curriculum Vitae</span>
-              </button>
-            </div>
-          )}
+          {/* Bottom Actions: View / Download Live Resume */}
+          <div className="contact-footer-actions" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <a
+              href={PERSONAL_INFO.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}
+              aria-label="View Full Curriculum Vitae on Google Drive"
+            >
+              <FileText size={16} style={{ color: 'var(--accent-soft)' }} />
+              <span>View Full Resume (PDF)</span>
+              <ArrowUpRight size={14} />
+            </a>
+
+            <a
+              href={PERSONAL_INFO.resumeDownloadUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}
+              aria-label="Direct Download Resume"
+            >
+              <span>Download PDF</span>
+              <ArrowUpRight size={14} />
+            </a>
+          </div>
         </div>
       </div>
     </section>

@@ -8,13 +8,11 @@ import { Projects } from './components/Projects';
 import { Skills } from './components/Skills';
 import { Recognition } from './components/Recognition';
 import { Contact } from './components/Contact';
-import { ResumeModal } from './components/ResumeModal';
 
 const TOTAL_PAGES = 7;
 
 export const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const [resumeOpen, setResumeOpen] = useState<boolean>(false);
   const lastWheelTimeRef = useRef<number>(0);
   const touchStartRef = useRef<{ x: number; y: number; time: number }>({ x: 0, y: 0, time: 0 });
   const currentPageRef = useRef<number>(0);
@@ -36,8 +34,6 @@ export const App: React.FC = () => {
   // Keeps sections comfortably scrollable so users can read content naturally
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      if (resumeOpen) return;
-
       const deltaY = e.deltaY;
       const absY = Math.abs(deltaY);
       const absX = Math.abs(e.deltaX);
@@ -129,13 +125,11 @@ export const App: React.FC = () => {
     return () => {
       window.removeEventListener('wheel', handleWheel);
     };
-  }, [goToPage, resumeOpen]);
+  }, [goToPage]);
 
   // Keyboard Navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (resumeOpen) return;
-
       const activeTag = (document.activeElement as HTMLElement)?.tagName?.toLowerCase();
       if (activeTag === 'input' || activeTag === 'textarea') return;
 
@@ -169,12 +163,12 @@ export const App: React.FC = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [goToPage, resumeOpen]);
+  }, [goToPage]);
 
   // Mobile Touch Swipe Handling (horizontal swipe flips pages)
   useEffect(() => {
     const handleTouchStart = (e: TouchEvent) => {
-      if (e.touches.length !== 1 || resumeOpen) return;
+      if (e.touches.length !== 1) return;
       touchStartRef.current = {
         x: e.touches[0].clientX,
         y: e.touches[0].clientY,
@@ -183,7 +177,6 @@ export const App: React.FC = () => {
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
-      if (resumeOpen) return;
       const touchEndX = e.changedTouches[0].clientX;
       const touchEndY = e.changedTouches[0].clientY;
       const deltaX = touchEndX - touchStartRef.current.x;
@@ -208,7 +201,7 @@ export const App: React.FC = () => {
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [goToPage, resumeOpen]);
+  }, [goToPage]);
 
   // Exact 7 presentation pages in the requested sequence:
   // 01 HOME, 02 ABOUT, 03 EXPERIENCE, 04 PROJECTS, 05 SKILLS, 06 RECOGNITION, 07 CONTACT
@@ -219,7 +212,6 @@ export const App: React.FC = () => {
         <Hero
           onGoToProjects={() => goToPage(3)}
           onGoToContact={() => goToPage(6)}
-          onOpenResume={() => setResumeOpen(true)}
         />
       )
     },
@@ -245,7 +237,7 @@ export const App: React.FC = () => {
     },
     {
       id: '07',
-      component: <Contact onOpenResume={() => setResumeOpen(true)} />
+      component: <Contact />
     }
   ];
 
@@ -259,7 +251,6 @@ export const App: React.FC = () => {
         currentPage={currentPage}
         totalPages={TOTAL_PAGES}
         onSelectPage={goToPage}
-        onOpenResume={() => setResumeOpen(true)}
       />
 
       {/* Presentation Pages Stage */}
@@ -288,9 +279,6 @@ export const App: React.FC = () => {
           );
         })}
       </main>
-
-      {/* Resume Modal Dialog */}
-      <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
     </div>
   );
 };

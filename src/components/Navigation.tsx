@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { FileText, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
-import { PAGE_NAMES } from '../data/portfolioData';
+import { PAGE_NAMES, PERSONAL_INFO } from '../data/portfolioData';
 
 interface NavigationProps {
   currentPage: number;
   totalPages: number;
   onSelectPage: (index: number) => void;
-  onOpenResume: () => void;
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
   currentPage,
   totalPages,
-  onSelectPage,
-  onOpenResume
+  onSelectPage
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -157,21 +155,24 @@ export const Navigation: React.FC<NavigationProps> = ({
 
         {/* Right Action: Resume Modal & Mobile Menu Trigger */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-          <button
-            onClick={onOpenResume}
+          <a
+            href={PERSONAL_INFO.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn btn-secondary"
             style={{
               padding: '0.4rem 1rem',
               fontSize: '0.78rem',
               fontFamily: 'var(--font-mono)',
               letterSpacing: '0.04em',
-              borderRadius: '9999px'
+              borderRadius: '9999px',
+              textDecoration: 'none'
             }}
-            aria-label="View Resume"
+            aria-label="View Resume on Google Drive"
           >
             <FileText size={13} />
             <span>RESUME</span>
-          </button>
+          </a>
 
           {/* Mobile Hamburger Toggle */}
           <button
@@ -242,6 +243,31 @@ export const Navigation: React.FC<NavigationProps> = ({
               </button>
             );
           })}
+
+          <a
+            href={PERSONAL_INFO.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            style={{
+              background: 'var(--cyan-subtle)',
+              color: 'var(--accent-soft)',
+              border: '1px solid var(--border-accent)',
+              borderRadius: '8px',
+              padding: '0.65rem 0.95rem',
+              fontSize: '0.86rem',
+              fontFamily: 'var(--font-mono)',
+              textAlign: 'left',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              textDecoration: 'none',
+              marginTop: '0.35rem'
+            }}
+          >
+            <FileText size={16} />
+            <span>VIEW / DOWNLOAD RESUME</span>
+          </a>
         </div>
       )}
 

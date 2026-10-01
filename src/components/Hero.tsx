@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, MessageSquare } from 'lucide-react';
+import { ArrowRight, MessageSquare, FileText } from 'lucide-react';
 import { CharacterCanvas } from './CharacterCanvas';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
@@ -197,6 +197,24 @@ export const Hero: React.FC<HeroProps> = ({ onGoToProjects, onGoToContact }) => 
               <MessageSquare size={15} />
               <span>LET'S CONNECT</span>
             </button>
+
+            <a
+              href={PERSONAL_INFO.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary"
+              style={{
+                padding: '0.85rem 1.65rem',
+                fontSize: '0.92rem',
+                fontWeight: 500,
+                letterSpacing: '0.04em',
+                textDecoration: 'none'
+              }}
+              aria-label="View Resume on Google Drive"
+            >
+              <FileText size={15} />
+              <span>RESUME</span>
+            </a>
           </div>
 
           {/* Key Credentials Row */}
