@@ -1,297 +1,297 @@
 import React from 'react';
-import { ArrowRight, MessageSquare, FileText } from 'lucide-react';
-import { CharacterCanvas } from './CharacterCanvas';
+import { ArrowRight, FileText, MessageSquare } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from './Icons';
+import { CloudTopologyCanvas } from './CloudTopologyCanvas';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
-interface HeroProps {
-  onGoToProjects: () => void;
-  onGoToContact: () => void;
-  onOpenResume?: () => void;
-}
-
-export const Hero: React.FC<HeroProps> = ({ onGoToProjects, onGoToContact }) => {
+export const Hero: React.FC = () => {
   return (
     <section
-      id="hero-cover"
+      id="hero"
       className="presentation-page"
       style={{
         position: 'relative',
-        backgroundColor: 'var(--bg-primary)',
-        color: 'var(--text-primary)',
         display: 'flex',
-        alignItems: 'flex-end',
+        alignItems: 'center',
         justifyContent: 'center',
-        overflow: 'hidden',
-        paddingTop: 'calc(var(--nav-height) + 0.5rem)',
-        paddingBottom: '0'
+        minHeight: 'calc(100vh - var(--nav-height))',
+        paddingTop: 'calc(var(--nav-height) + 2rem)',
+        paddingBottom: '3.5rem'
       }}
     >
-      {/* Background Subtle Ambient Lighting */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          pointerEvents: 'none',
-          backgroundImage: `
-            radial-gradient(circle at 75% 55%, rgba(37, 99, 235, 0.16) 0%, rgba(6, 182, 212, 0.06) 45%, transparent 70%),
-            radial-gradient(circle at 15% 65%, rgba(13, 21, 39, 0.95) 0%, transparent 60%)
-          `
-        }}
-      />
-
-      <div
-        className="page-inner"
-        style={{
-          position: 'relative',
-          zIndex: 2,
-          display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.25fr)',
-          alignItems: 'end',
-          gap: '2.5rem',
-          minHeight: 'calc(100vh - var(--nav-height) - var(--bottom-bar-height))',
-          paddingBottom: '0'
-        }}
-      >
-        {/* Left: Editorial Engineering Identity & Typography (Refined spacing & placement) */}
+      <div className="page-inner">
         <div
-          className="page-content-anim"
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: '1.35rem',
-            paddingBottom: 'calc(var(--bottom-bar-height) + 1.5rem)'
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 1fr)',
+            gap: '3rem',
+            alignItems: 'center',
+            width: '100%'
           }}
+          className="hero-grid-responsive"
         >
-          {/* Engineering Positioning Badge */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <span className="editorial-badge">
+          {/* Left Column: Clear Technical Identity & Narrative */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            {/* Status Indicator */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
               <span
                 style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  backgroundColor: 'var(--accent-soft)',
-                  boxShadow: '0 0 8px var(--accent-soft)'
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.45rem',
+                  padding: '0.25rem 0.75rem',
+                  background: 'rgba(16, 185, 129, 0.1)',
+                  border: '1px solid rgba(16, 185, 129, 0.25)',
+                  borderRadius: '9999px',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.72rem',
+                  fontWeight: 600,
+                  color: '#34D399',
+                  letterSpacing: '0.04em'
                 }}
-              />
-              {PERSONAL_INFO.headline}
-            </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.74rem',
-                color: 'var(--text-muted)',
-                letterSpacing: '0.04em'
-              }}
-            >
-              {PERSONAL_INFO.location}
-            </span>
-          </div>
+              >
+                <span
+                  style={{
+                    width: '6px',
+                    height: '6px',
+                    borderRadius: '50%',
+                    backgroundColor: '#10B981',
+                    boxShadow: '0 0 8px #10B981'
+                  }}
+                />
+                OPEN TO CLOUD & DEVOPS ROLES
+              </span>
 
-          {/* Large Editorial Name Hierarchy (as in blue.png / reference layout) */}
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h1
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.74rem',
+                  color: 'var(--text-muted)'
+                }}
+              >
+                Pune, India · Hybrid / Remote
+              </span>
+            </div>
+
+            {/* Name & Title */}
+            <div>
+              <h1
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 'clamp(2.4rem, 4.4vw, 3.8rem)',
+                  fontWeight: 800,
+                  color: '#FFFFFF',
+                  lineHeight: 1.08,
+                  letterSpacing: '-0.02em',
+                  margin: 0
+                }}
+              >
+                Gayatri Ashok Shinde
+              </h1>
+              <h2
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
+                  fontWeight: 600,
+                  color: 'var(--accent-soft)',
+                  margin: '0.5rem 0 0 0',
+                  letterSpacing: '0.02em'
+                }}
+              >
+                Cloud & DevOps Infrastructure Engineer
+              </h2>
+            </div>
+
+            {/* Human & Transparent Intro (What I do & How I can be useful) */}
+            <p
               style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(0.95rem, 1.15vw, 1.05rem)',
+                lineHeight: 1.65,
+                color: 'var(--text-secondary)',
                 margin: 0,
-                lineHeight: 0.92,
-                letterSpacing: '-0.02em'
+                maxWidth: '560px'
               }}
             >
-              <span
-                style={{
-                  display: 'block',
-                  fontFamily: 'var(--font-editorial)',
-                  fontSize: 'clamp(4rem, 6.6vw, 7.2rem)',
-                  fontWeight: 400,
-                  color: 'var(--text-primary)',
-                  letterSpacing: '0.01em',
-                  fontStyle: 'normal'
-                }}
-              >
-                Gayatri
-              </span>
-              <span
-                style={{
-                  display: 'block',
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(2.5rem, 4.6vw, 4.8rem)',
-                  fontWeight: 800,
-                  color: '#ffffff',
-                  textTransform: 'uppercase',
-                  letterSpacing: '-0.02em',
-                  marginTop: '-0.1rem'
-                }}
-              >
-                ASHOK
-              </span>
-              <span
-                style={{
-                  display: 'block',
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(2.5rem, 4.6vw, 4.8rem)',
-                  fontWeight: 800,
-                  color: '#ffffff',
-                  textTransform: 'uppercase',
-                  letterSpacing: '-0.02em',
-                  marginTop: '-0.15rem'
-                }}
-              >
-                SHINDE
-              </span>
-            </h1>
-          </div>
+              MCA graduate specializing in AWS cloud infrastructure, Kubernetes orchestration,
+              Terraform automation, and automated CI/CD pipelines. Currently interning at{' '}
+              <strong style={{ color: 'var(--text-primary)' }}>Akiyam Solution</strong> managing
+              deployments across 50+ microservices, backed by{' '}
+              <strong style={{ color: 'var(--text-primary)' }}>2+ years at Amazon</strong> in
+              high-volume operational troubleshooting, RCA, and workflow automation.
+            </p>
 
-          {/* Supporting Technical Statement */}
-          <p
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: 'clamp(0.98rem, 1.2vw, 1.12rem)',
-              lineHeight: 1.65,
-              color: 'var(--text-secondary)',
-              maxWidth: '520px',
-              fontWeight: 400,
-              margin: 0
-            }}
-          >
-            {PERSONAL_INFO.tagline}
-          </p>
-
-          {/* Action CTAs: VIEW MY WORK & LET'S CONNECT */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.85rem',
-              flexWrap: 'wrap',
-              marginTop: '0.35rem'
-            }}
-          >
-            <button
-              onClick={onGoToProjects}
-              className="btn btn-accent"
+            {/* Direct Recruiter Action CTAs */}
+            <div
               style={{
-                padding: '0.85rem 1.85rem',
-                fontSize: '0.92rem',
-                fontWeight: 600,
-                letterSpacing: '0.04em'
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.85rem',
+                flexWrap: 'wrap',
+                marginTop: '0.5rem'
               }}
-              aria-label="View My Work"
             >
-              <span>VIEW MY WORK</span>
-              <ArrowRight size={16} />
-            </button>
+              <a
+                href={PERSONAL_INFO.resumeUrl}
+                download={PERSONAL_INFO.resumeFilename}
+                className="btn btn-accent"
+                style={{
+                  padding: '0.8rem 1.65rem',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  letterSpacing: '0.02em',
+                  textDecoration: 'none'
+                }}
+                aria-label="Download Resume (PDF)"
+              >
+                <FileText size={15} />
+                <span>DOWNLOAD RESUME</span>
+              </a>
 
-            <button
-              onClick={onGoToContact}
-              className="btn btn-secondary"
-              style={{
-                padding: '0.85rem 1.65rem',
-                fontSize: '0.92rem',
-                fontWeight: 500,
-                letterSpacing: '0.04em'
-              }}
-              aria-label="Let's Connect"
-            >
-              <MessageSquare size={15} />
-              <span>LET'S CONNECT</span>
-            </button>
+              <a
+                href="#projects"
+                className="btn btn-secondary"
+                style={{
+                  padding: '0.8rem 1.45rem',
+                  fontSize: '0.88rem',
+                  fontWeight: 500,
+                  textDecoration: 'none'
+                }}
+                aria-label="View Engineering Projects"
+              >
+                <span>View Projects</span>
+                <ArrowRight size={15} />
+              </a>
 
-            <a
-              href={PERSONAL_INFO.resumeUrl}
-              download={PERSONAL_INFO.resumeFilename}
-              className="btn btn-secondary"
-              style={{
-                padding: '0.85rem 1.65rem',
-                fontSize: '0.92rem',
-                fontWeight: 500,
-                letterSpacing: '0.04em',
-                textDecoration: 'none'
-              }}
-              aria-label="Download Resume (PDF)"
-            >
-              <FileText size={15} />
-              <span>DOWNLOAD RESUME</span>
-            </a>
-          </div>
-
-          {/* Key Credentials Row */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1.75rem',
-              marginTop: '0.65rem',
-              paddingTop: '1.15rem',
-              borderTop: '1px solid var(--border-subtle)',
-              flexWrap: 'wrap'
-            }}
-          >
-            <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', fontWeight: 700, color: '#ffffff' }}>
-                2.5+ Yrs
-              </div>
-              <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                Amazon Operations
-              </div>
+              <a
+                href="#contact"
+                className="btn btn-secondary"
+                style={{
+                  padding: '0.8rem 1.25rem',
+                  fontSize: '0.88rem',
+                  fontWeight: 500,
+                  textDecoration: 'none'
+                }}
+                aria-label="Jump to Contact"
+              >
+                <MessageSquare size={14} />
+                <span>Contact</span>
+              </a>
             </div>
 
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'var(--border-subtle)' }} />
+            {/* Social Links Row */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginTop: '0.2rem' }}>
+              <a
+                href={PERSONAL_INFO.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  color: 'var(--text-secondary)',
+                  textDecoration: 'none',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.78rem',
+                  transition: 'color 0.2s ease'
+                }}
+                className="hover-accent"
+              >
+                <GithubIcon size={14} />
+                <span>github.com/gayatrri024</span>
+              </a>
 
-            <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', fontWeight: 700, color: '#ffffff' }}>
-                50+
-              </div>
-              <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                Microservices (K8s)
-              </div>
+              <a
+                href={PERSONAL_INFO.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  color: 'var(--text-secondary)',
+                  textDecoration: 'none',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.78rem',
+                  transition: 'color 0.2s ease'
+                }}
+                className="hover-accent"
+              >
+                <LinkedinIcon size={14} />
+                <span>LinkedIn</span>
+              </a>
             </div>
 
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'var(--border-subtle)' }} />
-
-            <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', fontWeight: 700, color: '#ffffff' }}>
-                Terraform
+            {/* Honest, Hard Numbers Highlight Row */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(4, 1fr)',
+                gap: '1rem',
+                paddingTop: '1.25rem',
+                marginTop: '0.5rem',
+                borderTop: '1px solid var(--border-subtle)'
+              }}
+              className="hero-metrics-grid"
+            >
+              <div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.45rem', fontWeight: 800, color: '#FFFFFF' }}>
+                  50+
+                </div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                  K8s Microservices
+                </div>
               </div>
-              <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                AWS Infrastructure
+
+              <div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.45rem', fontWeight: 800, color: '#FFFFFF' }}>
+                  2+ Yrs
+                </div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                  Amazon Operations
+                </div>
+              </div>
+
+              <div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.45rem', fontWeight: 800, color: '#FFFFFF' }}>
+                  8.92
+                </div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                  MCA Distinction
+                </div>
+              </div>
+
+              <div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.45rem', fontWeight: 800, color: '#FFFFFF' }}>
+                  1st
+                </div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                  TechnoFest Winner
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Right: Signature Character Visual (Large, Dominant Centerpiece grounded to bottom) */}
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: 'clamp(620px, 88vh, 960px)',
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'center',
-            overflow: 'visible'
-          }}
-        //  className="character-hero-wrapper"
-        >
-          {/* Character Canvas with mouse-following tracking */}
-          <CharacterCanvas />
+          {/* Right Column: Clean Cloud Architecture Visual */}
+          <div style={{ width: '100%', position: 'relative' }}>
+            <CloudTopologyCanvas />
+          </div>
         </div>
       </div>
 
-      {/* Responsive layout styles */}
       <style>{`
         @media (max-width: 960px) {
-          #hero-cover .page-inner {
+          .hero-grid-responsive {
             grid-template-columns: 1fr !important;
-            gap: 1.5rem !important;
-            padding-top: 1rem;
+            gap: 2rem !important;
           }
-          .character-hero-wrapper {
-            min-height: 420px !important;
-            max-height: 520px !important;
-            order: -1;
+          .hero-metrics-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1.25rem !important;
           }
+        }
+        .hover-accent:hover {
+          color: var(--accent-soft) !important;
         }
       `}</style>
     </section>

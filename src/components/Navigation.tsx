@@ -1,23 +1,43 @@
-import React, { useState } from 'react';
-import { FileText, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
-import { PAGE_NAMES, PERSONAL_INFO } from '../data/portfolioData';
+import React, { useState, useEffect } from 'react';
+import { FileText, Menu, X, ArrowUpRight } from 'lucide-react';
+import { PERSONAL_INFO } from '../data/portfolioData';
 
-interface NavigationProps {
-  currentPage: number;
-  totalPages: number;
-  onSelectPage: (index: number) => void;
-}
+const NAV_ITEMS = [
+  { label: 'About', href: '#about' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Credentials', href: '#recognition' },
+  { label: 'Contact', href: '#contact' }
+];
 
-export const Navigation: React.FC<NavigationProps> = ({
-  currentPage,
-  totalPages,
-  onSelectPage
-}) => {
+export const Navigation: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'recognition', 'contact'];
+      const scrollPos = window.scrollY + 180;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i]);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveSection(sections[i]);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
-      {/* Top Editorial Header */}
       <header
         style={{
           position: 'fixed',
@@ -25,135 +45,119 @@ export const Navigation: React.FC<NavigationProps> = ({
           left: 0,
           right: 0,
           height: 'var(--nav-height)',
-          zIndex: 90,
+          zIndex: 100,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '0 2rem',
-          backgroundColor: 'rgba(7, 11, 20, 0.82)',
+          backgroundColor: scrolled ? 'rgba(7, 11, 20, 0.92)' : 'rgba(7, 11, 20, 0.75)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
           borderBottom: '1px solid var(--border-subtle)',
-          transition: 'background-color 0.3s ease'
+          transition: 'background-color 0.25s ease, border-color 0.25s ease'
         }}
       >
-        {/* Brand Name / Title */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <button
-            onClick={() => onSelectPage(0)}
+        {/* Brand Terminal Style (clean & unpretentious) */}
+        <a
+          href="#hero"
+          style={{
+            textDecoration: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.65rem',
+            color: '#FFFFFF'
+          }}
+          aria-label="Home"
+        >
+          <div
             style={{
-              background: 'none',
-              border: 'none',
-              padding: 0,
-              cursor: 'pointer',
+              width: '28px',
+              height: '28px',
+              borderRadius: '50%',
+              backgroundColor: 'rgba(37, 99, 235, 0.2)',
+              border: '1.5px solid var(--border-accent)',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.65rem',
-              color: 'var(--text-primary)',
-              textAlign: 'left'
+              justifyContent: 'center',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.72rem',
+              fontWeight: 800,
+              color: 'var(--accent-soft)'
             }}
-            aria-label="Go to Home"
           >
-            <div
+            GS
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.45rem' }}>
+            <span
               style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '50%',
-                overflow: 'hidden',
-                border: '1.5px solid var(--border-accent)',
-                backgroundColor: 'var(--bg-secondary)',
-                flexShrink: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 0 10px rgba(56, 189, 248, 0.25)'
+                fontFamily: 'var(--font-display)',
+                fontWeight: 800,
+                fontSize: '0.96rem',
+                letterSpacing: '-0.01em',
+                color: '#FFFFFF'
               }}
             >
-              <img
-                src="/frames/center.webp"
-                alt="Gayatri Shinde Avatar"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            </div>
-            <div>
-              <span
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontWeight: 800,
-                  fontSize: '0.96rem',
-                  letterSpacing: '-0.01em',
-                  color: '#ffffff',
-                  display: 'block'
-                }}
-              >
-                GAYATRI SHINDE
-              </span>
-            </div>
+              GAYATRI SHINDE
+            </span>
             <span
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.66rem',
                 fontWeight: 600,
                 color: 'var(--accent-soft)',
-                letterSpacing: '0.08em',
-                display: 'inline-block'
+                letterSpacing: '0.04em'
               }}
               className="desktop-only"
             >
               [DEVOPS]
             </span>
-          </button>
-        </div>
+          </div>
+        </a>
 
-        {/* Center Desktop Navigation Pill */}
+        {/* Center Desktop Navigation Links */}
         <nav
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '0.25rem',
             padding: '0.25rem 0.4rem',
-            backgroundColor: 'rgba(13, 21, 39, 0.85)',
+            backgroundColor: 'rgba(13, 21, 39, 0.75)',
             border: '1px solid var(--border-subtle)',
             borderRadius: '9999px',
-            backdropFilter: 'blur(12px)'
+            backdropFilter: 'blur(10px)'
           }}
           className="desktop-nav"
-          aria-label="Primary presentation navigation"
+          aria-label="Main Navigation"
         >
-          {PAGE_NAMES.map((page, idx) => {
-            const isActive = currentPage === idx;
+          {NAV_ITEMS.map((item) => {
+            const isCurrent = activeSection === item.href.replace('#', '');
+
             return (
-              <button
-                key={page.num}
-                onClick={() => onSelectPage(idx)}
+              <a
+                key={item.label}
+                href={item.href}
                 style={{
-                  background: isActive ? 'var(--accent-primary)' : 'transparent',
-                  color: isActive ? '#ffffff' : 'var(--text-secondary)',
-                  border: 'none',
+                  color: isCurrent ? '#FFFFFF' : 'var(--text-secondary)',
+                  background: isCurrent ? 'var(--accent-primary)' : 'transparent',
+                  padding: '0.35rem 0.85rem',
                   borderRadius: '9999px',
-                  padding: '0.35rem 0.75rem',
-                  fontSize: '0.74rem',
+                  fontSize: '0.76rem',
                   fontFamily: 'var(--font-mono)',
-                  fontWeight: isActive ? 700 : 500,
-                  letterSpacing: '0.04em',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  transition: 'all 0.2s var(--ease-editorial)',
-                  boxShadow: isActive ? '0 2px 10px var(--accent-glow)' : 'none'
+                  fontWeight: isCurrent ? 700 : 500,
+                  textDecoration: 'none',
+                  transition: 'all 0.2s ease',
+                  boxShadow: isCurrent ? '0 2px 10px var(--accent-glow)' : 'none'
                 }}
-                aria-label={`Jump to ${page.title}`}
-                aria-current={isActive ? 'page' : undefined}
+                aria-current={isCurrent ? 'page' : undefined}
               >
-                <span style={{ opacity: isActive ? 1 : 0.6, fontSize: '0.68rem' }}>{page.num}</span>
-                <span>{page.title}</span>
-              </button>
+                {item.label}
+              </a>
             );
           })}
         </nav>
 
-        {/* Right Action: Resume Modal & Mobile Menu Trigger */}
+        {/* Right CTA: Download Resume */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <a
             href={PERSONAL_INFO.resumeUrl}
@@ -206,63 +210,55 @@ export const Navigation: React.FC<NavigationProps> = ({
             backgroundColor: 'rgba(7, 11, 20, 0.98)',
             borderBottom: '1px solid var(--border-subtle)',
             backdropFilter: 'blur(20px)',
-            zIndex: 89,
+            zIndex: 99,
             padding: '1.25rem 1.75rem',
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.45rem'
+            gap: '0.5rem'
           }}
         >
-          {PAGE_NAMES.map((page, idx) => {
-            const isActive = currentPage === idx;
-            return (
-              <button
-                key={page.num}
-                onClick={() => {
-                  onSelectPage(idx);
-                  setMobileMenuOpen(false);
-                }}
-                style={{
-                  background: isActive ? 'var(--accent-subtle)' : 'transparent',
-                  color: isActive ? 'var(--accent-soft)' : 'var(--text-primary)',
-                  border: isActive ? '1px solid var(--border-accent)' : '1px solid transparent',
-                  borderRadius: '8px',
-                  padding: '0.65rem 0.95rem',
-                  fontSize: '0.86rem',
-                  fontFamily: 'var(--font-mono)',
-                  textAlign: 'left',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.75rem',
-                  cursor: 'pointer'
-                }}
-              >
-                <span style={{ color: 'var(--accent-soft)', fontWeight: 700 }}>{page.num}</span>
-                <span>{page.title}</span>
-              </button>
-            );
-          })}
+          {NAV_ITEMS.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={() => setMobileMenuOpen(false)}
+              style={{
+                color: 'var(--text-primary)',
+                padding: '0.65rem 0.95rem',
+                fontSize: '0.88rem',
+                fontFamily: 'var(--font-mono)',
+                textDecoration: 'none',
+                borderRadius: '8px',
+                background: 'rgba(255, 255, 255, 0.02)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }}
+            >
+              <span>{item.label}</span>
+              <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
+            </a>
+          ))}
 
           <a
             href={PERSONAL_INFO.resumeUrl}
             download={PERSONAL_INFO.resumeFilename}
             onClick={() => setMobileMenuOpen(false)}
             style={{
-              background: 'var(--cyan-subtle)',
-              color: 'var(--accent-soft)',
-              border: '1px solid var(--border-accent)',
+              background: 'var(--accent-primary)',
+              color: '#FFFFFF',
               borderRadius: '8px',
-              padding: '0.65rem 0.95rem',
-              fontSize: '0.86rem',
+              padding: '0.75rem 1rem',
+              fontSize: '0.88rem',
               fontFamily: 'var(--font-mono)',
-              textAlign: 'left',
+              fontWeight: 700,
+              textDecoration: 'none',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.75rem',
-              textDecoration: 'none',
-              marginTop: '0.35rem'
+              justifyContent: 'center',
+              gap: '0.55rem',
+              marginTop: '0.5rem'
             }}
-            aria-label="Download Resume (PDF)"
           >
             <FileText size={16} />
             <span>DOWNLOAD RESUME (PDF)</span>
@@ -270,137 +266,8 @@ export const Navigation: React.FC<NavigationProps> = ({
         </div>
       )}
 
-      {/* Bottom Status & Pager Bar */}
-      <footer
-        style={{
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: 'var(--bottom-bar-height)',
-          zIndex: 80,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 2rem',
-          backgroundColor: 'rgba(7, 11, 20, 0.85)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderTop: '1px solid var(--border-subtle)',
-          pointerEvents: 'auto'
-        }}
-      >
-        {/* Left: Page Counter & Progress */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <div
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.76rem',
-              fontWeight: 600,
-              letterSpacing: '0.08em',
-              color: 'var(--text-secondary)'
-            }}
-          >
-            <span style={{ color: '#ffffff', fontWeight: 700 }}>
-              {PAGE_NAMES[currentPage]?.num}
-            </span>
-            <span style={{ color: 'var(--text-muted)', margin: '0 0.35rem' }}>/</span>
-            <span>0{totalPages}</span>
-            <span style={{ marginLeft: '0.75rem', color: 'var(--accent-soft)', fontWeight: 600 }} className="desktop-only">
-              — {PAGE_NAMES[currentPage]?.title}
-            </span>
-          </div>
-
-          {/* Thin Progress Line */}
-          <div
-            style={{
-              width: '85px',
-              height: '2px',
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              borderRadius: '2px',
-              overflow: 'hidden'
-            }}
-            className="desktop-only"
-          >
-            <div
-              style={{
-                width: `${((currentPage + 1) / totalPages) * 100}%`,
-                height: '100%',
-                backgroundColor: 'var(--accent-soft)',
-                transition: 'width 0.3s ease'
-              }}
-            />
-          </div>
-
-          <div
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.68rem',
-              color: 'var(--text-muted)',
-              letterSpacing: '0.04em'
-            }}
-            className="desktop-only"
-          >
-            [SCROLL OR USE ARROW KEYS]
-          </div>
-        </div>
-
-        {/* Right: Quick Turn Buttons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-          <button
-            onClick={() => onSelectPage(Math.max(0, currentPage - 1))}
-            disabled={currentPage === 0}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              padding: '0.35rem 0.85rem',
-              borderRadius: '9999px',
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid var(--border-subtle)',
-              color: currentPage === 0 ? 'var(--text-muted)' : 'var(--text-primary)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.74rem',
-              cursor: currentPage === 0 ? 'not-allowed' : 'pointer',
-              opacity: currentPage === 0 ? 0.35 : 1,
-              transition: 'all 0.2s ease'
-            }}
-            aria-label="Previous Page"
-          >
-            <ChevronLeft size={14} />
-            <span className="desktop-only">PREV</span>
-          </button>
-
-          <button
-            onClick={() => onSelectPage(Math.min(totalPages - 1, currentPage + 1))}
-            disabled={currentPage === totalPages - 1}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              padding: '0.35rem 0.85rem',
-              borderRadius: '9999px',
-              background: currentPage === totalPages - 1 ? 'rgba(255, 255, 255, 0.05)' : 'var(--accent-primary)',
-              border: currentPage === totalPages - 1 ? '1px solid var(--border-subtle)' : 'none',
-              color: '#ffffff',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.74rem',
-              fontWeight: 600,
-              cursor: currentPage === totalPages - 1 ? 'not-allowed' : 'pointer',
-              opacity: currentPage === totalPages - 1 ? 0.35 : 1,
-              boxShadow: currentPage === totalPages - 1 ? 'none' : '0 2px 12px var(--accent-glow)',
-              transition: 'all 0.2s ease'
-            }}
-            aria-label="Next Page"
-          >
-            <span className="desktop-only">NEXT</span>
-            <ChevronRight size={14} />
-          </button>
-        </div>
-      </footer>
-
       <style>{`
-        @media (max-width: 992px) {
+        @media (max-width: 860px) {
           .desktop-nav {
             display: none !important;
           }
