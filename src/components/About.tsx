@@ -83,7 +83,11 @@ export const About: React.FC = () => {
                 margin: 0
               }}
             >
-              Today, I work across <strong style={{ color: '#FFFFFF' }}>Kubernetes, AWS, Terraform/OpenTofu, CI/CD and observability</strong> — turning manual infrastructure and deployment workflows into repeatable systems.
+              Today, I work across <strong style={{ color: '#FFFFFF' }}>Kubernetes,
+                 AWS, Terraform/OpenTofu, CI/CD and observability</strong> — 
+                 turning manual infrastructure and deployment workflows into repeatable systems.
+                 Currently, I work as a DevOps & Infrastructure Engineer Intern at Akiyam Solution, 
+                 where I contribute to cloud operations, deployment automation, and platform reliability for 50+ microservices running on Kubernetes.
             </p>
 
             {/* Progression Strip */}
