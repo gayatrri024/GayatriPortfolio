@@ -1,8 +1,19 @@
 import React from 'react';
-import { MapPin, Target, Sparkles, GraduationCap, Briefcase } from 'lucide-react';
+import { MapPin, Target, Sparkles, GraduationCap, Briefcase, Terminal } from 'lucide-react';
 import { EDUCATION } from '../data/portfolioData';
 
 export const About: React.FC = () => {
+  const toolSnapshot = [
+    'AWS & GCP',
+    'Kubernetes & Helm',
+    'Terraform / OpenTofu',
+    'Docker',
+    'Jenkins & GitHub Actions',
+    'Prometheus & Grafana',
+    'Linux Shell & Python',
+    'AI-Augmented Tooling'
+  ];
+
   return (
     <section id="about" className="presentation-page section-block">
       <div className="page-inner">
@@ -30,7 +41,7 @@ export const About: React.FC = () => {
           className="about-grid-responsive"
         >
           {/* Left Column: Human, Technically Grounded Narrative */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.35rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             <div
               style={{
                 borderLeft: '3px solid var(--accent-primary)',
@@ -60,12 +71,13 @@ export const About: React.FC = () => {
                 margin: 0
               }}
             >
-              My journey into tech wasn’t about chasing buzzwords — it started in the trenches of high-volume operations at{' '}
-              <strong style={{ color: '#FFFFFF' }}>Amazon</strong>. For over two years, I lived in production queues:
-              troubleshooting failure modes under strict SLAs, untangling operational bottlenecks with root-cause analysis (RCA),
-              and writing automation scripts to kill repetitive manual toil. Placing{' '}
-              <strong style={{ color: 'var(--accent-soft)' }}>2nd Runner-Up in Amazon’s Bug-Bust</strong> sparked a defining shift:
-              I realized I didn’t just want to fight fires at the application surface; I wanted to architect and automate the infrastructure so the fires never start.
+              I’m an <strong style={{ color: '#FFFFFF' }}>MCA graduate specializing in Cloud Computing</strong> with
+              a passion for building reliable, scalable technology solutions. My experience spans cloud platforms,
+              CI/CD pipeline automation, application deployments, and infrastructure operations — rooted in{' '}
+              <strong style={{ color: '#FFFFFF' }}>over two years of high-volume operational troubleshooting at Amazon</strong>.
+              Investigating critical workflows under strict SLAs and earning{' '}
+              <strong style={{ color: 'var(--accent-soft)' }}>2nd Runner-Up in Amazon’s Bug-Bust</strong> event crystallized
+              my direction: I didn’t just want to support systems; I wanted to build and automate the infrastructure beneath them.
             </p>
 
             <p
@@ -76,12 +88,13 @@ export const About: React.FC = () => {
                 margin: 0
               }}
             >
-              That drive led me to dive deep into Cloud & DevOps. Today, as a DevOps & Infrastructure Engineer Intern at{' '}
-              <strong style={{ color: '#FFFFFF' }}>Akiyam Solution</strong>, I work at the intersection of scale and reliability — managing
-              staging and production environments running <strong style={{ color: '#FFFFFF' }}>50+ microservices on Kubernetes</strong>.
-              From codifying AWS infrastructure with <strong style={{ color: 'var(--accent-soft)' }}>Terraform & OpenTofu</strong> and
-              packaging Helm charts to building resilient <strong style={{ color: 'var(--accent-soft)' }}>Jenkins & GitHub Actions</strong> pipelines,
-              my daily mission is turning complex manual deployments into boringly predictable automation.
+              Currently, I work as a <strong style={{ color: '#FFFFFF' }}>DevOps & Infrastructure Engineer Intern at Akiyam Solution</strong>,
+              where I contribute to cloud operations, deployment automation, access management, and platform reliability for{' '}
+              <strong style={{ color: '#FFFFFF' }}>50+ microservices running on Kubernetes</strong>. Through production internships
+              and hands-on projects, I’ve engineered solutions ranging from declarative multi-tier AWS infrastructure with{' '}
+              <strong style={{ color: 'var(--accent-soft)' }}>Terraform & OpenTofu</strong> and Helm packaging, to secure GCP data pipelines
+              (<strong style={{ color: '#FFFFFF' }}>Habot Secure Cloud</strong> with BigQuery & GCS), automated Jenkins/GitHub Actions CI/CD,
+              and observability via <strong style={{ color: 'var(--accent-soft)' }}>Prometheus & Grafana</strong>.
             </p>
 
             <p
@@ -92,11 +105,58 @@ export const About: React.FC = () => {
                 margin: 0
               }}
             >
-              To ensure systems fail loudly and recover quickly, I instrument observability using{' '}
-              <strong style={{ color: 'var(--accent-soft)' }}>Prometheus & Grafana</strong>. I also stay intentionally multi-cloud — recently
-              delivering secure GCP infrastructure (BigQuery, Cloud Storage) with automated CI/CD security validation for the{' '}
-              <strong style={{ color: '#FFFFFF' }}>Habot Secure Cloud</strong> project.
+              I’m deeply comfortable in the terminal, fluent with <strong style={{ color: '#FFFFFF' }}>Docker, Kubernetes, and GitHub Actions</strong>,
+              and I actively lean on modern <strong style={{ color: 'var(--accent-soft)' }}>AI tooling</strong> to prototype faster,
+              debug smarter, and automate repetitive tasks without cutting corners on reliability.
             </p>
+
+            {/* Core Toolchain Snapshot */}
+            <div
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                border: '1px solid var(--border-subtle)',
+                borderRadius: '0.75rem',
+                padding: '1rem 1.15rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.65rem'
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.72rem',
+                  letterSpacing: '0.08em',
+                  color: 'var(--accent-soft)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.45rem'
+                }}
+              >
+                <Terminal size={13} />
+                <span>// SNAPSHOT OF WHAT I WORK WITH</span>
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+                {toolSnapshot.map((tool) => (
+                  <span
+                    key={tool}
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.75rem',
+                      padding: '0.3rem 0.65rem',
+                      borderRadius: '0.375rem',
+                      backgroundColor: 'rgba(56, 189, 248, 0.08)',
+                      border: '1px solid rgba(56, 189, 248, 0.2)',
+                      color: 'var(--text-primary)',
+                      display: 'inline-flex',
+                      alignItems: 'center'
+                    }}
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </div>
 
             <p
               style={{
@@ -109,7 +169,7 @@ export const About: React.FC = () => {
               I am targeting early-career <strong style={{ color: 'var(--accent-soft)' }}>Cloud Engineer</strong>,{' '}
               <strong style={{ color: 'var(--accent-soft)' }}>DevOps Engineer</strong>, and{' '}
               <strong style={{ color: 'var(--accent-soft)' }}>Platform / Infrastructure</strong> roles across India
-              (Pune-based or Remote), eager to bring relentless curiosity, operational grit, and true infrastructure ownership to an ambitious team.
+              (Pune-based or Remote), eager to bring relentless curiosity, operational discipline, and production ownership to an ambitious team.
             </p>
           </div>
 
