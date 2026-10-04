@@ -30,7 +30,7 @@ export const About: React.FC = () => {
           className="about-grid-responsive"
         >
           {/* Left Column: Human, Technically Grounded Narrative */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.35rem' }}>
             <div
               style={{
                 borderLeft: '3px solid var(--accent-primary)',
@@ -60,10 +60,12 @@ export const About: React.FC = () => {
                 margin: 0
               }}
             >
-              My journey began in high-volume operations at <strong style={{ color: '#FFFFFF' }}>Amazon</strong>,
-              where I spent over two years troubleshooting complex workflows, conducting root-cause analysis (RCA),
-              and building automation scripts to cut manual effort. Earning 2nd Runner-Up in Amazon's Bug-Bust event
-              crystallized my passion: I didn’t just want to support systems; I wanted to build and automate the infrastructure beneath them.
+              My journey into tech wasn’t about chasing buzzwords — it started in the trenches of high-volume operations at{' '}
+              <strong style={{ color: '#FFFFFF' }}>Amazon</strong>. For over two years, I lived in production queues:
+              troubleshooting failure modes under strict SLAs, untangling operational bottlenecks with root-cause analysis (RCA),
+              and writing automation scripts to kill repetitive manual toil. Placing{' '}
+              <strong style={{ color: 'var(--accent-soft)' }}>2nd Runner-Up in Amazon’s Bug-Bust</strong> sparked a defining shift:
+              I realized I didn’t just want to fight fires at the application surface; I wanted to architect and automate the infrastructure so the fires never start.
             </p>
 
             <p
@@ -74,10 +76,26 @@ export const About: React.FC = () => {
                 margin: 0
               }}
             >
-              Currently, as a DevOps & Infrastructure Engineer Intern at{' '}
-              <strong style={{ color: '#FFFFFF' }}>Akiyam Solution</strong>, I manage staging and production environments
-              running 50+ microservices on Kubernetes, supporting AWS cloud infrastructure with Terraform/OpenTofu,
-              Helm, Docker, and Jenkins pipelines.
+              That drive led me to dive deep into Cloud & DevOps. Today, as a DevOps & Infrastructure Engineer Intern at{' '}
+              <strong style={{ color: '#FFFFFF' }}>Akiyam Solution</strong>, I work at the intersection of scale and reliability — managing
+              staging and production environments running <strong style={{ color: '#FFFFFF' }}>50+ microservices on Kubernetes</strong>.
+              From codifying AWS infrastructure with <strong style={{ color: 'var(--accent-soft)' }}>Terraform & OpenTofu</strong> and
+              packaging Helm charts to building resilient <strong style={{ color: 'var(--accent-soft)' }}>Jenkins & GitHub Actions</strong> pipelines,
+              my daily mission is turning complex manual deployments into boringly predictable automation.
+            </p>
+
+            <p
+              style={{
+                fontSize: '0.96rem',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.7,
+                margin: 0
+              }}
+            >
+              To ensure systems fail loudly and recover quickly, I instrument observability using{' '}
+              <strong style={{ color: 'var(--accent-soft)' }}>Prometheus & Grafana</strong>. I also stay intentionally multi-cloud — recently
+              delivering secure GCP infrastructure (BigQuery, Cloud Storage) with automated CI/CD security validation for the{' '}
+              <strong style={{ color: '#FFFFFF' }}>Habot Secure Cloud</strong> project.
             </p>
 
             <p
@@ -91,7 +109,7 @@ export const About: React.FC = () => {
               I am targeting early-career <strong style={{ color: 'var(--accent-soft)' }}>Cloud Engineer</strong>,{' '}
               <strong style={{ color: 'var(--accent-soft)' }}>DevOps Engineer</strong>, and{' '}
               <strong style={{ color: 'var(--accent-soft)' }}>Platform / Infrastructure</strong> roles across India
-              (Pune-based or Remote), where I can take ownership of real infrastructure reliability.
+              (Pune-based or Remote), eager to bring relentless curiosity, operational grit, and true infrastructure ownership to an ambitious team.
             </p>
           </div>
 
@@ -163,7 +181,7 @@ export const About: React.FC = () => {
                 <span>PRIMARY FOCUS</span>
               </div>
               <div style={{ fontSize: '0.88rem', color: 'var(--text-primary)', lineHeight: 1.5 }}>
-                Cloud Infrastructure · Kubernetes · Terraform IaC · CI/CD Automation
+                Cloud Infrastructure · Kubernetes · Terraform IaC · CI/CD Automation · Observability
               </div>
             </div>
 
