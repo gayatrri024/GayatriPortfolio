@@ -1,19 +1,8 @@
 import React from 'react';
-import { MapPin, Target, Sparkles, GraduationCap, Briefcase, Terminal } from 'lucide-react';
+import { MapPin, Target, Sparkles, GraduationCap, Briefcase } from 'lucide-react';
 import { EDUCATION } from '../data/portfolioData';
 
 export const About: React.FC = () => {
-  const toolSnapshot = [
-    'AWS & GCP',
-    'Kubernetes & Helm',
-    'Terraform / OpenTofu',
-    'Docker',
-    'Jenkins & GitHub Actions',
-    'Prometheus & Grafana',
-    'Linux Shell & Python',
-    'AI-Augmented Tooling'
-  ];
-
   return (
     <section id="about" className="presentation-page section-block">
       <div className="page-inner">
@@ -26,7 +15,7 @@ export const About: React.FC = () => {
           </div>
           <h2 className="editorial-title">About Me</h2>
           <p className="editorial-subtitle">
-            Bridging operational troubleshooting rigor with declarative cloud automation.
+            I build the infrastructure behind reliable software.
           </p>
         </div>
 
@@ -41,135 +30,97 @@ export const About: React.FC = () => {
           className="about-grid-responsive"
         >
           {/* Left Column: Human, Technically Grounded Narrative */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
             <div
               style={{
                 borderLeft: '3px solid var(--accent-primary)',
                 paddingLeft: '1.25rem'
               }}
             >
+              <h3
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: 'clamp(1.2rem, 1.6vw, 1.45rem)',
+                  fontWeight: 700,
+                  color: '#FFFFFF',
+                  lineHeight: 1.35,
+                  margin: '0 0 0.5rem 0'
+                }}
+              >
+                I build the infrastructure behind reliable software.
+              </h3>
               <p
                 style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 'clamp(1.05rem, 1.35vw, 1.25rem)',
-                  lineHeight: 1.6,
-                  color: 'var(--text-primary)',
-                  fontWeight: 500,
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.82rem',
+                  color: 'var(--accent-soft)',
+                  letterSpacing: '0.04em',
                   margin: 0
                 }}
               >
-                "I enjoy the engine room of technology — provisioning repeatable environments,
-                automating operational workflows, breaking things in staging, and making sure they don’t break the same way twice."
+                Cloud • Kubernetes • Infrastructure as Code • Automation
               </p>
             </div>
 
             <p
               style={{
-                fontSize: '0.96rem',
+                fontSize: '0.98rem',
                 color: 'var(--text-secondary)',
-                lineHeight: 1.7,
+                lineHeight: 1.75,
                 margin: 0
               }}
             >
-              I’m an <strong style={{ color: '#FFFFFF' }}>MCA graduate specializing in Cloud Computing</strong> with
-              a passion for building reliable, scalable technology solutions. My experience spans cloud platforms,
-              CI/CD pipeline automation, application deployments, and infrastructure operations — rooted in{' '}
-              <strong style={{ color: '#FFFFFF' }}>over two years of high-volume operational troubleshooting at Amazon</strong>.
-              Investigating critical workflows under strict SLAs and earning{' '}
-              <strong style={{ color: 'var(--accent-soft)' }}>2nd Runner-Up in Amazon’s Bug-Bust</strong> event crystallized
-              my direction: I didn’t just want to support systems; I wanted to build and automate the infrastructure beneath them.
+              I started on the operations side, troubleshooting high-volume systems at{' '}
+              <strong style={{ color: '#FFFFFF' }}>Amazon</strong>. That experience taught me to think beyond{' '}
+              <em>“how do we fix this?”</em> and start asking <em>“how do we engineer it so it doesn't happen again?”</em>
             </p>
 
             <p
               style={{
-                fontSize: '0.96rem',
+                fontSize: '0.98rem',
                 color: 'var(--text-secondary)',
-                lineHeight: 1.7,
+                lineHeight: 1.75,
                 margin: 0
               }}
             >
-              Currently, I work as a <strong style={{ color: '#FFFFFF' }}>DevOps & Infrastructure Engineer Intern at Akiyam Solution</strong>,
-              where I contribute to cloud operations, deployment automation, access management, and platform reliability for{' '}
-              <strong style={{ color: '#FFFFFF' }}>50+ microservices running on Kubernetes</strong>. Through production internships
-              and hands-on projects, I’ve engineered solutions ranging from declarative multi-tier AWS infrastructure with{' '}
-              <strong style={{ color: 'var(--accent-soft)' }}>Terraform & OpenTofu</strong> and Helm packaging, to secure GCP data pipelines
-              (<strong style={{ color: '#FFFFFF' }}>Habot Secure Cloud</strong> with BigQuery & GCS), automated Jenkins/GitHub Actions CI/CD,
-              and observability via <strong style={{ color: 'var(--accent-soft)' }}>Prometheus & Grafana</strong>.
+              Today, I work across <strong style={{ color: '#FFFFFF' }}>Kubernetes, AWS, Terraform/OpenTofu, CI/CD and observability</strong> — turning manual infrastructure and deployment workflows into repeatable systems.
             </p>
 
-            <p
-              style={{
-                fontSize: '0.96rem',
-                color: 'var(--text-secondary)',
-                lineHeight: 1.7,
-                margin: 0
-              }}
-            >
-              I’m deeply comfortable in the terminal, fluent with <strong style={{ color: '#FFFFFF' }}>Docker, Kubernetes, and GitHub Actions</strong>,
-              and I actively lean on modern <strong style={{ color: 'var(--accent-soft)' }}>AI tooling</strong> to prototype faster,
-              debug smarter, and automate repetitive tasks without cutting corners on reliability.
-            </p>
-
-            {/* Core Toolchain Snapshot */}
+            {/* Progression Strip */}
             <div
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.02)',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: '0.75rem',
-                padding: '1rem 1.15rem',
+                padding: '0.9rem 1.15rem',
                 display: 'flex',
-                flexDirection: 'column',
-                gap: '0.65rem'
+                alignItems: 'center',
+                gap: '0.55rem',
+                flexWrap: 'wrap',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.8rem'
               }}
             >
-              <div
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.72rem',
-                  letterSpacing: '0.08em',
-                  color: 'var(--accent-soft)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.45rem'
-                }}
-              >
-                <Terminal size={13} />
-                <span>// SNAPSHOT OF WHAT I WORK WITH</span>
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
-                {toolSnapshot.map((tool) => (
-                  <span
-                    key={tool}
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.75rem',
-                      padding: '0.3rem 0.65rem',
-                      borderRadius: '0.375rem',
-                      backgroundColor: 'rgba(56, 189, 248, 0.08)',
-                      border: '1px solid rgba(56, 189, 248, 0.2)',
-                      color: 'var(--text-primary)',
-                      display: 'inline-flex',
-                      alignItems: 'center'
-                    }}
-                  >
-                    {tool}
-                  </span>
-                ))}
-              </div>
+              <span style={{ color: '#FFFFFF', fontWeight: 600 }}>2+ years operations</span>
+              <span style={{ color: 'var(--accent-soft)' }}>→</span>
+              <span style={{ color: '#FFFFFF', fontWeight: 600 }}>50+ microservices</span>
+              <span style={{ color: 'var(--accent-soft)' }}>→</span>
+              <span style={{ color: '#FFFFFF', fontWeight: 600 }}>Infrastructure as Code</span>
+              <span style={{ color: 'var(--accent-soft)' }}>→</span>
+              <span style={{ color: '#FFFFFF', fontWeight: 600 }}>CI/CD</span>
+              <span style={{ color: 'var(--accent-soft)' }}>→</span>
+              <span style={{ color: '#FFFFFF', fontWeight: 600 }}>Observability</span>
             </div>
 
             <p
               style={{
-                fontSize: '0.96rem',
+                fontSize: '0.98rem',
                 color: 'var(--text-secondary)',
-                lineHeight: 1.7,
+                lineHeight: 1.75,
                 margin: 0
               }}
             >
-              I am targeting early-career <strong style={{ color: 'var(--accent-soft)' }}>Cloud Engineer</strong>,{' '}
-              <strong style={{ color: 'var(--accent-soft)' }}>DevOps Engineer</strong>, and{' '}
-              <strong style={{ color: 'var(--accent-soft)' }}>Platform / Infrastructure</strong> roles across India
-              (Pune-based or Remote), eager to bring relentless curiosity, operational discipline, and production ownership to an ambitious team.
+              I'm building toward becoming an <strong style={{ color: 'var(--accent-soft)' }}>Infrastructure as Code Engineer</strong>, with a focus on cloud platforms, Kubernetes and platform reliability.
             </p>
           </div>
 
