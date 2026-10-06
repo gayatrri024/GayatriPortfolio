@@ -1,284 +1,143 @@
 import React, { useState, useEffect } from 'react';
-import { FileText, Menu, X, ArrowUpRight } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
-
-const NAV_ITEMS = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Credentials', href: '#recognition' },
-  { label: 'Contact', href: '#contact' }
-];
 
 export const Navigation: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
-  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('about');
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
+  // Sync theme on mount
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'recognition', 'contact'];
-      const scrollPos = window.scrollY + 180;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sections[i]);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const saved = localStorage.getItem('theme') as 'dark' | 'light' | null;
+    const initial = saved || (document.documentElement.getAttribute('data-theme') as 'dark' | 'light') || 'dark';
+    setTheme(initial);
+    document.documentElement.setAttribute('data-theme', initial);
   }, []);
 
-  return (
-    <>
-      <header
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 'var(--nav-height)',
-          zIndex: 100,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 2rem',
-          backgroundColor: scrolled ? 'rgba(7, 11, 20, 0.92)' : 'rgba(7, 11, 20, 0.75)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderBottom: '1px solid var(--border-subtle)',
-          transition: 'background-color 0.25s ease, border-color 0.25s ease'
-        }}
-      >
-        {/* Brand Terminal Style (clean & unpretentious) */}
-        <a
-          href="#hero"
-          style={{
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.65rem',
-            color: '#FFFFFF'
-          }}
-          aria-label="Home"
-        >
-          <div
-            style={{
-              width: '28px',
-              height: '28px',
-              borderRadius: '50%',
-              backgroundColor: 'rgba(37, 99, 235, 0.2)',
-              border: '1.5px solid var(--border-accent)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.72rem',
-              fontWeight: 800,
-              color: 'var(--accent-soft)'
-            }}
-          >
-            GS
-          </div>
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  };
 
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.45rem' }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontWeight: 800,
-                fontSize: '0.96rem',
-                letterSpacing: '-0.01em',
-                color: '#FFFFFF'
-              }}
-            >
-              GAYATRI SHINDE
-            </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.66rem',
-                fontWeight: 600,
-                color: 'var(--accent-soft)',
-                letterSpacing: '0.04em'
-              }}
-              className="desktop-only"
-            >
-              [DEVOPS]
-            </span>
-          </div>
+  // Nav scroll state & active section observer
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    const sectionIds = ['hero', 'about', 'skills', 'projects', 'experience', 'education', 'contact'];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-40% 0px -50% 0px' }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      observer.disconnect();
+    };
+  }, []);
+
+  // Handle ESC key for mobile drawer
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
+
+  const navLinks = [
+    { label: 'About', href: '#about', id: 'about' },
+    { label: 'Skills', href: '#skills', id: 'skills' },
+    { label: 'Projects', href: '#projects', id: 'projects' },
+    { label: 'Experience', href: '#experience', id: 'experience' },
+    { label: 'Education', href: '#education', id: 'education' },
+    { label: 'Contact', href: '#contact', id: 'contact' }
+  ];
+
+  return (
+    <header className={`nav ${isScrolled ? 'is-scrolled' : ''}`} id="nav">
+      <div className="nav__inner">
+        <a href="#hero" className="nav__brand" aria-label="Gayatri Shinde Home">
+          <span className="nav__prompt">~/</span>gayatri<span className="nav__cursor">_</span>
         </a>
 
-        {/* Center Desktop Navigation Links */}
         <nav
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.25rem',
-            padding: '0.25rem 0.4rem',
-            backgroundColor: 'rgba(13, 21, 39, 0.75)',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: '9999px',
-            backdropFilter: 'blur(10px)'
-          }}
-          className="desktop-nav"
-          aria-label="Main Navigation"
+          className={`nav__links ${mobileMenuOpen ? 'is-open' : ''}`}
+          id="navLinks"
+          aria-label="Primary"
         >
-          {NAV_ITEMS.map((item) => {
-            const isCurrent = activeSection === item.href.replace('#', '');
-
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                style={{
-                  color: isCurrent ? '#FFFFFF' : 'var(--text-secondary)',
-                  background: isCurrent ? 'var(--accent-primary)' : 'transparent',
-                  padding: '0.35rem 0.85rem',
-                  borderRadius: '9999px',
-                  fontSize: '0.76rem',
-                  fontFamily: 'var(--font-mono)',
-                  fontWeight: isCurrent ? 700 : 500,
-                  textDecoration: 'none',
-                  transition: 'all 0.2s ease',
-                  boxShadow: isCurrent ? '0 2px 10px var(--accent-glow)' : 'none'
-                }}
-                aria-current={isCurrent ? 'page' : undefined}
-              >
-                {item.label}
-              </a>
-            );
-          })}
-        </nav>
-
-        {/* Right CTA: Download Resume */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-          <a
-            href={PERSONAL_INFO.resumeUrl}
-            download={PERSONAL_INFO.resumeFilename}
-            className="btn btn-secondary"
-            style={{
-              padding: '0.4rem 1rem',
-              fontSize: '0.78rem',
-              fontFamily: 'var(--font-mono)',
-              letterSpacing: '0.04em',
-              borderRadius: '9999px',
-              textDecoration: 'none'
-            }}
-            aria-label="Download Resume (PDF)"
-          >
-            <FileText size={13} />
-            <span>RESUME</span>
-          </a>
-
-          {/* Mobile Hamburger Toggle */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="mobile-menu-btn"
-            style={{
-              background: 'transparent',
-              border: '1px solid var(--border-subtle)',
-              color: 'var(--text-primary)',
-              padding: '0.4rem',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              display: 'none',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-            aria-label="Toggle navigation menu"
-          >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile Slide-down Menu */}
-      {mobileMenuOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 'var(--nav-height)',
-            left: 0,
-            right: 0,
-            backgroundColor: 'rgba(7, 11, 20, 0.98)',
-            borderBottom: '1px solid var(--border-subtle)',
-            backdropFilter: 'blur(20px)',
-            zIndex: 99,
-            padding: '1.25rem 1.75rem',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.5rem'
-          }}
-        >
-          {NAV_ITEMS.map((item) => (
+          {navLinks.map((item) => (
             <a
               key={item.label}
               href={item.href}
+              className={`nav__link ${activeSection === item.id ? 'is-active' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
-              style={{
-                color: 'var(--text-primary)',
-                padding: '0.65rem 0.95rem',
-                fontSize: '0.88rem',
-                fontFamily: 'var(--font-mono)',
-                textDecoration: 'none',
-                borderRadius: '8px',
-                background: 'rgba(255, 255, 255, 0.02)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
             >
-              <span>{item.label}</span>
-              <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
+              {item.label}
             </a>
           ))}
-
           <a
             href={PERSONAL_INFO.resumeUrl}
+            className="btn btn--ghost nav__resume"
             download={PERSONAL_INFO.resumeFilename}
             onClick={() => setMobileMenuOpen(false)}
-            style={{
-              background: 'var(--accent-primary)',
-              color: '#FFFFFF',
-              borderRadius: '8px',
-              padding: '0.75rem 1rem',
-              fontSize: '0.88rem',
-              fontFamily: 'var(--font-mono)',
-              fontWeight: 700,
-              textDecoration: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.55rem',
-              marginTop: '0.5rem'
-            }}
           >
-            <FileText size={16} />
-            <span>DOWNLOAD RESUME (PDF)</span>
+            Resume
           </a>
-        </div>
-      )}
+        </nav>
 
-      <style>{`
-        @media (max-width: 860px) {
-          .desktop-nav {
-            display: none !important;
-          }
-          .mobile-menu-btn {
-            display: inline-flex !important;
-          }
-          .desktop-only {
-            display: none !important;
-          }
-        }
-      `}</style>
-    </>
+        <div className="nav__actions">
+          {/* Theme Toggle Button */}
+          <button
+            className="theme-toggle"
+            id="themeToggle"
+            onClick={toggleTheme}
+            aria-label="Toggle color theme"
+            title="Toggle color theme"
+          >
+            <svg className="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4" />
+            </svg>
+            <svg className="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+            </svg>
+          </button>
+
+          {/* Mobile Hamburger Toggle */}
+          <button
+            className={`hamburger ${mobileMenuOpen ? 'is-open' : ''}`}
+            id="hamburger"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="navLinks"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </header>
   );
 };

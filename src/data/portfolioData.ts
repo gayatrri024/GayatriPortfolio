@@ -2,111 +2,191 @@ export const PERSONAL_INFO = {
   name: 'Gayatri Ashok Shinde',
   firstName: 'Gayatri',
   lastName: 'Shinde',
-  headline: 'DEVOPS • CLOUD • INFRASTRUCTURE AS CODE',
-  title: 'DevOps & Infrastructure as Code Engineer',
-  tagline: 'Building reliable infrastructure, automated delivery pipelines, and cloud-native systems.',
+  headline: 'DEVOPS • CLOUD INFRASTRUCTURE • PLATFORM RELIABILITY',
+  title: 'DevOps / Cloud Infrastructure Engineer',
+  tagline: 'Cloud infrastructure · Kubernetes · Automation · Platform Reliability',
   location: 'Pune, India',
   email: 'gayatrishinde024@gmail.com',
   phone: '+91 8956981923',
-  linkedinUrl: 'https://www.linkedin.com/in/gayatri-shinde-078a781b8/',
+  linkedinUrl: 'https://www.linkedin.com/in/gayatri-shinde17/',
   githubUrl: 'https://github.com/gayatrri024',
-  portfolioUrl: 'https://thegayatriashokshinde.vercel.app/',
-  resumeUrl: '/resume.pdf',
+  portfolioUrl: 'https://gayatrishinde-portfolio.vercel.app/',
+  resumeUrl: '/resume/Gayatri_Shinde_Resume.pdf',
   resumeFilename: 'Gayatri_Shinde_Resume.pdf',
   googleDriveUrl: 'https://drive.google.com/file/d/1pGIodybq5VlCU8zocHPfTT1A-bQ6F608/view',
   summary:
-    'DevOps & Infrastructure Engineer who genuinely enjoys the behind-the-scenes part of technology — building environments, automating repetitive work, breaking things, figuring out why they broke, and making sure they don’t break the same way twice.'
+    'Cloud and infrastructure-focused engineer with 2+ years of operations experience at Amazon and hands-on DevOps experience across Kubernetes, IaC, CI/CD and observability.'
+};
+
+export const RECRUITER_SNAPSHOT = {
+  title: 'RECRUITER SNAPSHOT',
+  targetRoles: 'DevOps Engineer · Cloud Engineer · Cloud Administrator · Platform Engineer',
+  experience: '2+ years Amazon operations/cloud support + hands-on Kubernetes/cloud infrastructure experience',
+  coreStack: 'AWS · Kubernetes · Terraform/OpenTofu · Docker · Jenkins · GitHub Actions · Helm',
+  location: 'Pune, India · Open to Hybrid / Remote'
 };
 
 export const PAGE_NAMES = [
-  { num: '01', title: 'HOME' },
-  { num: '02', title: 'ABOUT' },
-  { num: '03', title: 'EXPERIENCE' },
-  { num: '04', title: 'PROJECTS' },
-  { num: '05', title: 'SKILLS' },
-  { num: '06', title: 'RECOGNITION' },
-  { num: '07', title: 'CONTACT' }
+  { num: '01', title: 'HOME', href: '#hero' },
+  { num: '02', title: 'ABOUT', href: '#about' },
+  { num: '03', title: 'EXPERIENCE', href: '#experience' },
+  { num: '04', title: 'PROJECTS', href: '#projects' },
+  { num: '05', title: 'SKILLS', href: '#skills' },
+  { num: '06', title: 'CREDENTIALS', href: '#recognition' },
+  { num: '07', title: 'CONTACT', href: '#contact' }
 ];
 
-export interface ProjectItem {
+export interface EngineeringDecision {
+  topic: string;
+  reason: string;
+}
+
+export interface DetailedProject {
   id: string;
   number: string;
   name: string;
   subtitle: string;
-  description: string;
+  badge: string;
+  githubUrl: string;
+  hasDedicatedRepo: boolean;
   workflow: string[];
   technologies: string[];
-  highlights: string[];
-  githubUrl: string;
+  problem: string;
+  architecture: string;
+  implementation: string[];
+  engineeringDecisions?: EngineeringDecision[];
+  observability?: string;
+  iac?: string;
+  databaseOperations?: string;
+  costConsiderations?: string;
+  validation?: string;
+  whatILearned: string;
 }
 
-export const PROJECTS: ProjectItem[] = [
+export const PROJECTS: DetailedProject[] = [
   {
     id: 'greendot',
     number: '01',
     name: 'GreenDot',
     subtitle: 'Ultimate End-to-End DevOps Project',
-    description:
-      'Designed and implemented an end-to-end DevOps workflow for deploying containerized microservices from source control to a Kubernetes environment.',
+    badge: 'KUBERNETES & CI/CD PIPELINE',
+    githubUrl: 'https://github.com/gayatrri024/ultimate-devops-project',
+    hasDedicatedRepo: true,
     workflow: [
-      'SOURCE',
-      'CI / TEST',
-      'BUILD',
-      'CONTAINER',
-      'REGISTRY',
-      'KUBERNETES',
-      'MONITORING'
-    ],
-    technologies: [
+      'Developer',
       'GitHub',
       'GitHub Actions',
+      'Testing / Build',
       'Docker',
       'Docker Hub',
-      'Terraform',
-      'Kubernetes',
+      'Kubernetes / EKS',
       'Helm',
+      'Application',
       'Prometheus',
       'Grafana'
     ],
-    highlights: [
-      'Automated application testing, Docker image builds, and image publishing using GitHub Actions.',
-      'Provisioned and managed cloud infrastructure using Terraform following Infrastructure as Code practices for repeatable deployments.',
-      'Deployed containerized services to Kubernetes with health checks, service configuration, and rolling-update strategies.',
-      'Implemented Prometheus and Grafana monitoring to track application and infrastructure health.',
-      'Packaged and modified a Helm chart to parameterize environment-specific values, eliminating hand-edited manifests per environment.'
+    technologies: [
+      'Kubernetes',
+      'Docker',
+      'GitHub Actions',
+      'Helm',
+      'Terraform',
+      'Prometheus',
+      'Grafana',
+      'Linux'
     ],
-    githubUrl: 'https://github.com/gayatrri024/ultimate-devops-project'
+    problem:
+      'Manual deployments across distributed microservices cause configuration drift, unrepeatable environments, and lack of runtime visibility. The goal was to build a standardized, automated end-to-end delivery pipeline that moves code from commit to a monitored Kubernetes cluster without manual intervention.',
+    architecture:
+      'Structured workflow connecting GitHub version control to GitHub Actions CI runners, generating immutable OCI Docker images pushed to Docker Hub, which are subsequently deployed as parameterized Helm releases onto Kubernetes with live Prometheus and Grafana telemetry.',
+    implementation: [
+      'Automated application testing, multi-stage Docker builds, and image publishing to Docker Hub on every git push via GitHub Actions.',
+      'Packaged application manifests into Helm charts with environment parameterization (values.yaml), eliminating hardcoded YAML drifts across environments.',
+      'Deployed containerized services to Kubernetes with rolling update strategies, readiness/liveness health probes, and ClusterIP service exposure.',
+      'Configured Prometheus telemetry scrapers and Grafana dashboards to monitor container memory pressure, CPU usage, and pod restart counts.'
+    ],
+    engineeringDecisions: [
+      {
+        topic: 'Why Kubernetes?',
+        reason:
+          'Provides automated pod scheduling, self-healing, rolling zero-downtime updates, and declarative desired-state management for microservices.'
+      },
+      {
+        topic: 'Why Helm?',
+        reason:
+          'Treats complex application manifests as versioned packages, allowing environment-specific values parameterization without hardcoding separate YAML files.'
+      },
+      {
+        topic: 'Why GitHub Actions?',
+        reason:
+          'Native repository integration, runner flexibility, and reproducible build-and-test steps with automated secrets management.'
+      },
+      {
+        topic: 'Why Docker?',
+        reason:
+          'Guarantees reproducible container runtimes across local testing, CI build runners, and the remote Kubernetes cluster.'
+      },
+      {
+        topic: 'Health Checks',
+        reason:
+          'Configured Kubernetes readiness and liveness HTTP probes to prevent routing traffic to unready pods and restart crashed instances automatically.'
+      },
+      {
+        topic: 'Monitoring',
+        reason:
+          'Exported application metrics to Prometheus scrapers and visualized latency, error rates, and CPU/memory pressure in Grafana dashboards.'
+      }
+    ],
+    observability:
+      'Configured Prometheus telemetry scraping for cluster resource metrics, container memory/CPU utilization, and active pod restart counts with Grafana dashboards for cluster observability.',
+    whatILearned:
+      'Gained hands-on proficiency in container lifecycle management, Helm chart packaging, CI/CD pipeline orchestration, and cluster debugging under Kubernetes scheduling constraints.'
   },
   {
     id: 'pulserds',
     number: '02',
     name: 'PulseRDS',
     subtitle: 'Cost-Aware Database Operations',
-    description:
-      'A hands-on AWS infrastructure project focused on Infrastructure as Code, database operations, automation and cost awareness.',
+    badge: 'AWS IAC & COST TELEMETRY',
+    githubUrl: 'https://github.com/gayatrri024',
+    hasDedicatedRepo: false,
     workflow: [
-      'TERRAFORM IAC',
-      'AWS RDS',
-      'PARAM GROUP UPGRADE',
-      'CONNECTIVITY AUDIT',
-      'COST EXPLORER & BUDGETS',
-      'PYTHON AUTOMATION'
+      'Terraform IaC',
+      'AWS RDS PostgreSQL',
+      'Parameter Group',
+      'Connectivity & Query Audit',
+      'Cost Explorer & Budgets',
+      'Python Automation'
     ],
     technologies: [
       'AWS RDS',
       'Terraform',
       'AWS Cost Explorer',
       'AWS Budgets',
-      'Python',
-      'Bash',
-      'PostgreSQL'
+      'Python (boto3)',
+      'PostgreSQL',
+      'Bash Shell'
     ],
-    highlights: [
-      'Provisioned RDS via Terraform (Infrastructure as Code) and performed a live parameter group change plus a minor version upgrade, validating connectivity and query behavior before and after.',
-      'Configured AWS Cost Explorer on a multi-region deployment and AWS Budgets against the account and used several days of real spend data to identify an oversized, underutilized instance as a rightsizing opportunity, connecting infrastructure decisions to their cost impact.',
-      'Wrote a Python/Bash script to automate scheduled RDS snapshots and endpoint health checks, replacing a manual operational task.'
+    problem:
+      'Cloud database instances frequently suffer from unmonitored spending drifts, manual configuration mistakes, and unvalidated parameter updates. The goal was to manage AWS RDS entirely through Infrastructure as Code while pairing operational upgrades with active cost analysis and automation.',
+    architecture:
+      'Modular Terraform configuration managing VPC subnets, security groups, and an AWS RDS PostgreSQL instance, integrated with AWS Cost Explorer and Budgets alerts, plus Python scripts for automated snapshots.',
+    iac:
+      'Declaratively provisioned an AWS RDS PostgreSQL instance with custom security groups, subnets, and parameter groups using modular Terraform.',
+    databaseOperations:
+      'Performed a parameter-group configuration change and minor-version upgrade, validating connectivity and query behavior before and after the change.',
+    costConsiderations:
+      'Configured AWS Cost Explorer spend telemetry and account-level AWS Budgets alerts to track resource burn rates and identify rightsizing opportunities on underutilized instances.',
+    validation:
+      'Built a lightweight Python & Bash automation script to schedule automated RDS snapshots and perform endpoint health checks, replacing manual operations.',
+    implementation: [
+      'Declaratively provisioned an AWS RDS PostgreSQL instance with custom security groups, subnets, and parameter groups using modular Terraform.',
+      'Performed a parameter-group configuration change and minor-version upgrade, validating connectivity and query behavior before and after the change.',
+      'Configured AWS Cost Explorer spend telemetry and AWS Budgets alert thresholds; analyzed real account usage to identify an oversized instance for rightsizing.',
+      'Built a lightweight Python & Bash automation script to schedule automated RDS snapshots and perform endpoint health checks, replacing manual operations.'
     ],
-    githubUrl: 'https://github.com/gayatrri024'
+    whatILearned:
+      'Learned the operational nuances of database maintenance windows, parameter group application strategies, and the critical importance of linking cloud infrastructure choices to ongoing AWS bill impact.'
   }
 ];
 
@@ -123,86 +203,80 @@ export interface ExperienceTimelineItem {
 export const EXPERIENCES: ExperienceTimelineItem[] = [
   {
     number: '01',
-    company: 'Akiyam Solution Private Limited',
+    company: 'Akiyam Solution Pvt Ltd',
     role: 'DevOps & Infrastructure Engineer Intern',
-    period: 'March 2026 – Present',
+    period: 'April 2026 – Present',
     location: 'Pune',
-    badge: 'CURRENT ROLE',
+    badge: 'CURRENT INTERNSHIP',
     bullets: [
-      'Managed infrastructure and deployment for GSA-SIP (GeoSim Intelligence Platform), a Kubernetes-based platform running 50+ microservices across staging and production environments.',
-      'Supported AWS cloud infrastructure using OpenTofu/Terraform, Docker, Helm, and Kustomize.',
-      'Maintained Jenkins CI/CD pipelines for code validation, security checks, container builds, and deployment workflows.',
-      'Monitored application and infrastructure health using Prometheus and Grafana.',
-      'Troubleshot infrastructure, networking, CI/CD, and Kubernetes issues using root-cause analysis.',
-      'Automated recurring infrastructure and operational tasks using scripting and DevOps tooling.'
+      'Supported Kubernetes-based staging and production environments for 50+ microservices using OpenTofu/Terraform, Helm and Kustomize.',
+      'Worked with CI/CD workflows involving Jenkins and GitHub Actions across microservice-based development and deployment workflows.',
+      'Worked with GitOps and observability tooling including Argo CD, Prometheus, Grafana, and Grafana OnCall where applicable.',
+      'Contributed to infrastructure automation, deployment workflows and operational troubleshooting across cloud-native environments.'
     ]
   },
   {
     number: '02',
-    company: 'Amazon Development Center',
-    role: 'Operations Support Associate — Consumer Abuse Prevention',
-    period: 'June 2024 – March 2026',
+    company: 'Amazon',
+    role: 'CS Associate – Cloud Support Associate',
+    period: 'September 2023 – March 2026',
     location: 'Pune',
-    badge: '2+ YEARS AT AMAZON',
+    badge: '2+ YEARS OPERATIONS & CLOUD SUPPORT',
     bullets: [
-      'Served as SME, supporting new hires with process training and knowledge sharing.',
-      'Managed high-volume operational queues while maintaining SLA compliance and structured escalation workflows.',
-      'Investigated recurring processing issues using RCA and partnered with cross-functional teams on process improvements.',
-      'Used internal monitoring and operational tools to identify processing bottlenecks and operational risks.'
-    ]
-  },
-  {
-    number: '03',
-    company: 'Amazon Development Center',
-    role: 'Digital Devices & Alexa Support Associate',
-    period: 'September 2023 – February 2024',
-    location: 'Pune',
-    bullets: [
-      'Designed and automated weekly reports using Excel Macros and Pivot Tables, reducing manual tracking effort by 60%.',
-      'Troubleshot device and software configuration issues, identifying root causes and managing escalations.'
+      'Automated weekly operational reporting using Excel Macros and Pivot Tables, reducing manual tracking effort by 60%.',
+      'Investigated recurring operational issues using structured troubleshooting, root-cause analysis and escalation workflows.',
+      'Supported complex customer/operational workflows across multiple marketplaces and issue categories while maintaining 98% quality.',
+      'Recognized as Exceptional Trainer & CAP SME / New Hire Trainer; awarded Bug-Bust 2nd Runner-Up.'
     ]
   }
 ];
 
-export interface SkillCategoryEditorial {
-  num: string;
+export interface CoreSkillCategory {
   category: string;
-  skillsText: string;
+  badge: string;
+  skills: string[];
 }
 
-export const SKILL_CATEGORIES: SkillCategoryEditorial[] = [
+export const HANDS_ON_SKILLS: CoreSkillCategory[] = [
   {
-    num: '01',
-    category: 'INFRASTRUCTURE AS CODE',
-    skillsText: 'Terraform · OpenTofu · Jenkins · GitHub Actions · GitOps / Argo CD'
+    category: 'AWS',
+    badge: 'Cloud Platform',
+    skills: ['EC2', 'S3', 'VPC', 'IAM', 'RDS', 'EKS', 'CloudWatch']
   },
   {
-    num: '02',
-    category: 'CLOUD',
-    skillsText:
-      'AWS (EC2 · EKS · S3 · VPC · IAM · RDS · CloudWatch · Security Groups · Load Balancers · Cost Explorer / Budgets) · Azure (Basics) · Google Cloud Platform (GCP)'
+    category: 'Infrastructure as Code',
+    badge: 'IaC & Provisioning',
+    skills: ['Terraform', 'OpenTofu']
   },
   {
-    num: '03',
-    category: 'CONTAINERS & ORCHESTRATION',
-    skillsText: 'Docker · Kubernetes (EKS) · Kustomize · Helm'
+    category: 'Containers & Orchestration',
+    badge: 'Cloud Native',
+    skills: ['Docker', 'Kubernetes', 'Helm']
   },
   {
-    num: '04',
-    category: 'NETWORKING',
-    skillsText:
-      'VPCs · Routing · DNS · Transit Gateways · Load Balancers · AWS Networking Fundamentals'
+    category: 'CI/CD & GitOps',
+    badge: 'Delivery Automation',
+    skills: ['Jenkins', 'GitHub Actions', 'Argo CD']
   },
   {
-    num: '05',
-    category: 'MONITORING & OBSERVABILITY',
-    skillsText: 'Prometheus · Grafana · CloudWatch'
+    category: 'Observability',
+    badge: 'Telemetry & Reliability',
+    skills: ['Prometheus', 'Grafana', 'Grafana OnCall']
   },
   {
-    num: '06',
-    category: 'PROGRAMMING & SCRIPTING',
-    skillsText: 'Python · Linux Shell Scripting · PowerShell · Bash · Java'
+    category: 'Scripting',
+    badge: 'Automation',
+    skills: ['Python', 'Bash', 'PowerShell']
   }
+];
+
+export const FOUNDATIONAL_SKILLS = [
+  'Linux (Ubuntu / Amazon Linux)',
+  'Networking (VPC, Subnets, Routing, DNS)',
+  'PostgreSQL / SQL Basics',
+  'Git & Version Control',
+  'Kustomize (Overlays & Patches)',
+  'AWS Cost Explorer & Budgets'
 ];
 
 export const EDUCATION = [
@@ -226,44 +300,45 @@ export interface AwardItem {
   award: string;
   org: string;
   detail: string;
-  isWinner?: boolean;
+  isStrongest?: boolean;
 }
 
 export const AWARDS: AwardItem[] = [
   {
     num: '01',
-    title: 'SARHAD COLLEGE PROJECT COMPETITION',
+    title: 'TECHNOFEST 2025 — 1ST PLACE',
     award: '1st Place — Winner',
-    org: 'TechnoFest 2025 (Project Presentation)',
-    detail: '1st place at Sarhad College for architecture and technical operations of the TravVO application.'
+    org: 'Sarhad College Project Competition',
+    detail: 'Awarded 1st place for architecture, delivery pipeline, and technical operations of the TravVO application.',
+    isStrongest: true
   },
   {
     num: '02',
     title: 'AMAZON BUG-BUST',
     award: '2nd Runner-Up',
     org: 'Amazon Development Center',
-    detail: "17 system bugs identified and resolved during Amazon's annual Bug-Bust event."
+    detail: "17 system bugs identified and resolved during Amazon's annual Bug-Bust technical troubleshooting event."
   },
   {
     num: '03',
-    title: 'AMAZON EXCEPTIONAL TRAINER',
-    award: 'Q3 Award',
+    title: 'EXCEPTIONAL TRAINER',
+    award: 'Q3 Recognition',
     org: 'Amazon Development Center',
-    detail: 'Recognized for outstanding training delivery, mentoring, and operational impact.'
+    detail: 'Recognized for high-impact technical mentoring, workflow training delivery, and operational excellence.'
   },
   {
     num: '04',
-    title: 'QUALITY EXCELLENCE',
+    title: '98% QUALITY ACHIEVEMENT',
     award: '98% Quality Score',
-    org: 'Amazon Benchmark',
-    detail: 'Maintained a sustained 98% quality evaluation score across operational queues.'
+    org: 'Amazon Operations Benchmark',
+    detail: 'Maintained a sustained 98% quality audit evaluation score across high-volume operational workflows.'
   },
   {
     num: '05',
     title: 'VOIS GIRLSINSTEM PROGRAM',
     award: 'Selected Participant',
     org: 'Vodafone Intelligent Solutions',
-    detail: 'Completed Web Development track covering responsive structure and CSS layout.'
+    detail: 'Selected for intensive technical track covering web development, responsive architecture, and system design.'
   }
 ];
 
@@ -271,20 +346,16 @@ export const CERTIFICATIONS = [
   {
     name: 'AWS Certified Cloud Practitioner',
     code: 'CLF-C02',
-    status: 'ONGOING',
+    status: 'IN PROGRESS',
     detail: 'Active preparation and practice tests ongoing (not claimed as completed).'
   },
   {
     name: 'IBM Data Science Professional Specialization',
-    code: 'Completed',
+    code: 'Specialization Credential',
     status: 'COMPLETED',
     detail: 'Professional specialization credentials via IBM / Coursera.'
-  },
-  {
-    name: 'Amazon Skill Builder',
-    code: 'Credential',
-    status: 'PLATFORM CREDENTIAL',
   }
 ];
 
 export const ACHIEVEMENTS = AWARDS;
+

@@ -1,0 +1,5 @@
+# robots.txt for https://gayatrishinde-portfolio.vercel.app/
+User-agent: *
+Allow: /
+
+Sitemap: https://gayatrishinde-portfolio.vercel.app/sitemap.xml

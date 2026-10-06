@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, ShieldCheck, GraduationCap, CheckCircle2 } from 'lucide-react';
+import { Award, ShieldCheck, GraduationCap, Trophy, CheckCircle2, Clock } from 'lucide-react';
 import { AWARDS, CERTIFICATIONS, EDUCATION } from '../data/portfolioData';
 
 export const Recognition: React.FC = () => {
@@ -9,29 +9,29 @@ export const Recognition: React.FC = () => {
         {/* Section Header */}
         <div className="editorial-header">
           <div className="page-number-tag">
-            <span>// 05 · CREDENTIALS & ACHIEVEMENTS</span>
+            <span>// 06 · RECOGNITION & CREDENTIALS</span>
             <span style={{ color: 'var(--border-medium)' }}>•</span>
             <span>AWARDS & EDUCATION</span>
           </div>
-          <h2 className="editorial-title">Honors, Education & Certifications</h2>
+          <h2 className="editorial-title">Honors, Certifications & Education</h2>
           <p className="editorial-subtitle">
-            Competitive project hackathons, internal operational recognitions, and continuous cloud certifications.
+            Hackathon achievements, enterprise operational recognitions at Amazon, ongoing cloud certifications, and academic background.
           </p>
         </div>
 
-        {/* 2-Column Clean Layout */}
+        {/* 2-Column Responsive Layout */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 1fr)',
-            gap: '2rem',
+            gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 0.95fr)',
+            gap: '2.5rem',
             alignItems: 'start',
             width: '100%'
           }}
           className="recognition-grid-responsive"
         >
-          {/* Left: Honors & Competitive Recognition */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {/* Left Column: Honors & Competitive Recognition */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             <div
               style={{
                 fontFamily: 'var(--font-mono)',
@@ -47,51 +47,74 @@ export const Recognition: React.FC = () => {
               <span>HONORS & COMPETITIVE AWARDS</span>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              {AWARDS.map((item) => (
-                <div
-                  key={item.num}
-                  style={{
-                    backgroundColor: 'rgba(13, 21, 39, 0.75)',
-                    border: '1px solid var(--border-subtle)',
-                    borderRadius: '0.75rem',
-                    padding: '1rem 1.25rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '0.35rem',
-                    transition: 'border-color 0.2s ease',
-                    backdropFilter: 'blur(10px)'
-                  }}
-                  className="honor-card-hover"
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '0.4rem' }}>
-                    <span style={{ fontFamily: 'var(--font-display)', fontSize: '0.92rem', fontWeight: 700, color: '#FFFFFF' }}>
-                      {item.title}
-                    </span>
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '0.72rem',
-                        fontWeight: 600,
-                        color: 'var(--accent-soft)'
-                      }}
-                    >
-                      {item.award}
-                    </span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {AWARDS.map((item) => {
+                const isChampion = item.isStrongest;
+
+                return (
+                  <div
+                    key={item.num}
+                    style={{
+                      backgroundColor: isChampion ? 'rgba(37, 99, 235, 0.12)' : 'rgba(13, 21, 39, 0.75)',
+                      border: isChampion ? '1.5px solid rgba(56, 189, 248, 0.5)' : '1px solid var(--border-subtle)',
+                      borderRadius: '0.85rem',
+                      padding: isChampion ? '1.35rem 1.5rem' : '1.1rem 1.35rem',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '0.45rem',
+                      transition: 'border-color 0.2s ease',
+                      backdropFilter: 'blur(10px)',
+                      boxShadow: isChampion ? '0 10px 30px -10px rgba(37, 99, 235, 0.3)' : 'none'
+                    }}
+                    className="honor-card-hover"
+                  >
+                    {/* Top Header */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        {isChampion && <Trophy size={16} style={{ color: '#FBBF24' }} />}
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-display)',
+                            fontSize: isChampion ? '1.05rem' : '0.94rem',
+                            fontWeight: 800,
+                            color: '#FFFFFF'
+                          }}
+                        >
+                          {item.title}
+                        </span>
+                      </div>
+
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '0.72rem',
+                          fontWeight: 700,
+                          color: isChampion ? '#38BDF8' : 'var(--accent-soft)',
+                          backgroundColor: isChampion ? 'rgba(56, 189, 248, 0.15)' : 'rgba(255, 255, 255, 0.04)',
+                          border: isChampion ? '1px solid rgba(56, 189, 248, 0.3)' : '1px solid var(--border-subtle)',
+                          padding: '0.15rem 0.55rem',
+                          borderRadius: '9999px'
+                        }}
+                      >
+                        {item.award}
+                      </span>
+                    </div>
+
+                    <div style={{ fontSize: '0.76rem', color: 'var(--accent-soft)', fontFamily: 'var(--font-mono)' }}>
+                      {item.org}
+                    </div>
+
+                    <div style={{ fontSize: '0.86rem', color: isChampion ? '#F1F5F9' : 'var(--text-secondary)', lineHeight: 1.55 }}>
+                      {item.detail}
+                    </div>
                   </div>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                    {item.org}
-                  </div>
-                  <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                    {item.detail}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
-          {/* Right: Education & Certifications */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          {/* Right Column: Certifications & Compact Education */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             {/* Certifications Block */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div
@@ -109,9 +132,9 @@ export const Recognition: React.FC = () => {
                 <span>CERTIFICATIONS & CONTINUOUS LEARNING</span>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                 {CERTIFICATIONS.map((cert) => {
-                  const isOngoing = cert.status === 'ONGOING';
+                  const isInProgress = cert.status === 'IN PROGRESS';
 
                   return (
                     <div
@@ -119,17 +142,17 @@ export const Recognition: React.FC = () => {
                       style={{
                         backgroundColor: 'rgba(13, 21, 39, 0.75)',
                         border: '1px solid var(--border-subtle)',
-                        borderRadius: '0.75rem',
-                        padding: '1rem 1.25rem',
+                        borderRadius: '0.85rem',
+                        padding: '1.1rem 1.35rem',
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: '0.35rem',
+                        gap: '0.4rem',
                         backdropFilter: 'blur(10px)'
                       }}
                     >
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
                         <div>
-                          <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.92rem', fontWeight: 700, color: '#FFFFFF' }}>
+                          <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.94rem', fontWeight: 700, color: '#FFFFFF' }}>
                             {cert.name}
                           </div>
                           <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
@@ -140,25 +163,27 @@ export const Recognition: React.FC = () => {
                         <span
                           style={{
                             fontFamily: 'var(--font-mono)',
-                            fontSize: '0.66rem',
+                            fontSize: '0.68rem',
                             fontWeight: 700,
-                            padding: '0.15rem 0.5rem',
+                            padding: '0.18rem 0.55rem',
                             borderRadius: '4px',
-                            backgroundColor: isOngoing ? 'rgba(56, 189, 248, 0.12)' : 'rgba(16, 185, 129, 0.12)',
-                            color: isOngoing ? 'var(--accent-soft)' : '#34D399',
-                            border: isOngoing ? '1px solid var(--border-accent)' : '1px solid rgba(16, 185, 129, 0.3)',
-                            whiteSpace: 'nowrap'
+                            backgroundColor: isInProgress ? 'rgba(245, 158, 11, 0.12)' : 'rgba(16, 185, 129, 0.12)',
+                            color: isInProgress ? '#FBBF24' : '#34D399',
+                            border: isInProgress ? '1px solid rgba(245, 158, 11, 0.3)' : '1px solid rgba(16, 185, 129, 0.3)',
+                            whiteSpace: 'nowrap',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.35rem'
                           }}
                         >
-                          {cert.status}
+                          {isInProgress && <Clock size={11} />}
+                          <span>{cert.status}</span>
                         </span>
                       </div>
 
-                      {cert.detail && (
-                        <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: '0.2rem 0 0 0' }}>
-                          {cert.detail}
-                        </p>
-                      )}
+                      <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
+                        {cert.detail}
+                      </p>
                     </div>
                   );
                 })}
@@ -180,11 +205,11 @@ export const Recognition: React.FC = () => {
                 }}
               >
                 <CheckCircle2 size={13} style={{ color: 'var(--accent-soft)', flexShrink: 0 }} />
-                <span>Commitment: AWS CCP is active ongoing preparation (not claimed as completed).</span>
+                <span>AWS CCP is actively in progress with mock tests; not claimed as completed.</span>
               </div>
             </div>
 
-            {/* Education Block */}
+            {/* Compact Education Block (Compact footprint: experience dominates) */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
               <div
                 style={{
@@ -198,7 +223,7 @@ export const Recognition: React.FC = () => {
                 }}
               >
                 <GraduationCap size={15} />
-                <span>FORMAL EDUCATION</span>
+                <span>EDUCATION</span>
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
@@ -206,23 +231,26 @@ export const Recognition: React.FC = () => {
                   <div
                     key={idx}
                     style={{
-                      backgroundColor: 'rgba(13, 21, 39, 0.75)',
+                      backgroundColor: 'rgba(13, 21, 39, 0.65)',
                       border: '1px solid var(--border-subtle)',
                       borderRadius: '0.75rem',
-                      padding: '1rem 1.25rem',
+                      padding: '0.85rem 1.15rem',
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '0.25rem'
+                      gap: '0.2rem'
                     }}
                   >
-                    <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#FFFFFF' }}>
-                      {edu.degree}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#FFFFFF' }}>
+                        {edu.degree}
+                      </span>
+                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--accent-soft)', fontWeight: 600 }}>
+                        GPA: {edu.gpa}
+                      </span>
                     </div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                      {edu.institution}
-                    </div>
-                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.74rem', color: 'var(--accent-soft)', marginTop: '0.15rem' }}>
-                      GPA: {edu.gpa} • {edu.period}
+
+                    <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
+                      {edu.institution} · <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>{edu.period}</span>
                     </div>
                   </div>
                 ))}
@@ -240,7 +268,7 @@ export const Recognition: React.FC = () => {
           }
         }
         .honor-card-hover:hover {
-          border-color: var(--border-accent) !important;
+          border-color: rgba(56, 189, 248, 0.45) !important;
         }
       `}</style>
     </section>

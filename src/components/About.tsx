@@ -1,278 +1,94 @@
 import React from 'react';
-import { MapPin, Target, Sparkles, GraduationCap, Briefcase } from 'lucide-react';
-import { EDUCATION } from '../data/portfolioData';
+import { RECRUITER_SNAPSHOT } from '../data/portfolioData';
 
 export const About: React.FC = () => {
+  const coreTech = [
+    'AWS',
+    'Kubernetes',
+    'Terraform',
+    'OpenTofu',
+    'Docker',
+    'Helm',
+    'Jenkins',
+    'GitHub Actions',
+    'Argo CD',
+    'Prometheus',
+    'Grafana',
+    'Linux',
+    'Python',
+    'Bash'
+  ];
+
   return (
-    <section id="about" className="presentation-page section-block">
-      <div className="page-inner">
-        {/* Section Header */}
-        <div className="editorial-header">
-          <div className="page-number-tag">
-            <span>// 01 · PROFILE</span>
-            <span style={{ color: 'var(--border-medium)' }}>•</span>
-            <span>ENGINEERING IDENTITY</span>
-          </div>
-          <h2 className="editorial-title">About Me</h2>
-          <p className="editorial-subtitle">
-            I build the infrastructure behind reliable software.
+    <section className="section about" id="about">
+      <header className="section__head reveal">
+        <h2 className="section__title">About</h2>
+        <span className="section__rule" aria-hidden="true" />
+      </header>
+
+      <div className="about__grid">
+        {/* Left Column: Human, Defensible Narrative */}
+        <div className="about__bio reveal">
+          <p>
+            I’m an engineer specializing in cloud infrastructure, Kubernetes, and automated software delivery.
+            My journey began in high-volume operations at <strong>Amazon</strong>, where troubleshooting customer-impacting
+            workflows taught me how systems break under scale and grounded me in structured root-cause analysis (RCA).
+            During my time there, I automated weekly operational reporting with Excel Macros and Pivot tables,
+            slashing manual tracking effort by <strong>60%</strong> while maintaining a sustained <strong>98% quality benchmark</strong>.
           </p>
+
+          <p>
+            Currently, I work as a <strong>DevOps & Infrastructure Engineer Intern at Akiyam Solution</strong> in Pune.
+            Here, I contribute to cloud operations and deployment workflows for <strong>50+ microservices running on Kubernetes</strong>.
+            My work centers on OpenTofu/Terraform infrastructure modules, Helm package parameterization,
+            automated CI/CD pipelines in Jenkins and GitHub Actions, and cluster observability using Prometheus and Grafana.
+          </p>
+
+          <p>
+            I’m comfortable in the terminal, fluent with container lifecycles, and deliberate about automating away manual toil.
+            <strong>Long-term focus: Infrastructure as Code & Platform Engineering</strong> — engineering resilient cloud foundations
+            and self-service delivery platforms that empower engineering teams.
+          </p>
+
+          {/* Technology Badges */}
+          <ul className="about__tags" aria-label="Core technologies">
+            {coreTech.map((tech) => (
+              <li key={tech}>{tech}</li>
+            ))}
+          </ul>
         </div>
 
-        {/* 2-Column Responsive Layout */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 0.85fr)',
-            gap: '2.5rem',
-            alignItems: 'start'
-          }}
-          className="about-grid-responsive"
-        >
-          {/* Left Column: Human, Technically Grounded Narrative */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
-            <div
-              style={{
-                borderLeft: '3px solid var(--accent-primary)',
-                paddingLeft: '1.25rem'
-              }}
-            >
-              <h3
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: 'clamp(1.2rem, 1.6vw, 1.45rem)',
-                  fontWeight: 700,
-                  color: '#FFFFFF',
-                  lineHeight: 1.35,
-                  margin: '0 0 0.5rem 0'
-                }}
-              >
-                I build the infrastructure behind reliable software.
-              </h3>
-              <p
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.82rem',
-                  color: 'var(--accent-soft)',
-                  letterSpacing: '0.04em',
-                  margin: 0
-                }}
-              >
-                Cloud • Kubernetes • Infrastructure as Code • Automation
-              </p>
-            </div>
-
-            <p
-              style={{
-                fontSize: '0.98rem',
-                color: 'var(--text-secondary)',
-                lineHeight: 1.75,
-                margin: 0
-              }}
-            >
-              I started on the operations side, troubleshooting high-volume systems at{' '}
-              <strong style={{ color: '#FFFFFF' }}>Amazon</strong>. That experience taught me to think beyond{' '}
-              <em>“how do we fix this?”</em> and start asking <em>“how do we engineer it so it doesn't happen again?”</em>
-            </p>
-
-            <p
-              style={{
-                fontSize: '0.98rem',
-                color: 'var(--text-secondary)',
-                lineHeight: 1.75,
-                margin: 0
-              }}
-            >
-              Today, I work across <strong style={{ color: '#FFFFFF' }}>Kubernetes,
-                 AWS, Terraform/OpenTofu, CI/CD and observability</strong> — 
-                 turning manual infrastructure and deployment workflows into repeatable systems.
-                 Currently, I work as a DevOps & Infrastructure Engineer Intern at Akiyam Solution, 
-                 where I contribute to cloud operations, deployment automation, and platform reliability for 50+ microservices running on Kubernetes.
-            </p>
-
-            {/* Progression Strip */}
-            <div
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: '0.75rem',
-                padding: '0.9rem 1.15rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.55rem',
-                flexWrap: 'wrap',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.8rem'
-              }}
-            >
-              <span style={{ color: '#FFFFFF', fontWeight: 600 }}>2+ years operations</span>
-              <span style={{ color: 'var(--accent-soft)' }}>→</span>
-              <span style={{ color: '#FFFFFF', fontWeight: 600 }}>50+ microservices</span>
-              <span style={{ color: 'var(--accent-soft)' }}>→</span>
-              <span style={{ color: '#FFFFFF', fontWeight: 600 }}>Infrastructure as Code</span>
-              <span style={{ color: 'var(--accent-soft)' }}>→</span>
-              <span style={{ color: '#FFFFFF', fontWeight: 600 }}>CI/CD</span>
-              <span style={{ color: 'var(--accent-soft)' }}>→</span>
-              <span style={{ color: '#FFFFFF', fontWeight: 600 }}>Observability</span>
-            </div>
-
-            <p
-              style={{
-                fontSize: '0.98rem',
-                color: 'var(--text-secondary)',
-                lineHeight: 1.75,
-                margin: 0
-              }}
-            >
-              I'm building toward becoming an <strong style={{ color: 'var(--accent-soft)' }}>Infrastructure as Code Engineer</strong>, with a focus on cloud platforms, Kubernetes and platform reliability.
-            </p>
-          </div>
-
-          {/* Right Column: "At a Glance" Structured Card */}
-          <div
-            style={{
-              backgroundColor: 'rgba(13, 21, 39, 0.75)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: '1rem',
-              padding: '1.75rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1.25rem',
-              backdropFilter: 'blur(12px)'
-            }}
-          >
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.74rem',
-                letterSpacing: '0.08em',
-                color: 'var(--accent-soft)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.45rem'
-              }}
-            >
-              <Sparkles size={14} />
-              <span>// AT A GLANCE</span>
-            </div>
-
-            {/* Location */}
+        {/* Right Column: Sticky Recruiter Snapshot Card */}
+        <aside className="about__card reveal" aria-label="At a glance">
+          <h3 className="about__card-title">// at a glance</h3>
+          <dl className="about__facts">
             <div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.7rem',
-                  color: 'var(--text-muted)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  marginBottom: '0.2rem'
-                }}
-              >
-                <MapPin size={12} />
-                <span>LOCATION</span>
-              </div>
-              <div style={{ fontSize: '0.92rem', fontWeight: 600, color: '#FFFFFF' }}>
-                Pune, Maharashtra, India
-              </div>
+              <dt>Location</dt>
+              <dd>Pune, Maharashtra</dd>
             </div>
-
-            <div style={{ height: '1px', backgroundColor: 'var(--border-subtle)' }} />
-
-            {/* Target Focus */}
             <div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.7rem',
-                  color: 'var(--text-muted)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  marginBottom: '0.2rem'
-                }}
-              >
-                <Target size={12} />
-                <span>PRIMARY FOCUS</span>
-              </div>
-              <div style={{ fontSize: '0.88rem', color: 'var(--text-primary)', lineHeight: 1.5 }}>
-                Cloud Infrastructure · Kubernetes · Terraform IaC · CI/CD Automation · Observability
-              </div>
+              <dt>Focus</dt>
+              <dd>DevOps · Cloud Infra</dd>
             </div>
-
-            <div style={{ height: '1px', backgroundColor: 'var(--border-subtle)' }} />
-
-            {/* Current Status */}
             <div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.7rem',
-                  color: 'var(--text-muted)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  marginBottom: '0.2rem'
-                }}
-              >
-                <Briefcase size={12} />
-                <span>CURRENT ROLE</span>
-              </div>
-              <div style={{ fontSize: '0.88rem', color: '#FFFFFF', fontWeight: 600 }}>
-                DevOps & Infrastructure Intern
-              </div>
-              <div style={{ fontSize: '0.78rem', color: 'var(--accent-soft)' }}>
-                Akiyam Solution Private Limited
-              </div>
+              <dt>Current</dt>
+              <dd>Akiyam Solution</dd>
             </div>
-
-            <div style={{ height: '1px', backgroundColor: 'var(--border-subtle)' }} />
-
-            {/* Education Summary */}
             <div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.7rem',
-                  color: 'var(--text-muted)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  marginBottom: '0.35rem'
-                }}
-              >
-                <GraduationCap size={13} />
-                <span>EDUCATION</span>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
-                {EDUCATION.map((edu, idx) => (
-                  <div key={idx}>
-                    <div style={{ fontSize: '0.84rem', fontWeight: 600, color: '#FFFFFF' }}>
-                      {edu.degree}
-                    </div>
-                    <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)' }}>
-                      {edu.institution}
-                    </div>
-                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--accent-soft)' }}>
-                      GPA: {edu.gpa} ({edu.period})
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <dt>Target Roles</dt>
+              <dd>{RECRUITER_SNAPSHOT.targetRoles}</dd>
             </div>
-          </div>
-        </div>
+            <div>
+              <dt>Experience</dt>
+              <dd>{RECRUITER_SNAPSHOT.experience}</dd>
+            </div>
+            <div>
+              <dt>Open for</dt>
+              <dd>Full-time · Hybrid / Remote</dd>
+            </div>
+          </dl>
+        </aside>
       </div>
-
-      <style>{`
-        @media (max-width: 900px) {
-          .about-grid-responsive {
-            grid-template-columns: 1fr !important;
-            gap: 2rem !important;
-          }
-        }
-      `}</style>
     </section>
   );
 };
