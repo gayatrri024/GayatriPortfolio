@@ -43,20 +43,15 @@ export const Contact: React.FC = () => {
 
     setIsSubmitting(true);
     try {
+      const formElement = e.currentTarget as HTMLFormElement;
+      const data = new FormData(formElement);
+
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify({
-          access_key: accessKey,
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          message: formData.message.trim(),
-          subject: `Portfolio Message from ${formData.name.trim()}`,
-          from_name: 'Gayatri Shinde Portfolio',
-        }),
+        body: data,
       });
 
       const result = await response.json();
@@ -115,7 +110,30 @@ export const Contact: React.FC = () => {
         </div>
 
         {/* Right Column: Interactive Form */}
-        <form className="contact__form reveal" id="contactForm" onSubmit={handleSubmit} noValidate>
+        <form
+          action="https://api.web3forms.com/submit"
+          method="POST"
+          className="contact__form reveal"
+          id="contactForm"
+          onSubmit={handleSubmit}
+          noValidate
+        >
+          <input
+            type="hidden"
+            name="access_key"
+            value="4c177ea6-12ee-43d3-93db-96805342c1c2"
+          />
+          <input
+            type="hidden"
+            name="from_name"
+            value="Gayatri Shinde Portfolio"
+          />
+          <input
+            type="hidden"
+            name="subject"
+            value="New Portfolio Message from Gayatri's Website"
+          />
+
           <div className={`field ${errors.name ? 'has-error' : ''}`}>
             <label htmlFor="name">Name</label>
             <input
