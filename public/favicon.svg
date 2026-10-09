@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E1626" />
+      <stop offset="100%" stop-color="#0B1120" />
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#818CF8" />
+    </linearGradient>
+    <linearGradient id="strokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#213049" stop-opacity="0.9" />
+    </linearGradient>
+  </defs>
+  <!-- Background rounded canvas -->
+  <rect x="2.5" y="2.5" width="59" height="59" rx="14" fill="url(#bg)" stroke="url(#strokeGrad)" stroke-width="2.5" />
+  <!-- Monogram Initials GS in bold developer aesthetic -->
+  <text x="32" y="42" font-family="'JetBrains Mono', 'Cascadia Mono', 'Segoe UI Mono', monospace" font-size="28" font-weight="800" letter-spacing="-1.5" fill="url(#textGrad)" text-anchor="middle">GS</text>
+  <!-- Terminal Prompt Accent Dot -->
+  <circle cx="51" cy="51" r="3" fill="#38BDF8" />
+</svg>
